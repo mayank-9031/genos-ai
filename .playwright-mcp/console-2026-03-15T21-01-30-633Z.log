@@ -1,0 +1,164 @@
+[    6497ms] [ERROR] A tree hydrated but some attributes of the server rendered HTML didn't match the client properties. This won't be patched up. This can happen if a SSR-ed Client Component used:
+
+- A server/client branch `if (typeof window !== 'undefined')`.
+- Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.
+- Date formatting in a user's locale which doesn't match the server.
+- External changing data without sending a snapshot of it along with the HTML.
+- Invalid HTML tag nesting.
+
+It can also happen if the client has a browser extension installed which messes with the HTML before React loaded.
+
+%s%s https://react.dev/link/hydration-mismatch 
+
+  ...
+    <SegmentViewNode type="page" pagePath="/Desktop/R...">
+      <SegmentTrieNode>
+      <Home>
+        <Navbar>
+        <HeroSection>
+        <Home>
+          <main className="relative z...">
+            ...
+              <div ref={{current:null}} className="relative l...">
+                <div className="service-ca..." style={{zIndex:0, ...}}>
+                  <div className="w-full max...">
+                    <div className="flex flex-...">
+                      <div className="lg:w-[45%]...">
+                        <div className="rounded-xl...">
+                          <ServiceVisual type="chatbot">
+                            <ChatbotVisual>
+                              <div className="relative w...">
+                                <div>
+                                <div>
+                                <div>
+                                <div>
+                                <div>
+                                <div>
+                                <div>
+                                <div>
+                                <div>
+                                <div>
+                                <div>
+                                <div>
+                                <div>
+                                <div
+                                  className="absolute w-1 h-1 rounded-full bg-cyan-400/60"
+                                  style={{
++                                   top: "33.54201293581076%"
+-                                   top: "33.542%"
++                                   left: "27.347524157501468%"
+-                                   left: "27.3475%"
++                                   animation: "float-particle 7s ease-in-out infinite"
++                                   animationDelay: "1.5s"
+-                                   animation-duration: "7s"
+-                                   animation-timing-function: "ease-in-out"
+-                                   animation-iteration-count: "infinite"
+-                                   animation-direction: "normal"
+-                                   animation-fill-mode: "none"
+-                                   animation-play-state: "running"
+-                                   animation-name: "float-particle"
+-                                   animation-timeline: "auto"
+-                                   animation-range-start: "normal"
+-                                   animation-range-end: "normal"
+-                                   animation-delay: "1.5s"
+                                  }}
+                                >
+                                ...
+                      ...
+                <div className="service-ca..." style={{zIndex:1, ...}}>
+                  <div className="w-full max...">
+                    <div className="flex flex-...">
+                      <div className="lg:w-[45%]...">
+                        <div className="rounded-xl...">
+                          <ServiceVisual type="voice">
+                            <VoiceAIVisual>
+                              <div className="relative w...">
+                                <div>
+                                <div className="absolute l...">
+                                  <div>
+                                  <div>
+                                  <div>
+                                  <div>
+                                  <div>
+                                  <div>
+                                  <div>
+                                  <div>
+                                  <div>
+                                  <div>
+                                  <div>
+                                  <div
+                                    className="w-[1.5px] rounded-full bg-blue-400/25"
+                                    style={{
++                                     height: "26.838449773348383px"
+-                                     height: "26.8384px"
++                                     animation: "waveform-bar 1.8s ease-in-out infinite"
++                                     animationDelay: "0.6599999999999999s"
+-                                     animation-duration: "1.8s"
+-                                     animation-timing-function: "ease-in-out"
+-                                     animation-iteration-count: "infinite"
+-                                     animation-direction: "normal"
+-                                     animation-fill-mode: "none"
+-                                     animation-play-state: "running"
+-                                     animation-name: "waveform-bar"
+-                                     animation-timeline: "auto"
+-                                     animation-range-start: "normal"
+-                                     animation-range-end: "normal"
+-                                     animation-delay: "0.66s"
+                                    }}
+                                  >
+                                  <div>
+                                  <div>
+                                  <div>
+                                  <div>
+                                  <div>
+                                  <div>
+                                  <div
+                                    className="w-[1.5px] rounded-full bg-blue-400/25"
+                                    style={{
++                                     height: "23.048028732379674px"
+-                                     height: "23.048px"
++                                     animation: "waveform-bar 1.8s ease-in-out infinite"
++                                     animationDelay: "1.08s"
+-                                     animation-duration: "1.8s"
+-                                     animation-timing-function: "ease-in-out"
+-                                     animation-iteration-count: "infinite"
+-                                     animation-direction: "normal"
+-                                     animation-fill-mode: "none"
+-                                     animation-play-state: "running"
+-                                     animation-name: "waveform-bar"
+-                                     animation-timeline: "auto"
+-                                     animation-range-start: "normal"
+-                                     animation-range-end: "normal"
+-                                     animation-delay: "1.08s"
+                                    }}
+                                  >
+                                  <div>
+                                  <div>
+                                  <div
+                                    className="w-[1.5px] rounded-full bg-blue-400/25"
+                                    style={{
++                                     height: "24.51037379411873px"
+-                                     height: "24.5104px"
++                                     animation: "waveform-bar 1.8s ease-in-out infinite"
++                                     animationDelay: "1.26s"
+-                                     animation-duration: "1.8s"
+-                                     animation-timing-function: "ease-in-out"
+-                                     animation-iteration-count: "infinite"
+-                                     animation-direction: "normal"
+-                                     animation-fill-mode: "none"
+-                                     animation-play-state: "running"
+-                                     animation-name: "waveform-bar"
+-                                     animation-timeline: "auto"
+-                                     animation-range-start: "normal"
+-                                     animation-range-end: "normal"
+-                                     animation-delay: "1.26s"
+                                    }}
+                                  >
+                                  ...
+                                ...
+                      ...
+                ...
+            ...
+ @ http://localhost:3000/_next/static/chunks/68969_next_dist_1a3b0dee._.js:3127
+[    7041ms] [WARNING] WARNING: Multiple instances of Three.js being imported. @ http://localhost:3000/_next/static/chunks/68969_next_dist_1a3b0dee._.js:2297
+[    7112ms] [WARNING] updating from  114 to  122 @ http://localhost:3000/_next/static/chunks/68969_next_dist_1a3b0dee._.js:2297

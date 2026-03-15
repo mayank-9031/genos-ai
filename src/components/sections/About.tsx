@@ -53,7 +53,7 @@ function StatItem({ stat, inView }: { stat: typeof STATS[number]; inView: boolea
 
   return (
     <div className="flex items-baseline gap-4 border-b border-white/[0.06] pb-5 last:border-0 last:pb-0">
-      <span className="font-display text-[2.5rem] text-[#00D4FF] leading-none">
+      <span className="font-display text-[2.5rem] text-white leading-none">
         {display}
       </span>
       <span className="text-[0.85rem] text-white/40 tracking-[0.05em]">
@@ -107,7 +107,7 @@ export function About() {
       <div className="max-w-6xl mx-auto">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-start">
           <div>
-            <span className="section-reveal block text-[0.7rem] font-semibold tracking-[0.2em] uppercase text-[#7B61FF]/60 mb-4">
+            <span className="section-reveal block text-[0.7rem] font-semibold tracking-[0.2em] uppercase text-white/50 mb-4">
               Who We Are
             </span>
             <h2 className="section-reveal font-display text-[clamp(2rem,4vw,3.5rem)] font-normal leading-[1.05] tracking-[-0.02em] text-text-on-dark mb-6">
@@ -145,13 +145,13 @@ export function About() {
                 backgroundImage: 'radial-gradient(rgba(255,255,255,0.5) 1px, transparent 1px)',
                 backgroundSize: '24px 24px',
               }} />
-              <div className="absolute top-0 right-0 w-48 h-48 bg-[radial-gradient(circle,rgba(123,97,255,0.1),transparent_70%)]" />
+              <div className="absolute top-0 right-0 w-48 h-48 bg-[radial-gradient(circle,rgba(255,255,255,0.05),transparent_70%)]" />
 
               {/* Icon row */}
               <div className="relative flex gap-3 mb-8">
                 {[Globe2, Users, Zap].map((Icon, i) => (
-                  <div key={i} className="w-9 h-9 rounded-lg bg-[#7B61FF]/10 flex items-center justify-center">
-                    <Icon size={16} className="text-[#7B61FF]/60" />
+                  <div key={i} className="w-9 h-9 rounded-lg bg-white/10 flex items-center justify-center">
+                    <Icon size={16} className="text-white/40" />
                   </div>
                 ))}
               </div>
@@ -169,7 +169,7 @@ export function About() {
         {/* Global Reach Map */}
         <div className="section-reveal mt-16">
           <WorldMap
-            lineColor="#7B61FF"
+            lineColor="#FFFFFF"
             dots={[
               // India: New Delhi → Mumbai → Bengaluru
               {

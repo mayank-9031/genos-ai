@@ -84,7 +84,7 @@ export function FAQ() {
   return (
     <section ref={sectionRef} id="faq" className="relative py-16 md:py-24 px-[5vw] bg-white/[0.01]">
       <div className="max-w-3xl mx-auto">
-        <span className="section-reveal block text-[0.7rem] font-semibold tracking-[0.2em] uppercase text-[#00D4FF]/60 mb-4">
+        <span className="section-reveal block text-[0.7rem] font-semibold tracking-[0.2em] uppercase text-white/50 mb-4">
           FAQ
         </span>
         <h2 className="section-reveal font-display text-[clamp(2rem,4vw,3.5rem)] font-normal leading-[1.05] tracking-[-0.02em] text-text-on-dark mb-10">

@@ -87,7 +87,7 @@ export function LoadingScreen() {
         frames={frames}
         duration={100}
         className="gap-1"
-        dotClassName="bg-white/10 [&.active]:bg-[#00D4FF] size-2.5 rounded-sm transition-colors duration-75"
+        dotClassName="bg-white/10 [&.active]:bg-white size-2.5 rounded-sm transition-colors duration-75"
       />
       <p className="mt-6 text-sm font-medium tracking-[0.15em] uppercase text-white/40">
         Loading

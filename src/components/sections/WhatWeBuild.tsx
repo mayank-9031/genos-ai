@@ -16,8 +16,8 @@ const PROJECTS = [
     description:
       'Automated inbound lead processing that scores, qualifies, and routes prospects in real-time. Built for a US-based SaaS company processing 2,000+ leads per month.',
     results: ['60% less manual work', '47x faster response', '35% more conversions'],
-    gradient: 'from-[#00D4FF]/20 via-[#00D4FF]/5 to-transparent',
-    accentColor: '#00D4FF',
+    gradient: 'from-white/10 via-white/3 to-transparent',
+    accentColor: '#FFFFFF',
     imageBg: 'from-[#0c1a2e] to-[#0A0A0F]',
   },
   {
@@ -27,8 +27,8 @@ const PROJECTS = [
     description:
       'End-to-end voice AI cold calling system for a UAE real estate firm. AI agents make 500+ calls daily, book qualified appointments, and sync everything back to the CRM.',
     results: ['500+ daily calls', '3x more meetings', '80% less effort'],
-    gradient: 'from-[#7B61FF]/20 via-[#7B61FF]/5 to-transparent',
-    accentColor: '#7B61FF',
+    gradient: 'from-white/10 via-white/3 to-transparent',
+    accentColor: '#FFFFFF',
     imageBg: 'from-[#15102e] to-[#0A0A0F]',
   },
   {
@@ -38,8 +38,8 @@ const PROJECTS = [
     description:
       'A custom operations platform for an Australian logistics company. Unified order tracking, dispatch, invoicing, and reporting — replacing 4 separate SaaS tools.',
     results: ['4 tools replaced', '12 hrs/week saved', '$2,400/mo saved'],
-    gradient: 'from-[#00D4FF]/10 via-[#7B61FF]/10 to-transparent',
-    accentColor: '#00D4FF',
+    gradient: 'from-white/8 via-white/4 to-transparent',
+    accentColor: '#FFFFFF',
     imageBg: 'from-[#0e1520] to-[#0A0A0F]',
   },
 ]
@@ -265,7 +265,7 @@ export function WhatWeBuild() {
   return (
     <section ref={sectionRef} id="showcase" className="relative py-16 md:py-24 px-[5vw]">
       <div className="max-w-7xl mx-auto">
-        <span className="section-reveal block text-[0.7rem] font-semibold tracking-[0.2em] uppercase text-[#00D4FF]/60 mb-4">
+        <span className="section-reveal block text-[0.7rem] font-semibold tracking-[0.2em] uppercase text-white/50 mb-4">
           What We Build
         </span>
         <h2 className="section-reveal font-display text-[clamp(2rem,4vw,3.5rem)] font-normal leading-[1.05] tracking-[-0.02em] text-text-on-dark mb-4">

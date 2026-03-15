@@ -90,7 +90,7 @@ export function ProcessSteps() {
   return (
     <section ref={sectionRef} id="process" className="relative py-16 md:py-24 px-[5vw] bg-white/[0.01]">
       <div className="max-w-5xl mx-auto">
-        <span className="section-reveal block text-[0.7rem] font-semibold tracking-[0.2em] uppercase text-[#00D4FF]/60 mb-4">
+        <span className="section-reveal block text-[0.7rem] font-semibold tracking-[0.2em] uppercase text-white/50 mb-4">
           Our Process
         </span>
         <h2 className="section-reveal font-display text-[clamp(2rem,4vw,3.5rem)] font-normal leading-[1.05] tracking-[-0.02em] text-text-on-dark mb-4">
@@ -102,13 +102,13 @@ export function ProcessSteps() {
 
         <div className="relative">
           {/* Vertical connecting line */}
-          <div className="process-line absolute left-[1.65rem] top-0 bottom-0 w-px bg-gradient-to-b from-[#00D4FF]/40 via-[#7B61FF]/40 to-transparent hidden md:block" />
+          <div className="process-line absolute left-[1.65rem] top-0 bottom-0 w-px bg-gradient-to-b from-white/20 via-white/10 to-transparent hidden md:block" />
 
           <div className="flex flex-col gap-12">
             {STEPS.map((step, i) => (
               <div key={i} className="process-step flex gap-8 items-start">
-                <div className="relative z-10 flex-shrink-0 w-[3.3rem] h-[3.3rem] rounded-full border border-[#00D4FF]/30 bg-[#0A0A0F] flex items-center justify-center">
-                  <span className="font-display text-[1rem] text-[#00D4FF]">{step.number}</span>
+                <div className="relative z-10 flex-shrink-0 w-[3.3rem] h-[3.3rem] rounded-full border border-white/20 bg-[#0A0A0F] flex items-center justify-center">
+                  <span className="font-display text-[1rem] text-white">{step.number}</span>
                 </div>
                 <div className="pt-1">
                   <h3 className="font-display text-[1.4rem] text-text-on-dark mb-3 leading-tight">
@@ -126,7 +126,7 @@ export function ProcessSteps() {
         <div className="mt-14">
           <a
             href="#contact"
-            className="inline-block px-8 py-4 text-[0.85rem] font-semibold tracking-[0.08em] uppercase bg-[#00D4FF] text-[#0A0A0F] rounded-full transition-all hover:-translate-y-0.5 hover:shadow-[0_8px_30px_rgba(0,212,255,0.3)]"
+            className="inline-block px-8 py-4 text-[0.85rem] font-semibold tracking-[0.08em] uppercase bg-white text-[#0A0A0F] rounded-full transition-all hover:-translate-y-0.5 hover:shadow-[0_8px_30px_rgba(255,255,255,0.12)]"
           >
             Start Your Project
           </a>

@@ -40,7 +40,7 @@ export function Footer() {
               onClick={smoothScrollTo}
               className="font-display text-[1.5rem] text-white tracking-[-0.02em] inline-block mb-4"
             >
-              Genos<span className="text-[#00D4FF]">AI</span>
+              Genos<span className="text-white">AI</span>
             </a>
             <p className="text-[0.85rem] leading-[1.6] text-white/40 max-w-[28ch]">
               AI automation for businesses that refuse to operate manually.
@@ -58,7 +58,7 @@ export function Footer() {
                   <a
                     href={link.href}
                     onClick={smoothScrollTo}
-                    className="text-[0.88rem] text-white/50 hover:text-[#00D4FF] transition-colors"
+                    className="text-[0.88rem] text-white/50 hover:text-white transition-colors"
                   >
                     {link.label}
                   </a>
@@ -92,7 +92,7 @@ export function Footer() {
               <li>
                 <a
                   href="mailto:hello@genosai.com"
-                  className="text-[0.88rem] text-white/50 hover:text-[#00D4FF] transition-colors"
+                  className="text-[0.88rem] text-white/50 hover:text-white transition-colors"
                 >
                   hello@genosai.com
                 </a>
@@ -108,7 +108,7 @@ export function Footer() {
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label={social.label}
-                    className="text-white/30 hover:text-[#00D4FF] transition-colors"
+                    className="text-white/30 hover:text-white transition-colors"
                   >
                     <Icon size={18} />
                   </a>

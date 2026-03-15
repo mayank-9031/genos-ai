@@ -3,6 +3,7 @@
 import { useEffect, useRef } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import { FloatingPaths } from '@/components/ui/background-paths'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -32,8 +33,11 @@ export function CTASection() {
   }, [])
 
   return (
-    <section ref={sectionRef} id="contact" className="relative py-20 md:py-28 px-[5vw]">
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#00D4FF]/[0.03] to-transparent pointer-events-none" />
+    <section ref={sectionRef} id="contact" className="relative py-20 md:py-28 px-[5vw] overflow-hidden">
+      <div className="absolute inset-0">
+        <FloatingPaths position={1} />
+        <FloatingPaths position={-1} />
+      </div>
       <div className="max-w-3xl mx-auto text-center relative z-10">
         <h2 className="cta-reveal font-display text-[clamp(2.2rem,5vw,4rem)] font-normal leading-[1.05] tracking-[-0.02em] text-text-on-dark mb-6">
           Ready to stop doing manually what AI can handle?
@@ -45,13 +49,13 @@ export function CTASection() {
           {/* Replace with Calendly or booking link when available */}
           <a
             href="mailto:hello@genosai.com?subject=Free%20Strategy%20Call"
-            className="inline-block px-10 py-4 text-[0.9rem] font-semibold tracking-[0.08em] uppercase bg-[#00D4FF] text-[#0A0A0F] rounded-full transition-all hover:-translate-y-0.5 hover:shadow-[0_8px_40px_rgba(0,212,255,0.35)]"
+            className="inline-block px-10 py-4 text-[0.9rem] font-semibold tracking-[0.08em] uppercase bg-white text-[#0A0A0F] rounded-full transition-all hover:-translate-y-0.5 hover:shadow-[0_8px_40px_rgba(255,255,255,0.15)]"
           >
             Book Your Free Strategy Call
           </a>
         </div>
         <p className="cta-reveal mt-6 text-[0.85rem] text-white/30">
-          Or email us directly: <a href="mailto:hello@genosai.com" className="text-[#00D4FF]/60 hover:text-[#00D4FF] transition-colors">hello@genosai.com</a>
+          Or email us directly: <a href="mailto:hello@genosai.com" className="text-white/50 hover:text-white transition-colors">hello@genosai.com</a>
         </p>
       </div>
     </section>

@@ -61,7 +61,7 @@ export function HeroSection() {
         {/* Etheral Shadow animated background */}
         <div className="absolute inset-0 z-0">
           <EtheralShadow
-            color="rgba(0, 212, 255, 0.15)"
+            color="rgba(255, 255, 255, 0.06)"
             animation={{ scale: 80, speed: 60 }}
             noise={{ opacity: 0.6, scale: 1.2 }}
             sizing="fill"
@@ -69,7 +69,7 @@ export function HeroSection() {
           {/* Secondary shadow layer for purple accent */}
           <div className="absolute inset-0" style={{ mixBlendMode: 'screen' }}>
             <EtheralShadow
-              color="rgba(123, 97, 255, 0.12)"
+              color="rgba(255, 255, 255, 0.04)"
               animation={{ scale: 60, speed: 40 }}
               noise={{ opacity: 0, scale: 1 }}
               sizing="fill"
@@ -85,7 +85,7 @@ export function HeroSection() {
         <div className="flex h-full">
           {/* Left content */}
           <div className="flex-1 p-8 md:p-16 relative z-10 flex flex-col justify-center">
-            <span className="section-label block text-[0.7rem] font-semibold tracking-[0.2em] uppercase text-[#00D4FF]/60 mb-8">
+            <span className="section-label block text-[0.7rem] font-semibold tracking-[0.2em] uppercase text-white/50 mb-8">
               AI AUTOMATION AGENCY
             </span>
             <h1 className="font-display text-[clamp(2.5rem,6vw,6rem)] font-normal leading-[0.92] tracking-[-0.03em] mb-6">
@@ -104,7 +104,7 @@ export function HeroSection() {
                 {titles.map((title, index) => (
                   <motion.span
                     key={index}
-                    className="absolute left-0 top-0 inline-block bg-clip-text text-transparent bg-gradient-to-r from-[#00D4FF] to-[#7B61FF]"
+                    className="absolute left-0 top-0 inline-block bg-clip-text text-transparent bg-gradient-to-r from-white to-white/60"
                     initial={{ opacity: 0, y: "-100%" }}
                     transition={{ type: "spring", stiffness: 50 }}
                     animate={
@@ -125,14 +125,14 @@ export function HeroSection() {
               <a
                 href="#contact"
                 onClick={smoothScrollTo}
-                className="inline-block px-8 py-4 text-[0.9rem] font-semibold tracking-[0.06em] uppercase bg-[#00D4FF] text-[#0A0A0F] rounded-full transition-all hover:-translate-y-0.5 hover:shadow-[0_8px_40px_rgba(0,212,255,0.35)]"
+                className="inline-block px-8 py-4 text-[0.9rem] font-semibold tracking-[0.06em] uppercase bg-white text-[#0A0A0F] rounded-full transition-all hover:-translate-y-0.5 hover:shadow-[0_8px_40px_rgba(255,255,255,0.15)]"
               >
                 Book a Free Strategy Call
               </a>
               <a
                 href="#services"
                 onClick={smoothScrollTo}
-                className="inline-block px-8 py-4 text-[0.9rem] font-semibold tracking-[0.06em] uppercase border border-white/20 text-white/70 rounded-full transition-all hover:border-[#00D4FF]/50 hover:text-white"
+                className="inline-block px-8 py-4 text-[0.9rem] font-semibold tracking-[0.06em] uppercase border border-white/20 text-white/70 rounded-full transition-all hover:border-white/40 hover:text-white"
               >
                 See Our Services
               </a>

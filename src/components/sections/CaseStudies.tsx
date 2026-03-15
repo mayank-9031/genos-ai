@@ -16,8 +16,8 @@ const CASES = [
       'Automated inbound lead processing for a US-based SaaS company. AI agents scored, qualified, and routed 2,000+ leads/month — reducing sales team workload by 60% and cutting response time from 4 hours to under 3 minutes.',
     results: ['60% less manual work', '47x faster response', '35% more conversions'],
     icon: BarChart3,
-    gradient: 'from-[#00D4FF]/15 to-[#00D4FF]/5',
-    accentColor: '#00D4FF',
+    gradient: 'from-white/8 to-white/3',
+    accentColor: '#FFFFFF',
   },
   {
     tag: 'Real Estate / UAE',
@@ -26,8 +26,8 @@ const CASES = [
       'Built an end-to-end cold calling + email outreach system for a UAE-based real estate firm. Voice AI agents made 500+ calls/day, booked qualified appointments, and synced everything back to the CRM automatically.',
     results: ['500+ daily calls', '3x more meetings', '80% less manual effort'],
     icon: PhoneCall,
-    gradient: 'from-[#7B61FF]/15 to-[#7B61FF]/5',
-    accentColor: '#7B61FF',
+    gradient: 'from-white/8 to-white/3',
+    accentColor: '#FFFFFF',
   },
   {
     tag: 'Logistics / Australia',
@@ -36,8 +36,8 @@ const CASES = [
       'Designed and deployed a custom internal tool for an Australian logistics company. Automated order tracking, dispatch notifications, invoice generation, and reporting — replacing 4 separate SaaS subscriptions.',
     results: ['4 tools → 1', '12 hrs/week saved', '$2,400/mo saved'],
     icon: LayoutDashboard,
-    gradient: 'from-[#00D4FF]/10 via-[#7B61FF]/8 to-transparent',
-    accentColor: '#00D4FF',
+    gradient: 'from-white/6 via-white/4 to-transparent',
+    accentColor: '#FFFFFF',
   },
 ]
 
@@ -83,7 +83,7 @@ export function CaseStudies() {
   return (
     <section ref={sectionRef} id="case-studies" className="relative py-16 md:py-24 px-[5vw]">
       <div className="max-w-7xl mx-auto">
-        <span className="section-reveal block text-[0.7rem] font-semibold tracking-[0.2em] uppercase text-[#00D4FF]/60 mb-4">
+        <span className="section-reveal block text-[0.7rem] font-semibold tracking-[0.2em] uppercase text-white/50 mb-4">
           The Work Speaks
         </span>
         <h2 className="section-reveal font-display text-[clamp(2rem,4vw,3.5rem)] font-normal leading-[1.05] tracking-[-0.02em] text-text-on-dark mb-4">
@@ -99,7 +99,7 @@ export function CaseStudies() {
             return (
               <div
                 key={i}
-                className="case-card group relative rounded-2xl bg-white/[0.03] border border-white/[0.07] transition-all duration-300 hover:border-[#00D4FF]/25 overflow-hidden"
+                className="case-card group relative rounded-2xl bg-white/[0.03] border border-white/[0.07] transition-all duration-300 hover:border-white/20 overflow-hidden"
               >
                 <GlowingEffect
                   spread={40}
@@ -134,10 +134,10 @@ export function CaseStudies() {
 
                 <div className="p-7">
                   <div className="flex items-center justify-between mb-5">
-                    <span className="text-[0.7rem] font-semibold tracking-[0.15em] uppercase text-[#00D4FF]/70 bg-[#00D4FF]/10 px-3 py-1 rounded-full">
+                    <span className="text-[0.7rem] font-semibold tracking-[0.15em] uppercase text-white/70 bg-white/10 px-3 py-1 rounded-full">
                       {cs.tag}
                     </span>
-                    <ArrowUpRight size={18} className="text-white/20 group-hover:text-[#00D4FF] transition-colors" />
+                    <ArrowUpRight size={18} className="text-white/20 group-hover:text-white transition-colors" />
                   </div>
                   <h3 className="font-display text-[1.2rem] text-text-on-dark mb-3 leading-tight">
                     {cs.title}
@@ -149,7 +149,7 @@ export function CaseStudies() {
                     {cs.results.map((result, j) => (
                       <span
                         key={j}
-                        className="text-[0.75rem] font-semibold tracking-[0.05em] text-[#00D4FF] bg-[#00D4FF]/8 border border-[#00D4FF]/15 px-3 py-1.5 rounded-lg"
+                        className="text-[0.75rem] font-semibold tracking-[0.05em] text-white/80 bg-white/[0.06] border border-white/10 px-3 py-1.5 rounded-lg"
                       >
                         {result}
                       </span>

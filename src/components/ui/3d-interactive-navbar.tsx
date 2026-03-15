@@ -3,7 +3,7 @@
 import { ReactNode, useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import React from "react";
-import { ShimmerButton } from "@/components/ui/shimmer-button";
+import ButtonWithIconDemo from "@/components/ui/button-witn-icon";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import { MeshReflectorMaterial, RoundedBox, Html } from "@react-three/drei";
 import { Group, Mesh, Vector3, Color } from "three";
@@ -271,8 +271,8 @@ export const Card3D = ({
           shadow-camera-bottom={-10}
         />
         <directionalLight position={[-5, -10, -10]} intensity={0.3} />
-        <directionalLight position={[0, -10, 5]} color="blue" />
-        <directionalLight position={[10, 0, 5]} intensity={0.4} color="blue" />
+        <directionalLight position={[0, -10, 5]} />
+        <directionalLight position={[10, 0, 5]} intensity={0.4} />
 
         <Scene
           maxRotation={maxRotation}
@@ -369,7 +369,7 @@ function NavbarItem({
       href={item.href}
       onClick={onClick}
       className={`hidden md:inline relative whitespace-nowrap transition-colors ${
-        isActive ? "text-[#00D4FF]" : "hover:text-[#00D4FF]"
+        isActive ? "text-white" : "hover:text-white"
       }`}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
@@ -510,7 +510,7 @@ export function Navbar() {
           onClick={handleAnchorClick}
           className="font-display text-[1.4rem] text-white tracking-[-0.02em]"
         >
-          Genos<span className="text-[#00D4FF]">AI</span>
+          Genos<span className="text-white">AI</span>
         </a>
 
         {/* Desktop nav + CTA */}
@@ -524,21 +524,12 @@ export function Navbar() {
             />
           ))}
 
-          {/* Book a Call — shimmer button */}
-          <div className="hidden md:block">
-            <ShimmerButton
-              shimmerColor="#00D4FF"
-              background="rgba(10, 10, 15, 0.8)"
-              className="px-5 py-2.5"
-              onClick={() => {
-                const target = document.querySelector("#contact");
-                if (target) target.scrollIntoView({ behavior: "smooth" });
-              }}
-            >
-              <span className="text-[0.8rem] font-medium tracking-[0.04em] text-white">
-                Book a Free Strategy Call
-              </span>
-            </ShimmerButton>
+          {/* CTA — button with icon */}
+          <div className="hidden md:block" onClick={() => {
+            const target = document.querySelector("#contact");
+            if (target) target.scrollIntoView({ behavior: "smooth" });
+          }}>
+            <ButtonWithIconDemo />
           </div>
 
           {/* Mobile hamburger */}
@@ -568,25 +559,18 @@ export function Navbar() {
                   key={item.title}
                   href={item.href}
                   onClick={handleAnchorClick}
-                  className={isActive(item.href) ? "text-[#00D4FF]" : ""}
+                  className={isActive(item.href) ? "text-white" : ""}
                 >
                   {item.title}
                 </a>
               ))}
-              <ShimmerButton
-                shimmerColor="#00D4FF"
-                background="rgba(10, 10, 15, 0.8)"
-                className="w-full px-6 py-3"
-                onClick={() => {
-                  setMobileOpen(false);
-                  const target = document.querySelector("#contact");
-                  if (target) target.scrollIntoView({ behavior: "smooth" });
-                }}
-              >
-                <span className="text-[0.9rem] font-medium tracking-[0.04em] text-white">
-                  Book a Free Strategy Call
-                </span>
-              </ShimmerButton>
+              <div onClick={() => {
+                setMobileOpen(false);
+                const target = document.querySelector("#contact");
+                if (target) target.scrollIntoView({ behavior: "smooth" });
+              }}>
+                <ButtonWithIconDemo />
+              </div>
             </div>
           </motion.div>
         )}

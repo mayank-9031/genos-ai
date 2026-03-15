@@ -52,10 +52,10 @@
   --color-bg-light: #f0ece4;
   --color-bg-dark: #0A0A0F;
   --color-bg-accent: #111118;
-  --color-genos-cyan: #00D4FF;
-  --color-genos-violet: #7B61FF;
-  --color-rm-accent: #00D4FF;
-  --color-rm-accent-soft: #7B61FF;
+  --color-genos-cyan: #FFFFFF;
+  --color-genos-violet: #FFFFFF;
+  --color-rm-accent: #FFFFFF;
+  --color-rm-accent-soft: #AAAAAA;
   --color-text-on-light: #1a1a1a;
   --color-text-on-dark: #f0ede8;
 
@@ -124,11 +124,11 @@
   --border: oklch(0.922 0 0);
   --input: oklch(0.922 0 0);
   --ring: oklch(0.708 0 0);
-  --chart-1: oklch(0.809 0.105 251.813);
-  --chart-2: oklch(0.623 0.214 259.815);
-  --chart-3: oklch(0.546 0.245 262.881);
-  --chart-4: oklch(0.488 0.243 264.376);
-  --chart-5: oklch(0.424 0.199 265.638);
+  --chart-1: oklch(0.809 0 0);
+  --chart-2: oklch(0.623 0 0);
+  --chart-3: oklch(0.546 0 0);
+  --chart-4: oklch(0.488 0 0);
+  --chart-5: oklch(0.424 0 0);
   --radius: 0.625rem;
   --sidebar: oklch(0.985 0 0);
   --sidebar-foreground: oklch(0.145 0 0);
@@ -159,14 +159,14 @@
   --border: oklch(1 0 0 / 10%);
   --input: oklch(1 0 0 / 15%);
   --ring: oklch(0.556 0 0);
-  --chart-1: oklch(0.809 0.105 251.813);
-  --chart-2: oklch(0.623 0.214 259.815);
-  --chart-3: oklch(0.546 0.245 262.881);
-  --chart-4: oklch(0.488 0.243 264.376);
-  --chart-5: oklch(0.424 0.199 265.638);
+  --chart-1: oklch(0.809 0 0);
+  --chart-2: oklch(0.623 0 0);
+  --chart-3: oklch(0.546 0 0);
+  --chart-4: oklch(0.488 0 0);
+  --chart-5: oklch(0.424 0 0);
   --sidebar: oklch(0.205 0 0);
   --sidebar-foreground: oklch(0.985 0 0);
-  --sidebar-primary: oklch(0.488 0.243 264.376);
+  --sidebar-primary: oklch(0.488 0 0);
   --sidebar-primary-foreground: oklch(0.985 0 0);
   --sidebar-accent: oklch(0.269 0 0);
   --sidebar-accent-foreground: oklch(0.985 0 0);
@@ -201,4 +201,65 @@
 
 @keyframes spin {
   to { transform: rotate(360deg); }
+}
+
+/* ─── Service Visual Animations ──────────────────────────────── */
+
+@keyframes orb-pulse {
+  0%, 100% { transform: scale(1); opacity: 0.5; }
+  50% { transform: scale(1.15); opacity: 0.8; }
+}
+
+@keyframes orb-ring-1 {
+  from { transform: rotateX(65deg) rotate(0deg); }
+  to { transform: rotateX(65deg) rotate(360deg); }
+}
+
+@keyframes orb-ring-2 {
+  from { transform: rotateX(70deg) rotateZ(30deg) rotate(0deg); }
+  to { transform: rotateX(70deg) rotateZ(30deg) rotate(-360deg); }
+}
+
+@keyframes float-particle {
+  0%, 100% { transform: translateY(0) translateX(0); opacity: 0.3; }
+  25% { transform: translateY(-20px) translateX(10px); opacity: 0.8; }
+  50% { transform: translateY(-30px) translateX(-8px); opacity: 0.5; }
+  75% { transform: translateY(-15px) translateX(-15px); opacity: 0.7; }
+}
+
+@keyframes waveform-bar {
+  0%, 100% { transform: scaleY(1); }
+  50% { transform: scaleY(0.25); }
+}
+
+@keyframes neural-fire {
+  0%, 100% { opacity: 0.2; }
+  50% { opacity: 1; }
+}
+
+@keyframes data-pulse-ring {
+  0% { transform: scale(1); opacity: 0.4; }
+  100% { transform: scale(3); opacity: 0; }
+}
+
+@keyframes data-stream {
+  0% { transform: translateY(0); opacity: 0; }
+  20% { opacity: 0.8; }
+  80% { opacity: 0.8; }
+  100% { transform: translateY(120px); opacity: 0; }
+}
+
+@keyframes flow-dash {
+  from { stroke-dashoffset: 20; }
+  to { stroke-dashoffset: 0; }
+}
+
+@keyframes radar-sweep {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes gauge-pulse {
+  0%, 100% { opacity: 0.4; }
+  50% { opacity: 1; }
 }

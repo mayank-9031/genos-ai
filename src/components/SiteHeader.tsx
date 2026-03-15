@@ -75,7 +75,7 @@ export function SiteHeader() {
           onClick={smoothScrollTo}
           className="font-display text-[1.4rem] text-white tracking-[-0.02em]"
         >
-          Genos<span className="text-[#00D4FF]">AI</span>
+          Genos<span className="text-white">AI</span>
         </a>
         <div className="flex items-center gap-10 text-[0.85rem] font-medium text-white tracking-[0.04em]">
           {NAV_LINKS.map((link) => (
@@ -84,7 +84,7 @@ export function SiteHeader() {
               href={link.href}
               onClick={smoothScrollTo}
               className={`hidden md:inline transition-colors ${
-                isActive(link.href) ? 'text-[#00D4FF]' : 'hover:text-[#00D4FF]'
+                isActive(link.href) ? 'text-white' : 'hover:text-white'
               }`}
             >
               {link.label}
@@ -93,7 +93,7 @@ export function SiteHeader() {
           <a
             href="#contact"
             onClick={smoothScrollTo}
-            className="hidden md:inline-block px-[1.4rem] py-[0.55rem] border border-[#00D4FF]/50 rounded-full transition-all hover:bg-[#00D4FF]/10 hover:border-[#00D4FF]/80"
+            className="hidden md:inline-block px-[1.4rem] py-[0.55rem] border border-white/30 rounded-full transition-all hover:bg-white/10 hover:border-white/50"
           >
             Book a Free Strategy Call
           </a>
@@ -115,7 +115,7 @@ export function SiteHeader() {
               key={link.label}
               href={link.href}
               onClick={handleMobileClick}
-              className={isActive(link.href) ? 'text-[#00D4FF]' : ''}
+              className={isActive(link.href) ? 'text-white' : ''}
             >
               {link.label}
             </a>
@@ -123,7 +123,7 @@ export function SiteHeader() {
           <a
             href="#contact"
             onClick={handleMobileClick}
-            className="inline-block text-center px-6 py-3 border border-[#00D4FF]/50 rounded-full hover:bg-[#00D4FF]/10"
+            className="inline-block text-center px-6 py-3 border border-white/30 rounded-full hover:bg-white/10"
           >
             Book a Free Strategy Call
           </a>

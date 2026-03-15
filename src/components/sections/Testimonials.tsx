@@ -76,7 +76,7 @@ export function Testimonials() {
           className="flex flex-col items-center justify-center max-w-[540px] mx-auto"
         >
           <div className="flex justify-center">
-            <span className="text-[0.7rem] font-semibold tracking-[0.2em] uppercase text-[#7B61FF]/60 border border-white/[0.07] py-1.5 px-4 rounded-lg">
+            <span className="text-[0.7rem] font-semibold tracking-[0.2em] uppercase text-white/50 border border-white/[0.07] py-1.5 px-4 rounded-lg">
               What Our Clients Say
             </span>
           </div>

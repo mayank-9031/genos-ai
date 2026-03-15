@@ -16,7 +16,7 @@ interface MapProps {
 
 export function WorldMap({
   dots = [],
-  lineColor = "#0ea5e9",
+  lineColor = "#FFFFFF",
   originLabel = "New Delhi",
 }: MapProps) {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -159,7 +159,7 @@ export function WorldMap({
               cx={origin.x}
               cy={origin.y}
               r="5"
-              fill="#00D4FF"
+              fill="#FFFFFF"
               filter="url(#blue-glow)"
               opacity="0.8"
             />
@@ -168,15 +168,15 @@ export function WorldMap({
               cx={origin.x}
               cy={origin.y}
               r="4"
-              fill="#00D4FF"
+              fill="#FFFFFF"
             />
             {/* Pulse ring 1 */}
-            <circle cx={origin.x} cy={origin.y} r="4" fill="none" stroke="#00D4FF" strokeWidth="1">
+            <circle cx={origin.x} cy={origin.y} r="4" fill="none" stroke="#FFFFFF" strokeWidth="1">
               <animate attributeName="r" from="4" to="18" dur="2s" repeatCount="indefinite" />
               <animate attributeName="opacity" from="0.6" to="0" dur="2s" repeatCount="indefinite" />
             </circle>
             {/* Pulse ring 2 (offset) */}
-            <circle cx={origin.x} cy={origin.y} r="4" fill="none" stroke="#00D4FF" strokeWidth="0.5">
+            <circle cx={origin.x} cy={origin.y} r="4" fill="none" stroke="#FFFFFF" strokeWidth="0.5">
               <animate attributeName="r" from="4" to="25" dur="2s" begin="1s" repeatCount="indefinite" />
               <animate attributeName="opacity" from="0.4" to="0" dur="2s" begin="1s" repeatCount="indefinite" />
             </circle>

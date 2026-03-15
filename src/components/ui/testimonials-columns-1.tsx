@@ -34,7 +34,7 @@ export const TestimonialsColumn = (props: {
             <React.Fragment key={index}>
               {props.testimonials.map(({ text, image, name, role }, i) => (
                 <div
-                  className="relative p-8 rounded-2xl border border-white/[0.07] bg-white/[0.03] backdrop-blur-sm shadow-lg shadow-[#7B61FF]/5 max-w-xs w-full"
+                  className="relative p-8 rounded-2xl border border-white/[0.07] bg-white/[0.03] backdrop-blur-sm shadow-lg shadow-white/5 max-w-xs w-full"
                   key={i}
                 >
                   <GlowingEffect

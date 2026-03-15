@@ -75,7 +75,7 @@ export function StatsBar() {
                 >
                   0
                 </span>
-                <span className="font-display text-[clamp(1.2rem,2vw,1.8rem)] text-[#00D4FF]">
+                <span className="font-display text-[clamp(1.2rem,2vw,1.8rem)] text-white">
                   {stat.suffix}
                 </span>
               </div>
