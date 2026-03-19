@@ -19,40 +19,54 @@ export function StatsBar() {
   useEffect(() => {
     if (!sectionRef.current) return
 
-    const ctx = gsap.context(() => {
-      const statEls = sectionRef.current!.querySelectorAll('.stat-number')
+    const statEls = sectionRef.current!.querySelectorAll('.stat-number')
+    const statItems = sectionRef.current!.querySelectorAll('.stat-item')
+
+    const resetAndPlay = () => {
+      // Reset stat items
+      gsap.set(statItems, { y: 30, opacity: 0 })
+      gsap.to(statItems, {
+        y: 0,
+        opacity: 1,
+        stagger: 0.1,
+        duration: 0.7,
+        ease: 'power3.out',
+      })
+
+      // Reset and animate number counters
       statEls.forEach((el) => {
         const htmlEl = el as HTMLElement
         const target = parseFloat(htmlEl.dataset.value || '0')
+        htmlEl.textContent = '0'
 
-        gsap.from(htmlEl, {
-          textContent: 0,
+        gsap.to(htmlEl, {
+          textContent: target,
           duration: 2,
           ease: 'power1.out',
           snap: { textContent: 1 },
-          scrollTrigger: {
-            trigger: sectionRef.current,
-            start: 'top 85%',
-            toggleActions: 'play none none reverse',
-          },
           onUpdate() {
             const val = parseFloat(htmlEl.textContent || '0')
             htmlEl.textContent = Math.round(val).toString()
           },
         })
       })
+    }
 
-      gsap.from(sectionRef.current!.querySelectorAll('.stat-item'), {
-        y: 30,
-        opacity: 0,
-        stagger: 0.1,
-        duration: 0.7,
-        ease: 'power3.out',
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: 'top 85%',
-          toggleActions: 'play none none none',
-        },
+    const resetToZero = () => {
+      gsap.set(statItems, { y: 30, opacity: 0 })
+      statEls.forEach((el) => {
+        ;(el as HTMLElement).textContent = '0'
+      })
+    }
+
+    const ctx = gsap.context(() => {
+      ScrollTrigger.create({
+        trigger: sectionRef.current,
+        start: 'top 85%',
+        onEnter: resetAndPlay,
+        onEnterBack: resetAndPlay,
+        onLeave: resetToZero,
+        onLeaveBack: resetToZero,
       })
     }, sectionRef)
 
@@ -79,7 +93,7 @@ export function StatsBar() {
                   {stat.suffix}
                 </span>
               </div>
-              <span className="mt-2 text-[0.72rem] font-semibold tracking-[0.15em] uppercase text-white/35">
+              <span className="mt-2 text-[0.72rem] font-semibold tracking-[0.15em] uppercase text-violet-400/70">
                 {stat.label}
               </span>
             </div>

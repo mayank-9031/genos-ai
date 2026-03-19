@@ -17,11 +17,12 @@ const STATS = [
 
 function useCountUp(end: number, duration = 2000, shouldStart: boolean) {
   const [count, setCount] = useState(0)
-  const hasStarted = useRef(false)
 
   useEffect(() => {
-    if (!shouldStart || hasStarted.current) return
-    hasStarted.current = true
+    if (!shouldStart) {
+      setCount(0)
+      return
+    }
 
     const startTime = performance.now()
     let rafId: number
@@ -82,7 +83,7 @@ export function About() {
         scrollTrigger: {
           trigger: sectionRef.current,
           start: 'top 80%',
-          toggleActions: 'play none none none',
+          toggleActions: 'play none none reverse',
         },
       })
     }, sectionRef)
@@ -97,6 +98,9 @@ export function About() {
       trigger: statsRef.current,
       start: 'top 85%',
       onEnter: () => setStatsInView(true),
+      onEnterBack: () => setStatsInView(true),
+      onLeave: () => setStatsInView(false),
+      onLeaveBack: () => setStatsInView(false),
     })
 
     return () => trigger.kill()
@@ -107,7 +111,7 @@ export function About() {
       <div className="max-w-6xl mx-auto">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-start">
           <div>
-            <span className="section-reveal block text-[0.7rem] font-semibold tracking-[0.2em] uppercase text-white/50 mb-4">
+            <span className="section-reveal block text-[0.7rem] font-semibold tracking-[0.2em] uppercase text-violet-400/70 mb-4">
               Who We Are
             </span>
             <h2 className="section-reveal font-display text-[clamp(2rem,4vw,3.5rem)] font-normal leading-[1.05] tracking-[-0.02em] text-text-on-dark mb-6">

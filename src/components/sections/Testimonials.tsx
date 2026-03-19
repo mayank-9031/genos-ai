@@ -72,11 +72,11 @@ export function Testimonials() {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
-          viewport={{ once: true }}
+          viewport={{ once: false, amount: 0.3 }}
           className="flex flex-col items-center justify-center max-w-[540px] mx-auto"
         >
           <div className="flex justify-center">
-            <span className="text-[0.7rem] font-semibold tracking-[0.2em] uppercase text-white/50 border border-white/[0.07] py-1.5 px-4 rounded-lg">
+            <span className="text-[0.7rem] font-semibold tracking-[0.2em] uppercase text-violet-400/70 border border-white/[0.07] py-1.5 px-4 rounded-lg">
               What Our Clients Say
             </span>
           </div>

@@ -85,7 +85,7 @@ export function HeroSection() {
         <div className="flex h-full">
           {/* Left content */}
           <div className="flex-1 p-8 md:p-16 relative z-10 flex flex-col justify-center">
-            <span className="section-label block text-[0.7rem] font-semibold tracking-[0.2em] uppercase text-white/50 mb-8">
+            <span className="section-label block text-[0.7rem] font-semibold tracking-[0.2em] uppercase text-violet-400/70 mb-8">
               AI AUTOMATION AGENCY
             </span>
             <h1 className="font-display text-[clamp(2.5rem,6vw,6rem)] font-normal leading-[0.92] tracking-[-0.03em] mb-6">

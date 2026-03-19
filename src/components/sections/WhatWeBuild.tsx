@@ -265,7 +265,7 @@ export function WhatWeBuild() {
   return (
     <section ref={sectionRef} id="showcase" className="relative py-16 md:py-24 px-[5vw]">
       <div className="max-w-7xl mx-auto">
-        <span className="section-reveal block text-[0.7rem] font-semibold tracking-[0.2em] uppercase text-white/50 mb-4">
+        <span className="section-reveal block text-[0.7rem] font-semibold tracking-[0.2em] uppercase text-violet-400/70 mb-4">
           What We Build
         </span>
         <h2 className="section-reveal font-display text-[clamp(2rem,4vw,3.5rem)] font-normal leading-[1.05] tracking-[-0.02em] text-text-on-dark mb-4">

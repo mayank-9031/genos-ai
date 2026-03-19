@@ -31,7 +31,7 @@ export function WorldMap({
       setPhase("idle");
       setAnimKey((k) => k + 1);
       // Small delay so framer-motion picks up the new key before we start
-      const t = setTimeout(() => setPhase("drawing"), 50);
+      const t = setTimeout(() => setPhase("drawing"), 20);
       return () => clearTimeout(t);
     } else {
       setPhase("idle");
@@ -68,11 +68,11 @@ export function WorldMap({
     return `M ${start.x} ${start.y} Q ${midX} ${midY} ${end.x} ${end.y}`;
   }, []);
 
-  const staggerDelay = 0.18;
-  const drawDuration = 1.2;
+  const staggerDelay = 0.08;
+  const drawDuration = 0.5;
   const lastLineEnd = (dots.length - 1) * staggerDelay + drawDuration;
-  const fadeOutStart = lastLineEnd + 0.5;
-  const fadeOutDuration = 0.8;
+  const fadeOutStart = lastLineEnd + 0.2;
+  const fadeOutDuration = 0.35;
 
   // Origin point (New Delhi) - always visible with blue glow
   const origin = useMemo(() => {
@@ -236,8 +236,8 @@ export function WorldMap({
             initial={{ opacity: 0, scale: 0 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{
-              duration: 0.45,
-              delay: i * 0.06,
+              duration: 0.25,
+              delay: i * 0.03,
               ease: "backOut",
             }}
             style={{ transformOrigin: `${point.x}px ${point.y}px` }}

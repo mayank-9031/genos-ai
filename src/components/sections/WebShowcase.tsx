@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useCallback } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { GlowingEffect } from '@/components/ui/glowing-effect'
@@ -11,41 +11,84 @@ gsap.registerPlugin(ScrollTrigger)
 
 const WEB_DESIGNS = [
   {
-    title: 'AI & Tech Websites',
-    description:
-      'Futuristic, high-performance websites built for AI and technology companies. Dark themes, immersive animations, and conversion-optimized layouts.',
-    tags: ['Next.js', 'GSAP', '3D Animations'],
-    gradient: 'from-[#0c1a2e] via-[#0a1628] to-[#0A0A0F]',
+    label: 'AI & Tech',
+    videoSrc: '/videos/ai-tech-showcase.mp4',
     accentColor: '#3b82f6',
   },
   {
-    title: 'SaaS Platforms',
-    description:
-      'Modern web applications with intuitive dashboards, real-time data visualization, and seamless user experiences built for scale.',
-    tags: ['React', 'TypeScript', 'Real-time'],
-    gradient: 'from-[#0e1520] via-[#0d1320] to-[#0A0A0F]',
+    label: 'SaaS Platforms',
+    videoSrc: '/videos/ecommerce-showcase.mp4',
     accentColor: '#10b981',
   },
   {
-    title: 'E-Commerce & Landing Pages',
-    description:
-      'High-converting landing pages and e-commerce experiences. Mobile-first, blazing fast, and designed to turn visitors into customers.',
-    tags: ['Responsive', 'SEO', 'Conversion'],
-    gradient: 'from-[#15102e] via-[#110e25] to-[#0A0A0F]',
+    label: 'E-Commerce',
+    videoSrc: '/videos/saas-showcase.mp4',
     accentColor: '#a855f7',
   },
 ]
 
-/* ─── Browser Mockup Component ───────────────────────────────── */
+/* ─── Video Card Component ────────────────────────────────────── */
 
-function WebMockup({
+function VideoCard({
   design,
+  isCenter,
 }: {
   design: (typeof WEB_DESIGNS)[number]
+  isCenter: boolean
 }) {
+  const videoRef = useRef<HTMLVideoElement>(null)
+  const containerRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    const video = videoRef.current
+    const container = containerRef.current
+    if (!video || !container) return
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          video.play().catch(() => {})
+        } else {
+          video.pause()
+        }
+      },
+      { threshold: 0.15 }
+    )
+    observer.observe(container)
+    return () => observer.disconnect()
+  }, [])
+
+  const handleMouseMove = useCallback(
+    (e: React.MouseEvent<HTMLDivElement>) => {
+      if (window.innerWidth < 1024) return
+      const rect = e.currentTarget.getBoundingClientRect()
+      const x = (e.clientX - rect.left) / rect.width - 0.5
+      const y = (e.clientY - rect.top) / rect.height - 0.5
+      e.currentTarget.style.transform = `perspective(1000px) rotateX(${y * -4}deg) rotateY(${x * 4}deg) scale(1.015)`
+    },
+    []
+  )
+
+  const handleMouseLeave = useCallback(
+    (e: React.MouseEvent<HTMLDivElement>) => {
+      e.currentTarget.style.transform =
+        'perspective(1000px) rotateX(0deg) rotateY(0deg) scale(1)'
+    },
+    []
+  )
+
   return (
     <div
-      className={`relative w-full aspect-[4/3] rounded-2xl bg-gradient-to-br ${design.gradient} border border-white/[0.06] overflow-hidden transition-all duration-500 group-hover:border-white/[0.12]`}
+      ref={containerRef}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+      className={`
+        relative w-full overflow-hidden transition-all duration-500 ease-out will-change-transform
+        rounded-[20px] border border-white/[0.08]
+        group-hover:border-white/[0.18]
+        ${isCenter ? 'lg:scale-[1.03] lg:shadow-2xl lg:shadow-white/[0.02]' : ''}
+      `}
+      style={{ transformStyle: 'preserve-3d' }}
     >
       <GlowingEffect
         spread={40}
@@ -53,96 +96,64 @@ function WebMockup({
         disabled={false}
         proximity={64}
         inactiveZone={0.01}
-        borderWidth={3}
+        borderWidth={2}
       />
 
       {/* Browser chrome */}
-      <div className="flex items-center gap-3 px-4 py-2.5 border-b border-white/[0.04]">
-        <div className="flex gap-1.5">
-          <div className="w-2 h-2 rounded-full bg-white/10" />
-          <div className="w-2 h-2 rounded-full bg-white/10" />
-          <div className="w-2 h-2 rounded-full bg-white/10" />
+      <div className="flex items-center gap-2.5 px-4 py-2 border-b border-white/[0.05] bg-[#0d0d0f]/80 backdrop-blur-md">
+        <div className="flex gap-[6px]">
+          <div className="w-[10px] h-[10px] rounded-full bg-[#ff5f57]/70 transition-colors duration-200 group-hover:bg-[#ff5f57]" />
+          <div className="w-[10px] h-[10px] rounded-full bg-[#febc2e]/70 transition-colors duration-200 group-hover:bg-[#febc2e]" />
+          <div className="w-[10px] h-[10px] rounded-full bg-[#28c840]/70 transition-colors duration-200 group-hover:bg-[#28c840]" />
         </div>
-        <div className="flex-1 h-4 rounded bg-white/[0.03] max-w-[180px]" />
+        <div className="flex-1 h-[22px] rounded-lg bg-white/[0.03] max-w-[180px] mx-auto flex items-center justify-center gap-1.5">
+          <svg className="w-3 h-3 text-white/20" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+            <path strokeLinecap="round" strokeLinejoin="round" d="M12 11c0-1.1.9-2 2-2h2a2 2 0 012 2v1a2 2 0 01-2 2h-2a2 2 0 01-2-2v-1z" />
+            <path strokeLinecap="round" strokeLinejoin="round" d="M5 5h14a2 2 0 012 2v10a2 2 0 01-2 2H5a2 2 0 01-2-2V7a2 2 0 012-2z" />
+          </svg>
+          <div className="h-[5px] w-14 rounded-full bg-white/[0.06]" />
+        </div>
+        <div className="w-[62px] flex justify-end gap-1.5">
+          <div className="w-[14px] h-[14px] rounded-sm bg-white/[0.04]" />
+          <div className="w-[14px] h-[14px] rounded-sm bg-white/[0.04]" />
+        </div>
       </div>
 
-      {/* Mock website content */}
-      <div className="p-4 md:p-5">
-        {/* Navigation bar */}
-        <div className="flex items-center gap-3 mb-5">
+      {/* Video content area */}
+      <div className="relative aspect-[16/10] overflow-hidden bg-[#080809]">
+        <video
+          ref={videoRef}
+          src={design.videoSrc}
+          autoPlay
+          loop
+          muted
+          playsInline
+          preload="metadata"
+          className="w-full h-full object-cover object-top"
+        />
+
+        {/* Soft vignette edges */}
+        <div className="pointer-events-none absolute inset-0 shadow-[inset_0_0_30px_rgba(0,0,0,0.3)]" />
+        <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/25 via-transparent to-black/10" />
+      </div>
+
+      {/* Label overlay — bottom of card */}
+      <div className="absolute bottom-0 left-0 right-0 pointer-events-none">
+        <div className="flex items-center justify-between px-5 py-3 bg-gradient-to-t from-black/70 via-black/30 to-transparent">
+          <span className="text-[0.72rem] font-medium tracking-[0.15em] uppercase text-white/60">
+            {design.label}
+          </span>
           <div
-            className="w-6 h-6 rounded"
-            style={{ backgroundColor: `${design.accentColor}18` }}
+            className="w-1.5 h-1.5 rounded-full opacity-60"
+            style={{ backgroundColor: design.accentColor }}
           />
-          <div className="flex gap-2.5 ml-auto">
-            {[...Array(4)].map((_, i) => (
-              <div key={i} className="w-7 h-1.5 rounded-full bg-white/[0.06]" />
-            ))}
-          </div>
-        </div>
-
-        {/* Hero area */}
-        <div className="flex gap-4 mb-4">
-          <div className="flex-1">
-            {/* Tagline */}
-            <div className="h-2 w-20 rounded-full bg-white/[0.06] mb-2" />
-            {/* Heading lines */}
-            <div className="h-4 w-full rounded bg-white/[0.07] mb-1.5" />
-            <div className="h-4 w-3/4 rounded bg-white/[0.05] mb-3" />
-            {/* Body text */}
-            <div className="h-1.5 w-full rounded-full bg-white/[0.04] mb-1" />
-            <div className="h-1.5 w-4/5 rounded-full bg-white/[0.03] mb-3" />
-            {/* CTA button */}
-            <div
-              className="h-6 w-20 rounded-md"
-              style={{
-                backgroundColor: `${design.accentColor}20`,
-                border: `1px solid ${design.accentColor}30`,
-              }}
-            />
-          </div>
-
-          {/* Hero image placeholder */}
-          <div className="hidden md:block w-2/5">
-            <div
-              className="w-full aspect-[4/3] rounded-lg"
-              style={{
-                backgroundColor: `${design.accentColor}06`,
-                border: `1px solid ${design.accentColor}10`,
-              }}
-            >
-              {/* Abstract shape inside */}
-              <div className="h-full flex items-center justify-center">
-                <div
-                  className="w-10 h-10 rounded-full opacity-20"
-                  style={{ backgroundColor: design.accentColor }}
-                />
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* Feature cards row */}
-        <div className="grid grid-cols-3 gap-2">
-          {[...Array(3)].map((_, i) => (
-            <div
-              key={i}
-              className="h-10 md:h-12 rounded-lg border border-white/[0.04] bg-white/[0.015] p-2 flex flex-col justify-center"
-            >
-              <div
-                className="w-4 h-3 rounded mb-1"
-                style={{ backgroundColor: `${design.accentColor}12` }}
-              />
-              <div className="h-1 w-full rounded-full bg-white/[0.04]" />
-            </div>
-          ))}
         </div>
       </div>
 
-      {/* Bottom glow on hover */}
+      {/* Accent glow on hover */}
       <div
-        className="absolute -bottom-10 left-1/2 -translate-x-1/2 w-3/4 h-20 rounded-full blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-700"
-        style={{ backgroundColor: `${design.accentColor}12` }}
+        className="pointer-events-none absolute -bottom-6 left-1/2 -translate-x-1/2 w-2/3 h-20 rounded-full blur-3xl opacity-0 group-hover:opacity-40 transition-opacity duration-700"
+        style={{ backgroundColor: design.accentColor }}
       />
     </div>
   )
@@ -157,15 +168,15 @@ export function WebShowcase() {
     if (!sectionRef.current) return
 
     const ctx = gsap.context(() => {
-      // Section heading reveal
+      // Header reveal
       const headings = Array.from(
         sectionRef.current!.querySelectorAll('.section-reveal')
       )
       gsap.from(headings, {
-        y: 50,
+        y: 40,
         opacity: 0,
-        stagger: 0.12,
-        duration: 1,
+        stagger: 0.1,
+        duration: 0.9,
         ease: 'power3.out',
         scrollTrigger: {
           trigger: sectionRef.current,
@@ -174,22 +185,42 @@ export function WebShowcase() {
         },
       })
 
-      // Cards staggered reveal
+      // Cards entrance — staggered with depth
       const cards = Array.from(
         sectionRef.current!.querySelectorAll<HTMLElement>('.web-card')
       )
-      gsap.from(cards, {
-        y: 60,
-        opacity: 0,
-        scale: 0.95,
-        stagger: 0.15,
-        duration: 0.9,
-        ease: 'power3.out',
-        scrollTrigger: {
-          trigger: cards[0] || sectionRef.current,
-          start: 'top 85%',
-          toggleActions: 'play none none none',
-        },
+
+      cards.forEach((card, i) => {
+        // Entrance animation
+        gsap.from(card, {
+          y: 100 + i * 20,
+          opacity: 0,
+          scale: 0.9,
+          rotateY: i === 0 ? 6 : i === 2 ? -6 : 0,
+          duration: 1.1,
+          delay: i * 0.15,
+          ease: 'power3.out',
+          scrollTrigger: {
+            trigger: cards[0] || sectionRef.current,
+            start: 'top 88%',
+            toggleActions: 'play none none none',
+          },
+          onComplete: () => {
+            card.style.transform = ''
+          },
+        })
+
+        // Parallax drift
+        gsap.to(card, {
+          y: i === 1 ? -25 : -12,
+          ease: 'none',
+          scrollTrigger: {
+            trigger: sectionRef.current,
+            start: 'top bottom',
+            end: 'bottom top',
+            scrub: 0.5,
+          },
+        })
       })
     }, sectionRef)
 
@@ -197,61 +228,44 @@ export function WebShowcase() {
   }, [])
 
   return (
-    <section ref={sectionRef} className="relative py-16 md:py-24 px-[5vw]">
+    <section ref={sectionRef} className="relative py-16 md:py-28 px-[5vw]">
       <div className="max-w-7xl mx-auto">
-        {/* Section header */}
-        <span className="section-reveal block text-[0.7rem] font-semibold tracking-[0.2em] uppercase text-white/50 mb-4">
-          Web Development
-        </span>
-        <h2 className="section-reveal font-display text-[clamp(2rem,4vw,3.5rem)] font-normal leading-[1.05] tracking-[-0.02em] text-text-on-dark mb-4">
-          Websites that convert &amp; scale
-        </h2>
-        <p className="section-reveal text-[1.05rem] leading-[1.65] text-white/50 max-w-[55ch] mb-12">
-          High-performance websites and web applications built with modern
-          frameworks. Designed to convert visitors into customers and scale with
-          your business.
-        </p>
+        {/* Section header — centered for premium feel */}
+        <div className="text-center mb-16 md:mb-20">
+          <span className="section-reveal inline-block text-[0.7rem] font-semibold tracking-[0.25em] uppercase text-violet-400/70 mb-5">
+            Web Development
+          </span>
+          <h2 className="section-reveal font-display text-[clamp(2rem,4.5vw,3.8rem)] font-normal leading-[1.05] tracking-[-0.03em] text-text-on-dark mb-5">
+            Websites that convert &amp; scale
+          </h2>
+          <p className="section-reveal text-[1rem] leading-[1.7] text-white/40 max-w-[48ch] mx-auto">
+            Modern, high-performance web experiences crafted with precision.
+          </p>
+        </div>
 
-        {/* Web design showcase grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+        {/* Showcase grid — 3 cards, center elevated */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-6 lg:items-center">
           {WEB_DESIGNS.map((design, i) => (
-            <div key={i} className="web-card group">
-              <WebMockup design={design} />
-
-              <div className="mt-5">
-                <h3 className="font-display text-[1.25rem] text-text-on-dark mb-2 leading-tight">
-                  {design.title}
-                </h3>
-                <p className="text-[0.85rem] leading-[1.65] text-white/50 mb-3">
-                  {design.description}
-                </p>
-                <div className="flex flex-wrap gap-2">
-                  {design.tags.map((tag, j) => (
-                    <span
-                      key={j}
-                      className="text-[0.68rem] font-semibold tracking-[0.05em] px-2.5 py-1 rounded-md border"
-                      style={{
-                        color: `${design.accentColor}cc`,
-                        backgroundColor: `${design.accentColor}08`,
-                        borderColor: `${design.accentColor}15`,
-                      }}
-                    >
-                      {tag}
-                    </span>
-                  ))}
-                </div>
-              </div>
+            <div
+              key={i}
+              className={`web-card group ${i === 1 ? 'lg:-mt-4' : 'lg:mt-4'}`}
+              style={{ perspective: '1000px' }}
+            >
+              <VideoCard design={design} isCenter={i === 1} />
             </div>
           ))}
         </div>
 
         {/* CTA */}
-        <div className="mt-14 text-center">
+        <div className="mt-16 md:mt-20 text-center">
           <a
             href="#contact"
-            className="inline-block px-8 py-4 text-[0.85rem] font-semibold tracking-[0.08em] uppercase border border-white/30 text-white rounded-full transition-all hover:bg-white/10 hover:border-white/50"
+            className="inline-flex items-center gap-2.5 px-8 py-4 text-[0.8rem] font-semibold tracking-[0.1em] uppercase border border-white/20 text-white/80 rounded-full cursor-pointer transition-all duration-400 hover:bg-white/[0.06] hover:border-white/40 hover:text-white hover:scale-[1.03]"
           >
-            See Our Work
+            <span>View All Projects</span>
+            <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+            </svg>
           </a>
         </div>
       </div>
