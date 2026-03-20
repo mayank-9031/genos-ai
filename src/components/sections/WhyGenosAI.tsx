@@ -9,31 +9,31 @@ gsap.registerPlugin(ScrollTrigger)
 const CONTENT_BLOCKS = [
   {
     image: '/images/why-genosai/ai-abstract-purple.jpg',
-    alt: 'AI systems and intelligent automation',
-    text: 'Our expertise spans multiple domains, including conversational AI, voice and image processing, recommendation systems, and automated decision engines. Every solution we build integrates seamlessly into existing operations, helping organisations work smarter, reduce inefficiencies, and make faster, more informed decisions.',
+    alt: 'GenosAI AI automation systems and intelligent workflow technology',
+    text: 'GenosAI\'s expertise spans multiple domains, including conversational AI, voice and image processing, recommendation systems, and automated decision engines. Every solution we build integrates seamlessly into existing operations, helping organisations work smarter, reduce inefficiencies, and make faster, more informed decisions.',
   },
   {
     image: '/images/why-genosai/ai-blue-orb.jpg',
-    alt: 'AI-powered intelligence and data processing',
+    alt: 'GenosAI AI-powered data processing and intelligence platform',
     text: 'At GenosAI, our team goes beyond development. We are problem-solvers, thinkers, and innovators. Engineers, data scientists, designers, and AI specialists bring years of hands-on experience creating high-performing digital systems. We welcome challenges that require creative thinking and technical rigor.',
   },
   {
     image: '/images/why-genosai/ai-brain-neural.jpg',
-    alt: 'Neural networks and deep learning',
-    text: 'Our work focuses on AI that understands real-world complexity. Our systems adapt to changing environments, handle imperfect data, and scale as your organisation grows. We value transparency, accountability, and collaboration — ensuring every project meets client needs while maintaining long-term reliability.',
+    alt: 'GenosAI neural networks and deep learning technology',
+    text: 'GenosAI focuses on AI that understands real-world complexity. Our systems adapt to changing environments, handle imperfect data, and scale as your organisation grows. We value transparency, accountability, and collaboration, ensuring every project meets client needs while maintaining long-term reliability.',
   },
 ]
 
 const CONTENT_BLOCKS_ROW2 = [
   {
     image: '/images/why-genosai/ai-chatbot.jpg',
-    alt: 'AI chatbot and conversational systems',
-    text: 'Choosing GenosAI means partnering with a team that understands modern business realities. We create AI solutions that are dependable, practical, and built for everyday use — not just for demos. Our systems are engineered to handle production workloads from day one.',
+    alt: 'GenosAI chatbot and conversational AI systems',
+    text: 'Choosing GenosAI means partnering with a team that understands modern business realities. We create AI solutions that are dependable, practical, and built for everyday use, not just for demos. Our systems are engineered to handle production workloads from day one.',
   },
   {
     image: '/images/why-genosai/ai-applications.jpg',
-    alt: 'AI applications and enterprise solutions',
-    text: 'Our solutions handle complex data, high usage, and changing requirements, providing businesses with intelligence that is actionable and reliable. We combine deep technical expertise with a clear understanding of operational needs to deliver systems that truly perform.',
+    alt: 'GenosAI enterprise AI applications and solutions',
+    text: 'GenosAI\'s solutions handle complex data, high usage, and changing requirements, providing businesses with intelligence that is actionable and reliable. We combine deep technical expertise with a clear understanding of operational needs to deliver systems that truly perform.',
   },
 ]
 
@@ -160,7 +160,7 @@ export function WhyGenosAI() {
   }, [])
 
   return (
-    <section ref={sectionRef} id="why-us" className="relative py-20 md:py-32 px-[5vw]">
+    <section ref={sectionRef} id="why-us" className="relative py-20 md:py-32 px-[5vw]" aria-label="Why Teams Choose GenosAI">
       {/* Background ambient glow */}
       <div
         aria-hidden="true"
@@ -180,7 +180,7 @@ export function WhyGenosAI() {
           </h2>
           <p className="text-[1.05rem] leading-[1.65] text-white/50 max-w-[60ch] mx-auto">
             We combine deep technical expertise with a clear understanding of operational needs.
-            Our AI solutions are dependable, practical, and built for everyday use — not just for demos.
+            Our AI solutions are dependable, practical, and built for everyday use, not just for demos.
           </p>
         </div>
 
@@ -231,7 +231,7 @@ export function WhyGenosAI() {
         {/* Standalone text block */}
         <div ref={row3Ref} className="mb-20">
           <p className="text-[1rem] leading-[1.8] text-white/40 max-w-3xl">
-            We help organisations reduce manual work, improve decision-making, and increase overall efficiency. Our commitment to quality, transparency, and client success makes us a reliable partner for long-term growth.
+            GenosAI helps organisations reduce manual work, improve decision-making, and increase overall efficiency. With 50+ projects delivered, a 98% client retention rate, and operations spanning 5 countries, GenosAI has established itself as one of the most reliable AI automation partners for growth-focused businesses worldwide.
           </p>
         </div>
 
@@ -247,7 +247,7 @@ export function WhyGenosAI() {
           </div>
           <div className="reveal-item">
             <p className="text-[1rem] leading-[1.8] text-white/45">
-              GenosAI is a focused AI development company building intelligent systems that solve real-world business problems. We bring deep experience delivering complex software solutions, combining strong engineering with advanced AI technologies to create products and services that are innovative, practical, reliable, and scalable. From conversational assistants to automated decision engines, every system we build is designed to function reliably in production environments — because that is where it matters most.
+              GenosAI is a focused AI development company building intelligent systems that solve real-world business problems. We bring deep experience delivering complex software solutions, combining strong engineering with advanced AI technologies to create products and services that are innovative, practical, reliable, and scalable. From conversational assistants to automated decision engines, every system we build is designed to function reliably in production environments, because that is where it matters most.
             </p>
           </div>
         </div>

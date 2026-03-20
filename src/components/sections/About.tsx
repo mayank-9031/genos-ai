@@ -107,7 +107,7 @@ export function About() {
   }, [])
 
   return (
-    <section ref={sectionRef} id="about" className="relative py-16 md:py-24 px-[5vw]">
+    <section ref={sectionRef} id="about" className="relative py-16 md:py-24 px-[5vw]" aria-label="About GenosAI">
       <div className="max-w-6xl mx-auto">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-start">
           <div>
@@ -119,13 +119,13 @@ export function About() {
             </h2>
             <div className="flex flex-col gap-5">
               <p className="section-reveal text-[0.95rem] leading-[1.7] text-white/50">
-                GenosAI is a global AI automation agency that builds custom systems for businesses that are done doing things manually. We started because we saw the same problem everywhere: companies drowning in repetitive tasks, duct-taping tools together, and burning hours on work that machines should handle.
+                GenosAI is a global AI automation agency headquartered in India, serving businesses across the United States, United Kingdom, United Arab Emirates, India, and Australia. Founded by engineers who saw businesses drowning in repetitive tasks, GenosAI builds production-grade AI systems, from intelligent chatbots and voice AI agents to end-to-end workflow automation platforms, that eliminate manual operations and scale with business growth.
               </p>
               <p className="section-reveal text-[0.95rem] leading-[1.7] text-white/50">
-                So we built a team of engineers, automation architects, and AI specialists who do one thing exceptionally well — take messy, manual business processes and turn them into fast, reliable, automated systems.
+                Our core services include AI chatbot development, voice AI cold-calling agents, workflow automation, AI-powered marketing and outreach, lead qualification systems, and custom enterprise AI solutions. Every system we build integrates with existing tools like CRMs, ERPs, and communication platforms, and is designed to run independently in production from day one.
               </p>
               <p className="section-reveal text-[0.95rem] leading-[1.7] text-white/50">
-                We&apos;ve worked with 23+ clients across the USA, UK, UAE, India, and Australia. We&apos;ve shipped 50+ projects. And we&apos;re just getting started.
+                We&apos;ve worked with 23+ clients across 5 countries. We&apos;ve shipped 50+ projects with a 98% client retention rate. And we&apos;re just getting started.
               </p>
               <p className="section-reveal text-[1rem] leading-[1.7] text-text-on-dark font-display italic">
                 We don&apos;t chase hype. We ship systems that work.

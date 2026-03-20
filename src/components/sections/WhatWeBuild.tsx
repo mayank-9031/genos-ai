@@ -36,7 +36,7 @@ const PROJECTS = [
     label: 'Custom Dashboard',
     title: 'Internal Ops Dashboard & Automation',
     description:
-      'A custom operations platform for an Australian logistics company. Unified order tracking, dispatch, invoicing, and reporting — replacing 4 separate SaaS tools.',
+      'A custom operations platform for an Australian logistics company. Unified order tracking, dispatch, invoicing, and reporting, replacing 4 separate SaaS tools.',
     results: ['4 tools replaced', '12 hrs/week saved', '$2,400/mo saved'],
     gradient: 'from-white/8 via-white/4 to-transparent',
     accentColor: '#FFFFFF',
@@ -272,7 +272,7 @@ export function WhatWeBuild() {
           Real systems. Real results.
         </h2>
         <p className="section-reveal text-[1.05rem] leading-[1.65] text-white/50 max-w-[55ch] mb-12">
-          We don&apos;t build demos — we ship production systems that transform how businesses operate. Here&apos;s a look at what we&apos;ve delivered.
+          We don&apos;t build demos. We ship production systems that transform how businesses operate. Here&apos;s a look at what we&apos;ve delivered.
         </p>
 
         <div className="flex flex-col gap-16 md:gap-24">

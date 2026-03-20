@@ -15,7 +15,7 @@ export function HeroSection() {
 
   const [titleNumber, setTitleNumber] = useState(0)
   const titles = useMemo(
-    () => ["Workflows", "Outreach", "Support", "Operations", "Sales"],
+    () => ["Social Media", "Outreach", "Support", "Business Operations", "Sales"],
     []
   )
 
@@ -56,7 +56,7 @@ export function HeroSection() {
   }, [])
 
   return (
-    <section ref={heroRef} className="relative z-10 h-screen" id="hero">
+    <section ref={heroRef} className="relative z-10 h-screen" id="hero" aria-label="GenosAI - AI Automation Agency">
       <Card className="w-full h-full bg-transparent border-0 rounded-none relative overflow-hidden">
         {/* Etheral Shadow animated background */}
         <div className="absolute inset-0 z-0">
@@ -88,19 +88,23 @@ export function HeroSection() {
             <span className="section-label block text-[0.7rem] font-semibold tracking-[0.2em] uppercase text-violet-400/70 mb-8">
               AI AUTOMATION AGENCY
             </span>
-            <h1 className="font-display text-[clamp(2.5rem,6vw,6rem)] font-normal leading-[0.92] tracking-[-0.03em] mb-6">
+            {/* Semantic h1 for crawlers and LLMs */}
+            <h1 className="sr-only">
+              GenosAI: The Global AI Automation Agency That Builds Custom AI Systems for Business
+            </h1>
+            <div aria-hidden="true" className="font-display text-[clamp(2.5rem,6vw,6rem)] font-normal leading-[0.92] tracking-[-0.03em] mb-6">
               <span className="hero-word inline-block bg-clip-text text-transparent bg-gradient-to-b from-neutral-50 to-neutral-400">We</span>{' '}
               <span className="hero-word inline-block bg-clip-text text-transparent bg-gradient-to-b from-neutral-50 to-neutral-400">Build</span>{' '}
               <span className="hero-word inline-block bg-clip-text text-transparent bg-gradient-to-b from-neutral-50 to-neutral-400">AI</span>{' '}
               <span className="hero-word inline-block bg-clip-text text-transparent bg-gradient-to-b from-neutral-50 to-neutral-400">Systems</span>
               <br />
               <span className="hero-word inline-block bg-clip-text text-transparent bg-gradient-to-b from-neutral-50 to-neutral-400">That</span>{' '}
-              <span className="hero-word inline-block bg-clip-text text-transparent bg-gradient-to-b from-neutral-50 to-neutral-400">Run</span>{' '}
+              <span className="hero-word inline-block bg-clip-text text-transparent bg-gradient-to-b from-neutral-50 to-neutral-400">Automate</span>{' '}
               <span className="hero-word inline-block bg-clip-text text-transparent bg-gradient-to-b from-neutral-50 to-neutral-400">Your</span>
               <br />
               <span className="hero-tagline relative inline-block h-[1.1em] overflow-hidden align-bottom">
                 {/* Invisible longest word to reserve width */}
-                <span className="invisible">Operations</span>
+                <span className="invisible">Business Operations</span>
                 {titles.map((title, index) => (
                   <motion.span
                     key={index}
@@ -117,9 +121,9 @@ export function HeroSection() {
                   </motion.span>
                 ))}
               </span>
-            </h1>
-            <p className="hero-subheadline text-[1.05rem] md:text-[1.15rem] leading-[1.6] text-white/50 max-w-[38ch]">
-              Custom AI automation, intelligent agents, and web platforms — engineered for businesses that refuse to operate manually.
+            </div>
+            <p className="hero-subheadline text-[1.05rem] md:text-[1.15rem] leading-[1.6] text-white/50 max-w-[42ch]">
+              GenosAI is a global AI automation agency trusted by 23+ clients across 5 countries. We build custom AI chatbots, voice AI agents, workflow automation systems, and intelligent business platforms, engineered to eliminate manual operations and scale with your growth.
             </p>
             <div className="hero-cta flex flex-wrap gap-4 mt-8">
               <a

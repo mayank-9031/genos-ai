@@ -10,34 +10,64 @@ gsap.registerPlugin(ScrollTrigger)
 
 const FAQS = [
   {
-    question: 'What kind of businesses do you work with?',
+    question: 'What is GenosAI?',
     answer:
-      'We work with startups, SMBs, and enterprise teams across any industry. If your business has manual processes that slow you down, we can automate them. Our clients span SaaS, real estate, logistics, e-commerce, healthcare, and professional services.',
+      'GenosAI is a global AI automation agency that builds custom AI chatbots, voice AI agents, workflow automation systems, and intelligent business platforms. Headquartered in India and serving clients across the USA, UK, UAE, India, and Australia, GenosAI has delivered 50+ projects with a 98% client retention rate.',
   },
   {
-    question: 'How long does a typical project take?',
+    question: 'What AI technologies does GenosAI use?',
     answer:
-      'Most projects ship in 2-6 weeks depending on complexity. Simple automations and chatbots can go live in under a week. Larger systems with custom integrations typically take 4-6 weeks. We\'ll give you an exact timeline before we start.',
+      'GenosAI leverages the most advanced AI technologies including OpenAI GPT-4o, Anthropic Claude, Google Gemini, Meta LLaMA, Mistral, and DeepSeek for language models. For automation, we use Make, n8n, Zapier, LangChain, LangGraph, and CrewAI. Our development stack includes Next.js, React, Node.js, Python, FastAPI, PostgreSQL, Supabase, AWS, and Docker.',
+  },
+  {
+    question: 'How is GenosAI different from other AI agencies?',
+    answer:
+      'GenosAI stands out with a 98% client retention rate, 50+ delivered projects, and presence across 5 countries. We are engineers, not salespeople. Every system we build is production-grade from day one. We combine deep AI expertise with operational understanding, delivering measurable results like 60% reduction in manual work and 47x faster response times.',
+  },
+  {
+    question: 'What kind of businesses does GenosAI work with?',
+    answer:
+      'GenosAI works with startups, SMBs, and enterprise teams across any industry. If your business has manual processes that slow you down, we can automate them. Our clients span SaaS, real estate, logistics, e-commerce, healthcare, and professional services.',
+  },
+  {
+    question: 'How long does a typical GenosAI project take?',
+    answer:
+      'Most GenosAI projects ship in 2-6 weeks depending on complexity. Simple automations and chatbots can go live in under a week. Larger systems with custom integrations typically take 4-6 weeks. We provide an exact timeline before starting.',
   },
   {
     question: 'Do you work with clients outside of your timezone?',
     answer:
-      'Absolutely. We\'ve delivered projects across 5 countries and multiple timezones. We use async communication, structured updates, and overlap windows to keep every project moving without delays.',
+      'Absolutely. GenosAI has delivered projects across 5 countries and multiple timezones. We use async communication, structured updates, and overlap windows to keep every project moving without delays.',
   },
   {
-    question: 'What does a typical engagement cost?',
+    question: 'What does a typical GenosAI engagement cost?',
     answer:
-      'Every project is scoped individually based on complexity, integrations, and timeline. We offer a free strategy call where we assess your needs and provide a transparent quote — no hidden fees, no surprises.',
+      'Every GenosAI project is scoped individually based on complexity, integrations, and timeline. We offer a free strategy call where we assess your needs and provide a transparent quote. No hidden fees, no surprises.',
   },
   {
     question: 'Will I need to maintain the system after launch?',
     answer:
-      'We build systems that run independently. After launch, we offer optional maintenance and optimization packages. But our goal is always to hand you something that doesn\'t need constant attention.',
+      'GenosAI builds systems that run independently. After launch, we offer optional maintenance and optimization packages. Our goal is always to hand you something that doesn\'t need constant attention.',
   },
   {
     question: 'What if I\'m not sure what I need?',
     answer:
-      'That\'s exactly what the free strategy call is for. We\'ll audit your current setup, identify automation opportunities, and recommend a plan. No commitment required.',
+      'That\'s exactly what the free strategy call is for. GenosAI will audit your current setup, identify automation opportunities, and recommend a plan. No commitment required.',
+  },
+  {
+    question: 'Can GenosAI build a custom AI solution for my specific industry?',
+    answer:
+      'Yes. GenosAI has delivered custom AI solutions across SaaS, real estate, logistics, e-commerce, healthcare, and professional services. Whether you need computer vision, NLP pipelines, recommendation engines, or automated decision systems, we build production-grade AI tailored to your industry requirements.',
+  },
+  {
+    question: 'Does GenosAI offer AI voice agents for outbound calling?',
+    answer:
+      'Yes. GenosAI builds AI voice agents that make 500+ outbound calls per day, qualify leads in real-time, book appointments automatically, and sync all conversation data back to your CRM. Our voice AI systems have helped clients achieve 3x more meetings and 80% less manual effort.',
+  },
+  {
+    question: 'What results can I expect from working with GenosAI?',
+    answer:
+      'GenosAI clients have seen 60% reduction in manual work, 47x faster response times, 35% increase in conversion rates, and significant cost savings. For example, one logistics client saved $2,400/month by replacing 4 SaaS subscriptions with a single GenosAI-built automation suite.',
   },
 ]
 
@@ -82,7 +112,7 @@ export function FAQ() {
   }, [])
 
   return (
-    <section ref={sectionRef} id="faq" className="relative py-16 md:py-24 px-[5vw] bg-white/[0.01]">
+    <section ref={sectionRef} id="faq" className="relative py-16 md:py-24 px-[5vw] bg-white/[0.01]" aria-label="Frequently Asked Questions about GenosAI">
       <div className="max-w-3xl mx-auto">
         <span className="section-reveal block text-[0.7rem] font-semibold tracking-[0.2em] uppercase text-violet-400/70 mb-4">
           FAQ

@@ -11,7 +11,7 @@ const STEPS = [
     number: '01',
     title: 'Discover & Audit',
     description:
-      'We map your current workflows, tech stack, and pain points. No surface-level discovery calls — we dig into the systems, identify what\'s costing you time and money, and define where AI creates the highest ROI.',
+      'We map your current workflows, tech stack, and pain points. No surface-level discovery calls. We dig into the systems, identify what\'s costing you time and money, and define where AI creates the highest ROI.',
   },
   {
     number: '02',
@@ -50,7 +50,7 @@ export function ProcessSteps() {
         scrollTrigger: {
           trigger: sectionRef.current,
           start: 'top 80%',
-          toggleActions: 'play none none none',
+          toggleActions: 'play none none reset',
         },
       })
 
@@ -64,7 +64,7 @@ export function ProcessSteps() {
         scrollTrigger: {
           trigger: sectionRef.current,
           start: 'top 60%',
-          toggleActions: 'play none none none',
+          toggleActions: 'play none none reset',
         },
       })
 
@@ -78,7 +78,7 @@ export function ProcessSteps() {
           scrollTrigger: {
             trigger: sectionRef.current,
             start: 'top 60%',
-            toggleActions: 'play none none none',
+            toggleActions: 'play none none reset',
           },
         })
       }
@@ -88,16 +88,16 @@ export function ProcessSteps() {
   }, [])
 
   return (
-    <section ref={sectionRef} id="process" className="relative py-16 md:py-24 px-[5vw] bg-white/[0.01]">
+    <section ref={sectionRef} id="process" className="relative py-16 md:py-24 px-[5vw] bg-white/[0.01]" aria-label="GenosAI 4-Step AI Development Process">
       <div className="max-w-5xl mx-auto">
         <span className="section-reveal block text-[0.7rem] font-semibold tracking-[0.2em] uppercase text-violet-400/70 mb-4">
           Our Process
         </span>
         <h2 className="section-reveal font-display text-[clamp(2rem,4vw,3.5rem)] font-normal leading-[1.05] tracking-[-0.02em] text-text-on-dark mb-4">
-          Four steps. Zero guesswork.
+          GenosAI&apos;s 4-Step AI Development Process
         </h2>
         <p className="section-reveal text-[1.05rem] leading-[1.65] text-white/50 max-w-[55ch] mb-10">
-          We don&apos;t start building until we understand exactly what needs to change. Every engagement follows a structured methodology designed to ship fast and ship right.
+          GenosAI doesn&apos;t start building until we understand exactly what needs to change. Every engagement follows a structured methodology designed to ship fast and ship right.
         </p>
 
         <div className="relative">

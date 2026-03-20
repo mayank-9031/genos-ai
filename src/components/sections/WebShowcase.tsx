@@ -1,13 +1,12 @@
 'use client'
 
-import { useEffect, useRef, useCallback } from 'react'
+import { useEffect, useRef, useState, useCallback } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
-import { GlowingEffect } from '@/components/ui/glowing-effect'
 
 gsap.registerPlugin(ScrollTrigger)
 
-/* ─── Web Design Showcase Data ───────────────────────────────── */
+/* ─── Data ─────────────────────────────────────────────────────── */
 
 const WEB_DESIGNS = [
   {
@@ -27,148 +26,85 @@ const WEB_DESIGNS = [
   },
 ]
 
-/* ─── Video Card Component ────────────────────────────────────── */
+const TOTAL = WEB_DESIGNS.length
+const CARD_WIDTH = 52 // % of container
+const GAP = 2 // % gap between cards
 
-function VideoCard({
-  design,
-  isCenter,
-}: {
-  design: (typeof WEB_DESIGNS)[number]
-  isCenter: boolean
-}) {
-  const videoRef = useRef<HTMLVideoElement>(null)
-  const containerRef = useRef<HTMLDivElement>(null)
+/* ─── Helper: compute left% for a given offset from center ──── */
+function getCardLeft(offset: number) {
+  const center = (100 - CARD_WIDTH) / 2
+  return center + offset * (CARD_WIDTH + GAP)
+}
 
-  useEffect(() => {
-    const video = videoRef.current
-    const container = containerRef.current
-    if (!video || !container) return
-
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          video.play().catch(() => {})
-        } else {
-          video.pause()
-        }
-      },
-      { threshold: 0.15 }
-    )
-    observer.observe(container)
-    return () => observer.disconnect()
-  }, [])
-
-  const handleMouseMove = useCallback(
-    (e: React.MouseEvent<HTMLDivElement>) => {
-      if (window.innerWidth < 1024) return
-      const rect = e.currentTarget.getBoundingClientRect()
-      const x = (e.clientX - rect.left) / rect.width - 0.5
-      const y = (e.clientY - rect.top) / rect.height - 0.5
-      e.currentTarget.style.transform = `perspective(1000px) rotateX(${y * -4}deg) rotateY(${x * 4}deg) scale(1.015)`
-    },
-    []
-  )
-
-  const handleMouseLeave = useCallback(
-    (e: React.MouseEvent<HTMLDivElement>) => {
-      e.currentTarget.style.transform =
-        'perspective(1000px) rotateX(0deg) rotateY(0deg) scale(1)'
-    },
-    []
-  )
-
-  return (
-    <div
-      ref={containerRef}
-      onMouseMove={handleMouseMove}
-      onMouseLeave={handleMouseLeave}
-      className={`
-        relative w-full overflow-hidden transition-all duration-500 ease-out will-change-transform
-        rounded-[20px] border border-white/[0.08]
-        group-hover:border-white/[0.18]
-        ${isCenter ? 'lg:scale-[1.03] lg:shadow-2xl lg:shadow-white/[0.02]' : ''}
-      `}
-      style={{ transformStyle: 'preserve-3d' }}
-    >
-      <GlowingEffect
-        spread={40}
-        glow={true}
-        disabled={false}
-        proximity={64}
-        inactiveZone={0.01}
-        borderWidth={2}
-      />
-
-      {/* Browser chrome */}
-      <div className="flex items-center gap-2.5 px-4 py-2 border-b border-white/[0.05] bg-[#0d0d0f]/80 backdrop-blur-md">
-        <div className="flex gap-[6px]">
-          <div className="w-[10px] h-[10px] rounded-full bg-[#ff5f57]/70 transition-colors duration-200 group-hover:bg-[#ff5f57]" />
-          <div className="w-[10px] h-[10px] rounded-full bg-[#febc2e]/70 transition-colors duration-200 group-hover:bg-[#febc2e]" />
-          <div className="w-[10px] h-[10px] rounded-full bg-[#28c840]/70 transition-colors duration-200 group-hover:bg-[#28c840]" />
-        </div>
-        <div className="flex-1 h-[22px] rounded-lg bg-white/[0.03] max-w-[180px] mx-auto flex items-center justify-center gap-1.5">
-          <svg className="w-3 h-3 text-white/20" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-            <path strokeLinecap="round" strokeLinejoin="round" d="M12 11c0-1.1.9-2 2-2h2a2 2 0 012 2v1a2 2 0 01-2 2h-2a2 2 0 01-2-2v-1z" />
-            <path strokeLinecap="round" strokeLinejoin="round" d="M5 5h14a2 2 0 012 2v10a2 2 0 01-2 2H5a2 2 0 01-2-2V7a2 2 0 012-2z" />
-          </svg>
-          <div className="h-[5px] w-14 rounded-full bg-white/[0.06]" />
-        </div>
-        <div className="w-[62px] flex justify-end gap-1.5">
-          <div className="w-[14px] h-[14px] rounded-sm bg-white/[0.04]" />
-          <div className="w-[14px] h-[14px] rounded-sm bg-white/[0.04]" />
-        </div>
-      </div>
-
-      {/* Video content area */}
-      <div className="relative aspect-[16/10] overflow-hidden bg-[#080809]">
-        <video
-          ref={videoRef}
-          src={design.videoSrc}
-          autoPlay
-          loop
-          muted
-          playsInline
-          preload="metadata"
-          className="w-full h-full object-cover object-top"
-        />
-
-        {/* Soft vignette edges */}
-        <div className="pointer-events-none absolute inset-0 shadow-[inset_0_0_30px_rgba(0,0,0,0.3)]" />
-        <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/25 via-transparent to-black/10" />
-      </div>
-
-      {/* Label overlay — bottom of card */}
-      <div className="absolute bottom-0 left-0 right-0 pointer-events-none">
-        <div className="flex items-center justify-between px-5 py-3 bg-gradient-to-t from-black/70 via-black/30 to-transparent">
-          <span className="text-[0.72rem] font-medium tracking-[0.15em] uppercase text-white/60">
-            {design.label}
-          </span>
-          <div
-            className="w-1.5 h-1.5 rounded-full opacity-60"
-            style={{ backgroundColor: design.accentColor }}
-          />
-        </div>
-      </div>
-
-      {/* Accent glow on hover */}
-      <div
-        className="pointer-events-none absolute -bottom-6 left-1/2 -translate-x-1/2 w-2/3 h-20 rounded-full blur-3xl opacity-0 group-hover:opacity-40 transition-opacity duration-700"
-        style={{ backgroundColor: design.accentColor }}
-      />
-    </div>
-  )
+/* ─── Shortest offset between two indices in a ring ─────────── */
+function ringOffset(from: number, to: number) {
+  // returns offset in [-1, 0, 1] (or [-floor(n/2) .. floor(n/2)])
+  let diff = to - from
+  if (diff > TOTAL / 2) diff -= TOTAL
+  if (diff < -TOTAL / 2) diff += TOTAL
+  return diff
 }
 
 /* ─── Main Component ─────────────────────────────────────────── */
 
 export function WebShowcase() {
   const sectionRef = useRef<HTMLElement>(null)
+  const videoEls = useRef<(HTMLVideoElement | null)[]>([])
+  const [activeIndex, setActiveIndex] = useState(0)
+  const isAnimating = useRef(false)
+  const activeRef = useRef(0) // mirror of activeIndex for use in callbacks
 
+  const slideTo = useCallback((rawIndex: number) => {
+    if (isAnimating.current) return
+    const newIndex = ((rawIndex % TOTAL) + TOTAL) % TOTAL
+    if (newIndex === activeRef.current) return
+
+    isAnimating.current = true
+
+    // Pause all, play new center
+    videoEls.current.forEach((v, i) => {
+      if (!v) return
+      if (i === newIndex) {
+        v.currentTime = 0
+        v.play().catch(() => {})
+      } else {
+        v.pause()
+      }
+    })
+
+    activeRef.current = newIndex
+    setActiveIndex(newIndex)
+
+    setTimeout(() => {
+      isAnimating.current = false
+    }, 850)
+  }, [])
+
+  // Play first video on mount
+  useEffect(() => {
+    const first = videoEls.current[0]
+    if (first) {
+      first.play().catch(() => {})
+    }
+  }, [])
+
+  // Attach ended listener to the active video
+  useEffect(() => {
+    const video = videoEls.current[activeIndex]
+    if (!video) return
+
+    const onEnded = () => {
+      slideTo(activeIndex + 1)
+    }
+    video.addEventListener('ended', onEnded)
+    return () => video.removeEventListener('ended', onEnded)
+  }, [activeIndex, slideTo])
+
+  // Section entrance animation
   useEffect(() => {
     if (!sectionRef.current) return
 
     const ctx = gsap.context(() => {
-      // Header reveal
       const headings = Array.from(
         sectionRef.current!.querySelectorAll('.section-reveal')
       )
@@ -185,42 +121,16 @@ export function WebShowcase() {
         },
       })
 
-      // Cards entrance — staggered with depth
-      const cards = Array.from(
-        sectionRef.current!.querySelectorAll<HTMLElement>('.web-card')
-      )
-
-      cards.forEach((card, i) => {
-        // Entrance animation
-        gsap.from(card, {
-          y: 100 + i * 20,
-          opacity: 0,
-          scale: 0.9,
-          rotateY: i === 0 ? 6 : i === 2 ? -6 : 0,
-          duration: 1.1,
-          delay: i * 0.15,
-          ease: 'power3.out',
-          scrollTrigger: {
-            trigger: cards[0] || sectionRef.current,
-            start: 'top 88%',
-            toggleActions: 'play none none none',
-          },
-          onComplete: () => {
-            card.style.transform = ''
-          },
-        })
-
-        // Parallax drift
-        gsap.to(card, {
-          y: i === 1 ? -25 : -12,
-          ease: 'none',
-          scrollTrigger: {
-            trigger: sectionRef.current,
-            start: 'top bottom',
-            end: 'bottom top',
-            scrub: 0.5,
-          },
-        })
+      gsap.from('.carousel-wrapper', {
+        y: 80,
+        opacity: 0,
+        duration: 1,
+        ease: 'power3.out',
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: 'top 70%',
+          toggleActions: 'play none none none',
+        },
       })
     }, sectionRef)
 
@@ -230,7 +140,7 @@ export function WebShowcase() {
   return (
     <section ref={sectionRef} className="relative py-16 md:py-28 px-[5vw]">
       <div className="max-w-7xl mx-auto">
-        {/* Section header — centered for premium feel */}
+        {/* Section header */}
         <div className="text-center mb-16 md:mb-20">
           <span className="section-reveal inline-block text-[0.7rem] font-semibold tracking-[0.25em] uppercase text-violet-400/70 mb-5">
             Web Development
@@ -243,17 +153,117 @@ export function WebShowcase() {
           </p>
         </div>
 
-        {/* Showcase grid — 3 cards, center elevated */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-6 lg:items-center">
-          {WEB_DESIGNS.map((design, i) => (
-            <div
-              key={i}
-              className={`web-card group ${i === 1 ? 'lg:-mt-4' : 'lg:mt-4'}`}
-              style={{ perspective: '1000px' }}
-            >
-              <VideoCard design={design} isCenter={i === 1} />
-            </div>
-          ))}
+        {/* Carousel */}
+        <div className="carousel-wrapper relative overflow-hidden">
+          {/* Edge fades */}
+          <div className="pointer-events-none absolute left-0 top-0 bottom-0 w-20 md:w-36 z-10 bg-gradient-to-r from-[#09090b] to-transparent" />
+          <div className="pointer-events-none absolute right-0 top-0 bottom-0 w-20 md:w-36 z-10 bg-gradient-to-l from-[#09090b] to-transparent" />
+
+          {/* Cards — each card is a stable DOM element, positioned via left% */}
+          <div className="relative w-full" style={{ paddingBottom: `${CARD_WIDTH * (9 / 16) + 6}%` }}>
+            {WEB_DESIGNS.map((design, i) => {
+              const offset = ringOffset(activeIndex, i)
+              const isCenter = offset === 0
+              const leftPos = getCardLeft(offset)
+              // Hide cards that are too far away (won't happen with 3, but safe)
+              const isVisible = Math.abs(offset) <= 2
+
+              return (
+                <div
+                  key={i}
+                  className="absolute top-0 cursor-pointer"
+                  style={{
+                    width: `${CARD_WIDTH}%`,
+                    left: `${leftPos}%`,
+                    transform: isCenter ? 'scale(1)' : 'scale(0.9)',
+                    zIndex: isCenter ? 3 : 2 - Math.abs(offset),
+                    opacity: isVisible ? 1 : 0,
+                    transition: 'left 0.8s cubic-bezier(0.25, 0.1, 0.25, 1), transform 0.7s ease-out, opacity 0.5s ease',
+                  }}
+                  onClick={() => {
+                    if (!isCenter) slideTo(i)
+                  }}
+                >
+                  {/* Card */}
+                  <div
+                    className={`
+                      relative overflow-hidden rounded-[20px] border
+                      transition-[border-color,box-shadow,opacity] duration-700 ease-out
+                      ${isCenter
+                        ? 'border-white/[0.15] shadow-2xl shadow-white/[0.04] opacity-100'
+                        : 'border-white/[0.06] opacity-40'
+                      }
+                    `}
+                  >
+                    {/* Browser chrome */}
+                    <div className="flex items-center gap-2.5 px-4 py-2.5 border-b border-white/[0.05] bg-[#0d0d0f]/80 backdrop-blur-md">
+                      <div className="flex gap-[6px]">
+                        <div className="w-[11px] h-[11px] rounded-full bg-[#ff5f57]/70" />
+                        <div className="w-[11px] h-[11px] rounded-full bg-[#febc2e]/70" />
+                        <div className="w-[11px] h-[11px] rounded-full bg-[#28c840]/70" />
+                      </div>
+                      <div className="flex-1 h-[24px] rounded-lg bg-white/[0.03] max-w-[200px] mx-auto flex items-center justify-center gap-1.5">
+                        <div className="h-[5px] w-16 rounded-full bg-white/[0.06]" />
+                      </div>
+                      <div className="w-[62px] flex justify-end gap-1.5">
+                        <div className="w-[14px] h-[14px] rounded-sm bg-white/[0.04]" />
+                        <div className="w-[14px] h-[14px] rounded-sm bg-white/[0.04]" />
+                      </div>
+                    </div>
+
+                    {/* Video */}
+                    <div className="relative aspect-[16/9] overflow-hidden bg-[#080809]">
+                      <video
+                        ref={(el) => { videoEls.current[i] = el }}
+                        src={design.videoSrc}
+                        muted
+                        playsInline
+                        preload="auto"
+                        className="w-full h-full object-cover object-top"
+                      />
+                      <div className="pointer-events-none absolute inset-0 shadow-[inset_0_0_40px_rgba(0,0,0,0.4)]" />
+                      <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-black/10" />
+                      {!isCenter && <div className="absolute inset-0 bg-black/30 transition-opacity duration-700" />}
+                    </div>
+
+                    {/* Label */}
+                    <div className="absolute bottom-0 left-0 right-0 pointer-events-none">
+                      <div className="flex items-center justify-between px-5 py-3.5 bg-gradient-to-t from-black/80 via-black/40 to-transparent">
+                        <span className="text-[0.75rem] font-medium tracking-[0.15em] uppercase text-white/70">
+                          {design.label}
+                        </span>
+                        <div
+                          className="w-2 h-2 rounded-full transition-opacity duration-700"
+                          style={{
+                            backgroundColor: design.accentColor,
+                            opacity: isCenter ? 0.8 : 0.3,
+                          }}
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              )
+            })}
+          </div>
+
+          {/* Dot indicators */}
+          <div className="flex justify-center gap-2.5 mt-8">
+            {WEB_DESIGNS.map((_, i) => (
+              <button
+                key={i}
+                onClick={() => slideTo(i)}
+                className={`
+                  rounded-full transition-all duration-500
+                  ${i === activeIndex
+                    ? 'w-8 h-2 bg-violet-400/70'
+                    : 'w-2 h-2 bg-white/20 hover:bg-white/40'
+                  }
+                `}
+                aria-label={`Go to slide ${i + 1}`}
+              />
+            ))}
+          </div>
         </div>
 
         {/* CTA */}

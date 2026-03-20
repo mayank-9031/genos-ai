@@ -13,7 +13,7 @@ const CASES = [
     tag: 'SaaS / USA',
     title: 'AI-Powered Lead Qualification System',
     description:
-      'Automated inbound lead processing for a US-based SaaS company. AI agents scored, qualified, and routed 2,000+ leads/month — reducing sales team workload by 60% and cutting response time from 4 hours to under 3 minutes.',
+      'Automated inbound lead processing for a US-based SaaS company. AI agents scored, qualified, and routed 2,000+ leads/month, reducing sales team workload by 60% and cutting response time from 4 hours to under 3 minutes.',
     results: ['60% less manual work', '47x faster response', '35% more conversions'],
     icon: BarChart3,
     gradient: 'from-white/8 to-white/3',
@@ -33,7 +33,7 @@ const CASES = [
     tag: 'Logistics / Australia',
     title: 'Internal Ops Dashboard & Automation Suite',
     description:
-      'Designed and deployed a custom internal tool for an Australian logistics company. Automated order tracking, dispatch notifications, invoice generation, and reporting — replacing 4 separate SaaS subscriptions.',
+      'Designed and deployed a custom internal tool for an Australian logistics company. Automated order tracking, dispatch notifications, invoice generation, and reporting, replacing 4 separate SaaS subscriptions.',
     results: ['4 tools → 1', '12 hrs/week saved', '$2,400/mo saved'],
     icon: LayoutDashboard,
     gradient: 'from-white/6 via-white/4 to-transparent',
@@ -81,7 +81,7 @@ export function CaseStudies() {
   }, [])
 
   return (
-    <section ref={sectionRef} id="case-studies" className="relative py-16 md:py-24 px-[5vw]">
+    <section ref={sectionRef} id="case-studies" className="relative py-16 md:py-24 px-[5vw]" aria-label="GenosAI Case Studies and Results">
       <div className="max-w-7xl mx-auto">
         <span className="section-reveal block text-[0.7rem] font-semibold tracking-[0.2em] uppercase text-violet-400/70 mb-4">
           The Work Speaks
@@ -90,7 +90,7 @@ export function CaseStudies() {
           50+ projects. Real systems.<br />Measurable results.
         </h2>
         <p className="section-reveal text-[1.05rem] leading-[1.65] text-white/50 max-w-[55ch] mb-10">
-          We don&apos;t just build — we ship systems that change how businesses operate. Here&apos;s a look at what we&apos;ve delivered.
+          We don&apos;t just build. We ship systems that change how businesses operate. Here&apos;s a look at what we&apos;ve delivered.
         </p>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">

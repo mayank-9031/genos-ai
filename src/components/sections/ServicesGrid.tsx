@@ -10,39 +10,39 @@ gsap.registerPlugin(ScrollTrigger)
 
 const AI_SERVICES = [
   {
-    title: 'AI Chatbot – Intelligent Assistant',
+    title: 'AI Chatbot Development: Intelligent Virtual Assistants',
     description:
-      'An advanced conversational assistant for businesses, which not only answers user questions using internal data but also consults carefully selected external sources to deliver comprehensive and accurate results. Furthermore, the assistant can be adjusted in tone, style, and response behaviour to align with brand identity, thereby improving decision-making and efficiency.',
+      'GenosAI builds advanced conversational AI chatbots that answer user questions using internal data and carefully selected external sources to deliver comprehensive, accurate results. Each chatbot is customisable in tone, style, and response behaviour to align with your brand identity, improving decision-making and operational efficiency across your organisation.',
     imageSrc: '/images/services/ai-chatbot.avif',
   },
   {
-    title: 'Voice AI – Smart Communication Engine',
+    title: 'Voice AI Agents: Smart Calling & Communication',
     description:
-      'A voice-powered AI system for businesses, which not only automates outbound calls but also qualifies leads and books meetings at scale. Moreover, the system integrates directly with your CRM, ensuring every conversation is logged, tracked, and actionable — thereby freeing your team to focus on closing deals.',
+      'GenosAI develops voice-powered AI systems that automate outbound calls, qualify leads, and book meetings at scale. Every voice agent integrates directly with your CRM, ensuring conversations are logged, tracked, and actionable, freeing your team to focus on closing deals instead of dialling numbers.',
     imageSrc: '/images/services/voice-ai.avif',
   },
   {
-    title: 'Business Ops – Workflow Automation',
+    title: 'Workflow Automation: End-to-End Business Ops',
     description:
-      'An end-to-end workflow automation platform for businesses, in which users connect CRMs, ERPs, spreadsheets, and internal tools to eliminate manual data entry. Moreover, custom dashboards provide real-time visibility into operations, thereby reducing overhead, streamlining approvals, and improving team efficiency across the board.',
+      'GenosAI builds end-to-end workflow automation platforms that connect CRMs, ERPs, spreadsheets, and internal tools to eliminate manual data entry. Custom dashboards provide real-time visibility into operations, reducing overhead, streamlining approvals, and improving team efficiency across the board.',
     videoSrc: '/videos/services/business-ops.mp4',
   },
   {
-    title: 'Outreach & Marketing Engine',
+    title: 'AI Marketing Automation: Outreach & Campaign Engine',
     description:
-      'An AI-powered marketing automation system for businesses, which not only runs automated email sequences but also handles intelligent lead scoring and campaign triggers. Moreover, smart analytics track and optimise every customer touchpoint automatically, ensuring your marketing budget delivers maximum ROI consistently.',
+      'GenosAI creates AI-powered marketing automation systems that run automated email sequences, handle intelligent lead scoring, and trigger campaigns based on user behaviour. Smart analytics track and optimise every customer touchpoint automatically, ensuring your marketing budget delivers maximum ROI consistently.',
     imageSrc: '/images/services/ai-image-gen.avif',
   },
   {
-    title: 'AI Lead Qualification Engine',
+    title: 'AI Lead Qualification: Automated Scoring & Routing',
     description:
-      'An automated lead processing system for businesses, in which inbound prospects are scored, qualified, and routed in real-time. Moreover, the engine follows a structured scoring framework, thereby ensuring consistency and reliability. In addition, response times drop from hours to seconds, dramatically boosting conversion rates.',
+      'GenosAI develops automated lead processing systems where inbound prospects are scored, qualified, and routed in real-time. The engine follows a structured scoring framework for consistency and reliability, cutting response times from hours to seconds and dramatically boosting conversion rates.',
     imageSrc: '/images/services/ai-decision.avif',
   },
   {
-    title: 'Custom AI Solutions',
+    title: 'Custom AI Development: Bespoke Enterprise Solutions',
     description:
-      'A bespoke AI development service for businesses, in which users submit unique requirements and then receive production-grade AI systems built from the ground up. Moreover, each solution is designed to scale with your growth, ensuring long-term value. In addition, it covers everything from computer vision to NLP pipelines.',
+      'GenosAI provides bespoke AI development services, building production-grade systems from the ground up to meet your unique requirements. Each solution is designed to scale with your growth, covering everything from computer vision and NLP pipelines to recommendation engines and automated decision systems.',
     imageSrc: '/images/services/ai-search.avif',
   },
 ]
@@ -143,19 +143,18 @@ export function ServicesGrid() {
   }, [])
 
   return (
-    <section ref={sectionRef} id="services" className="relative">
+    <section ref={sectionRef} id="services" className="relative" aria-label="GenosAI AI Automation Services">
       {/* Centered section header */}
       <div className="px-[5vw] pt-20 md:pt-28 lg:pt-36 pb-12 md:pb-16 text-center">
         <div className="max-w-4xl mx-auto">
           <h2 className="section-reveal font-display text-[clamp(2rem,4.5vw,3.8rem)] font-normal leading-[1.08] tracking-[-0.02em] text-text-on-dark mb-6">
-            Smart AI Products Built for Every Business
+            AI Automation Services by GenosAI
           </h2>
           <p className="section-reveal text-[1.05rem] leading-[1.7] text-white/50 max-w-[60ch] mx-auto">
-            We create intelligent AI products for businesses worldwide, all of which are
-            specifically designed to solve real business challenges. Moreover, from
-            automating repetitive tasks to generating actionable insights, our solutions
-            enhance experiences, are adaptable, reliable, and built to meet the unique
-            needs of every organisation.
+            GenosAI builds intelligent AI products for businesses worldwide, from custom chatbots
+            and voice AI agents to end-to-end workflow automation and lead qualification systems.
+            Every solution is designed to solve real business challenges, automate repetitive tasks,
+            and deliver actionable insights that scale with your organisation.
           </p>
         </div>
       </div>

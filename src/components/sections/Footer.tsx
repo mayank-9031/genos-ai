@@ -1,6 +1,6 @@
 'use client'
 
-import { Linkedin, Twitter, Instagram, Youtube } from 'lucide-react'
+import { Linkedin, Twitter } from 'lucide-react'
 import { smoothScrollTo } from '@/lib/smoothScroll'
 
 const NAV_LINKS = [
@@ -22,10 +22,8 @@ const SERVICE_LINKS = [
 ]
 
 const SOCIALS = [
-  { icon: Linkedin, label: 'LinkedIn', href: 'https://linkedin.com/company/genosai' },
-  { icon: Twitter, label: 'X (Twitter)', href: 'https://x.com/genosai' },
-  { icon: Instagram, label: 'Instagram', href: 'https://instagram.com/genosai' },
-  { icon: Youtube, label: 'YouTube', href: 'https://youtube.com/@genosai' },
+  { icon: Linkedin, label: 'LinkedIn', href: 'https://www.linkedin.com/company/genosai' },
+  { icon: Twitter, label: 'X (Twitter)', href: 'https://x.com/AiGenos81577' },
 ]
 
 export function Footer() {
@@ -42,8 +40,8 @@ export function Footer() {
             >
               Genos<span className="text-white">AI</span>
             </a>
-            <p className="text-[0.85rem] leading-[1.6] text-white/40 max-w-[28ch]">
-              AI automation for businesses that refuse to operate manually.
+            <p className="text-[0.85rem] leading-[1.6] text-white/40 max-w-[34ch]">
+              GenosAI is a global AI automation agency building custom AI chatbots, voice agents, and workflow systems for businesses across the USA, UK, UAE, India, and Australia.
             </p>
           </div>
 
@@ -91,10 +89,10 @@ export function Footer() {
             <ul className="flex flex-col gap-3">
               <li>
                 <a
-                  href="mailto:hello@genosai.com"
+                  href="mailto:hello@genosai.tech"
                   className="text-[0.88rem] text-white/50 hover:text-white transition-colors"
                 >
-                  hello@genosai.com
+                  hello@genosai.tech
                 </a>
               </li>
             </ul>

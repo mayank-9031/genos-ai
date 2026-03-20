@@ -8,16 +8,16 @@ import { InfiniteSlider } from '@/components/ui/infinite-slider'
 gsap.registerPlugin(ScrollTrigger)
 
 const AI_MODELS = [
-  { name: 'OpenAI', logo: 'https://cdn.simpleicons.org/openai/10a37f' },
+  { name: 'OpenAI', logo: '/images/icons/openai.svg' },
   { name: 'Claude AI', logo: 'https://cdn.simpleicons.org/anthropic/d97757' },
   { name: 'Google Gemini', logo: 'https://cdn.simpleicons.org/googlegemini/8E75B2' },
   { name: 'Meta', logo: 'https://cdn.simpleicons.org/meta/0668E1' },
-  { name: 'Mistral', logo: 'https://cdn.simpleicons.org/mistral/f7d046' },
+  { name: 'Mistral', logo: 'https://cdn.simpleicons.org/mistralai/f7d046' },
   { name: 'Vercel', logo: 'https://cdn.simpleicons.org/vercel/ffffff' },
   { name: 'Supabase', logo: 'https://cdn.simpleicons.org/supabase/3ecf8e' },
   { name: 'GitHub', logo: 'https://cdn.simpleicons.org/github/ffffff' },
   { name: 'Nvidia', logo: 'https://cdn.simpleicons.org/nvidia/76b900' },
-  { name: 'AWS', logo: 'https://cdn.simpleicons.org/amazonwebservices/ff9900' },
+  { name: 'AWS', logo: '/images/icons/aws.svg' },
   { name: 'Docker', logo: 'https://cdn.simpleicons.org/docker/2496ED' },
   { name: 'Next.js', logo: 'https://cdn.simpleicons.org/nextdotjs/ffffff' },
   { name: 'React', logo: 'https://cdn.simpleicons.org/react/61dafb' },
@@ -31,7 +31,7 @@ const STEPS = [
     number: '01',
     title: 'AI Models & Intelligence',
     description:
-      'We leverage the most advanced AI models available — from OpenAI GPT-4o and Anthropic Claude to Google Gemini, Meta LLaMA, Mistral, and DeepSeek. Each project uses the model best suited to your specific requirements, ensuring accuracy, speed, and reliability.',
+      'We leverage the most advanced AI models available, from OpenAI GPT-4o and Anthropic Claude to Google Gemini, Meta LLaMA, Mistral, and DeepSeek. Each project uses the model best suited to your specific requirements, ensuring accuracy, speed, and reliability.',
     tools: 'OpenAI, Anthropic Claude, Google Gemini, Meta LLaMA, Mistral, DeepSeek, ElevenLabs, Whisper',
   },
   {
@@ -45,7 +45,7 @@ const STEPS = [
     number: '03',
     title: 'Development & Infrastructure',
     description:
-      'Every system we build is production-grade from the start. We use modern frameworks and cloud infrastructure designed for performance, security, and scale — ensuring your AI solutions run reliably under real-world conditions.',
+      'Every system we build is production-grade from the start. We use modern frameworks and cloud infrastructure designed for performance, security, and scale, ensuring your AI solutions run reliably under real-world conditions.',
     tools: 'Next.js, React, Node.js, Python, FastAPI, PostgreSQL, Supabase, Vercel, AWS, Docker',
   },
 ]
@@ -155,11 +155,11 @@ export function TechStack() {
             Powered by the Best
           </span>
           <h2 className="font-display text-[clamp(2rem,4.5vw,3.5rem)] font-normal leading-[1.05] tracking-[-0.02em] text-text-on-dark mb-4">
-            The tools behind the systems.
+            GenosAI Technology Stack
           </h2>
           <p className="text-[1.05rem] leading-[1.65] text-white/50 max-w-[55ch] mx-auto">
-            Our solutions leverage the most advanced AI models and frameworks to deliver accurate,
-            reliable, and high-performing results for your business.
+            GenosAI leverages the most advanced AI models, automation frameworks, and cloud infrastructure
+            to deliver accurate, reliable, and high-performing results for your business.
           </p>
         </div>
 
