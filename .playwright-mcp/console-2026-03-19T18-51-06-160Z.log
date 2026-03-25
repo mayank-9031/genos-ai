@@ -1,3 +1,0 @@
-[    2235ms] [ERROR] Permissions policy violation: picture-in-picture is not allowed in this document. @ https://www.orfeoai.com/wp-content/themes/orfeoai/js/plugins.min.js?ver=6.9:14
-[    8227ms] [WARNING] updating from  119 to  116 @ https://www.orfeoai.com/wp-content/plugins/pe-core/assets/js/pe-spline.iife.js?ver=6.9:3138
-[    8227ms] [WARNING] Your .splinecode file is more recent than the library. Please upgrade @splinetool/runtime to the latest version. @ https://www.orfeoai.com/wp-content/plugins/pe-core/assets/js/pe-spline.iife.js?ver=6.9:8173

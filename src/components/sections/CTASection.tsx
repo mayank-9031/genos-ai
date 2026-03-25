@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useMemo, useRef, useState } from 'react'
+import Link from 'next/link'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { motion } from 'framer-motion'
@@ -88,12 +89,12 @@ export function CTASection() {
           Book a free strategy call with GenosAI. We&apos;ll audit your workflows, identify the highest-impact automations, and show you exactly what&apos;s possible.
         </p>
         <div className="cta-reveal">
-          <a
-            href="mailto:hello@genosai.tech?subject=Free%20Strategy%20Call"
+          <Link
+            href="/strategy-call"
             className="inline-block px-10 py-4 text-[0.9rem] font-semibold tracking-[0.08em] uppercase bg-white text-[#0A0A0F] rounded-full transition-all hover:-translate-y-0.5 hover:shadow-[0_8px_40px_rgba(255,255,255,0.15)]"
           >
             Book Your Free Strategy Call
-          </a>
+          </Link>
         </div>
         <p className="cta-reveal mt-6 text-[0.85rem] text-white/30">
           Or email us directly: <a href="mailto:hello@genosai.tech" className="text-white/50 hover:text-white transition-colors">hello@genosai.tech</a>

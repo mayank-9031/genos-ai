@@ -1,5 +1,5 @@
 {
-  "name": "rm-agency",
+  "name": "genosai",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -28,6 +28,7 @@
     "react": "19.2.3",
     "react-dom": "19.2.3",
     "react-use-measure": "^2.1.7",
+    "resend": "^6.9.4",
     "shadcn": "^4.0.2",
     "tailwind-merge": "^3.5.0",
     "three": "^0.183.2",
