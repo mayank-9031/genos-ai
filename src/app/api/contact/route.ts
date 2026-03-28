@@ -30,8 +30,8 @@ export async function POST(request: Request) {
     const safeMessage = escapeHtml(message).replace(/\n/g, '<br>')
 
     const { error } = await resend.emails.send({
-      from: 'GenosAI Contact Form <onboarding@resend.dev>',
-      to: 'rohanxmalik06@gmail.com',
+      from: 'GenosAI Contact Form <hello@genosai.tech>',
+      to: 'hello@genosai.tech',
       replyTo: email,
       subject: `New Strategy Call Request from ${safeName}`,
       html: `
