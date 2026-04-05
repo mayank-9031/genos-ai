@@ -11,6 +11,7 @@ import {
   getReviewSchema,
   getWebPageSchema,
 } from "@/lib/structured-data";
+import { WhatsAppWidget } from "@/components/WhatsAppWidget";
 import "./globals.css";
 
 const instrumentSerif = Instrument_Serif({
@@ -123,9 +124,6 @@ export default function RootLayout({
       </head>
       <body
         className={`${instrumentSerif.variable} font-body bg-bg-dark text-text-on-dark overflow-x-hidden antialiased`}
-        style={{
-          fontFamily: "'Satoshi', var(--font-sans, system-ui, sans-serif)",
-        }}
       >
         <LoadingScreen />
         <EtheralShadowBg />
@@ -138,6 +136,7 @@ export default function RootLayout({
           }}
         />
         <SmoothScrollProvider>{children}</SmoothScrollProvider>
+        <WhatsAppWidget />
       </body>
     </html>
   );
