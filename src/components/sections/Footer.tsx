@@ -7,7 +7,6 @@ import { smoothScrollTo } from '@/lib/smoothScroll'
 const NAV_LINKS = [
   { label: 'Services', href: '#services' },
   { label: 'How We Work', href: '#process' },
-  { label: 'Case Studies', href: '#case-studies' },
   { label: 'About', href: '/about' },
   { label: 'Blog', href: '/blog' },
   { label: 'Contact', href: '#contact' },

@@ -31,7 +31,7 @@ export async function POST(request: Request) {
 
     const { error } = await resend.emails.send({
       from: 'GenosAI Contact Form <hello@genosai.tech>',
-      to: 'hello@genosai.tech',
+      to: 'rohan@genosai.tech',
       replyTo: email,
       subject: `New Strategy Call Request from ${safeName}`,
       html: `

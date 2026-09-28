@@ -4,7 +4,6 @@ import { ServicesGrid } from '@/components/sections/ServicesGrid'
 import { WebShowcase } from '@/components/sections/WebShowcase'
 import { ProcessSteps } from '@/components/sections/ProcessSteps'
 import { WhyGenosAI } from '@/components/sections/WhyGenosAI'
-import { Testimonials } from '@/components/sections/Testimonials'
 import { TechStack } from '@/components/sections/TechStack'
 import { About } from '@/components/sections/About'
 import { FAQ } from '@/components/sections/FAQ'
@@ -23,7 +22,6 @@ export default function Home() {
         <WhyGenosAI />
         <TechStack />
         <About />
-        <Testimonials />
         <FAQ />
         <CTASection />
         <Footer />
