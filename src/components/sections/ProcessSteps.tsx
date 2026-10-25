@@ -122,15 +122,6 @@ export function ProcessSteps() {
             ))}
           </div>
         </div>
-
-        <div className="mt-14">
-          <a
-            href="#contact"
-            className="inline-block px-8 py-4 text-[0.85rem] font-semibold tracking-[0.08em] uppercase bg-white text-[#0A0A0F] rounded-full transition-all hover:-translate-y-0.5 hover:shadow-[0_8px_30px_rgba(255,255,255,0.12)]"
-          >
-            Start Your Project
-          </a>
-        </div>
       </div>
     </section>
   )

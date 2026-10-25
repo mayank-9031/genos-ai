@@ -1,0 +1,268 @@
+---
+title: "From anonymous listing to warm investor intro, run by AI."
+seoTitle: "AI Deal Sourcing and Fundraising Pipeline for an Investment Platform"
+slug: "ai-deal-sourcing-pipeline"
+description: "How GenosAI spent three months building the AI engine behind an AI-native investment platform in India: deal sourcing across marketplaces and social media, five-layer company verification, personalised founder outreach, and a fundraising agent on WhatsApp that takes founders from first chat to investor introduction."
+industry: "Investment platform"
+category: "AI deal sourcing"
+year: "2026"
+readTime: "10 min"
+order: 3
+tags: ["deal sourcing", "verification", "WhatsApp"]
+stats:
+  - value: "3"
+    label: "months, three connected systems shipped"
+  - value: "6"
+    label: "sources: three deal marketplaces, LinkedIn, X and news"
+  - value: "5"
+    label: "verification checks before any founder is contacted"
+  - value: "230"
+    label: "investors in the client's matching network (client-reported)"
+note: "Client name withheld. The investor and founder counts are as published by the client on its own website."
+---
+
+## The short version
+
+The client matches companies that are raising capital or open to a sale with investors whose thesis fits. Over three months we built the AI systems that find those companies, verify them, reach their founders, and then carry each founder from a first LinkedIn message to a booked investor call.
+
+<CardGrid>
+<Card kicker="System 1" title="Deal sourcing and verification">Scrapers across three marketplaces, five verification checks, and personalised outreach to each verified founder.</Card>
+<Card kicker="System 2" title="Founder signal monitoring">LinkedIn posts, articles and X, scanned worldwide for founders who are raising, open to selling, or going through company events.</Card>
+<Card kicker="System 3" title="Fundraising agent on WhatsApp">Founder intake, document analysis, a diligence-ready data room, investor matching and double opt-in introductions.</Card>
+</CardGrid>
+
+| Detail | Engagement |
+| --- | --- |
+| Client | AI-native investment platform, India (name withheld) |
+| Duration | Three months |
+| Deal sources | IndiaBizForSale and MergerDomo (India), DealStream and DealStream Premium founder data (US) |
+| Signal sources | LinkedIn posts, news and articles, X (Twitter), worldwide |
+| Verification | Two-model AI consensus, website and domain checks, company registry lookup, Apollo and LinkedIn firmographic cross-check, human review |
+| Stack | Python, Selenium over Bright Data, n8n, Google Gemini, OpenAI GPT-4.1-mini, Apollo API, Gmail, Google Sheets, WhatsApp, voice calls, calendar booking |
+
+> In deal flow, a wrong match costs more than a missed one. So every company is checked five ways before anyone writes to its founder.
+
+## Deal flow was manual at every step
+
+The client's model depends on two things: a steady supply of companies that want capital or an exit, and a way to move each founder quickly from first contact to a credible investor introduction.
+
+Both were manual. Companies for sale sit on marketplaces that hide the seller's name. Founders who are raising or thinking about an exit say so in LinkedIn posts, interviews and on X, scattered across the internet. And once a founder engaged, preparing them for investors meant reading decks, chasing documents, building a data room and answering diligence questions by hand.
+
+<CardGrid>
+<Card title="Anonymous listings">The most valuable fact, which company it is, is the one fact marketplaces leave out.</Card>
+<Card title="Signals everywhere">Selling and raising signals appear in posts and articles across countries, not in one database.</Card>
+<Card title="Wrong matches are costly">Writing to the wrong founder about selling their company damages trust fast.</Card>
+<Card title="Generic outreach fails">Founders ignore templated emails. Each message had to show the sender knew the business.</Card>
+<Card title="Slow investor readiness">Decks, financials and diligence answers took weeks of back-and-forth per founder.</Card>
+<Card title="Trust on both sides">Founders need anonymity until they choose otherwise; investors need pre-qualified deals.</Card>
+</CardGrid>
+
+## Three systems, one deal flow
+
+Sourcing and signals feed verified companies into outreach. Founders who respond, or who come in directly, move into the fundraising agent, which carries them through to investor introductions.
+
+- **System 1, deal sourcing and verification.** Three marketplaces are scraped with Python over Bright Data, and DealStream Premium founder data comes in directly. n8n identifies and verifies each company (two-model consensus, website, registry, Apollo and LinkedIn, then human review), writes enriched records to the deal sheet, and drafts personal outreach over LinkedIn and Gmail for a person to approve.
+- **System 2, founder signals.** LinkedIn, news and X feed an AI signal classifier that sorts mentions into open to selling, raising capital and company events. Strong signals join verification.
+- **System 3, fundraising agent on WhatsApp.** Founders who reply, or arrive directly, move through six stages: learn (chat, call or deck), analyse (valuation, pitch, red flags), package (anonymous brief, data room), match (thesis, stage, cheque, fit score), introduce (double opt-in, call booked) and close (follow-ups, diligence Q&A).
+
+Founders get WhatsApp intake, voice calls, document upload and weekly raise updates. Investors set up their thesis and receive matched anonymous briefs with fit scores, answer "interested" or "pass", and can ask the agent questions. The data room has an auto-sorted diligence index, per-investor permissions, watermarking, expiry and view tracking. Founder identity stays hidden until both sides opt in, and real people stand behind every introduction.
+
+## Five checks before a founder hears from us
+
+Every candidate company passes the same gauntlet. A failure at any step stops the record before outreach, so the team never writes to a founder on a guess.
+
+1. **Two-model AI consensus.** Gemini and GPT-4.1-mini each name up to three candidate companies; only names both agree on continue.
+2. **Website and domain check.** The matched company's site must be live and consistent with the listing's sector and location.
+3. **Company registry lookup.** Registered entity, type and age checked against what the listing claims.
+4. **Apollo and LinkedIn cross-check.** Headcount, location and industry compared with the listing.
+5. **Human review.** An analyst approves the match before outreach.
+
+| Check | What it catches |
+| --- | --- |
+| AI consensus | Plausible-sounding companies that only one model believed |
+| Website and domain | Dead sites, parked domains and businesses in the wrong sector or city |
+| Company registry | Entities that don't exist, or whose type and age don't match the listing |
+| Apollo and LinkedIn | Companies far larger or smaller than the listing describes |
+| Human review | Anything that looks right on paper but wrong to someone who knows the market |
+
+DealStream Premium listings already include founder details, so those records skip identification and go straight to the remaining checks.
+
+## Two models, one answer
+
+Language models are good at reading a listing and naming businesses that fit. They are also good at naming a business that sounds right but isn't. So no single model's answer is trusted.
+
+1. **Same brief to both models.** Each listing's description, location, asking price, cash flow, sales and URL go to Gemini and GPT-4.1-mini with an identical research prompt.
+2. **Structured candidates.** Each model researches the listing and returns up to three companies as strict JSON: name, website, country, industry and its reasoning. If it finds nothing real, it returns an empty list.
+3. **Consensus.** Code compares the two lists. Only companies named by both models are kept. Names only one model found are logged both ways, for review.
+4. **Enrich and deliver.** The agreed company's domain goes to Apollo for firmographics, and the full record is written to the deal sheet.
+
+The research brief each model receives, abridged:
+
+```text
+You are a business intelligence research assistant specialised in M&A and
+business listings verification. Identify real existing companies that match
+the listing.
+1. Infer the likely industry, geography and keywords.
+2. Run a focused web search.
+3. Return up to three verified companies, each with:
+   company_name, website, country, industry, reasoning
+Only output valid JSON. If no real company can be found, return [].
+```
+
+The consensus step:
+
+```js
+// keep only companies both models named
+const matches         = gemini.filter(c => gpt.includes(c));
+const missingInGPT    = gemini.filter(c => !gpt.includes(c));
+const missingInGemini = gpt.filter(c => !gemini.includes(c));
+```
+
+Prompt and code shown as implemented in the client's workflow, lightly abridged.
+
+## One run, end to end
+
+These figures come from a single production run on IndiaBizForSale, filtered to IT and technology businesses across India: **107 listings captured**, 106 of them cleanly with 1 page failure logged, in **84 minutes** of total run time with no one watching, with **10 structured fields** per listing.
+
+### Software, e-commerce and IT services made up 76% of the run
+
+| Industry | Listings |
+| --- | --- |
+| Software development, service and support | 29 |
+| E-commerce, platforms and websites | 27 |
+| IT (other) | 25 |
+| IT solutions | 9 |
+| BPO, KPO and call centre | 5 |
+| IT hardware, repair and service | 5 |
+| Website design and hosting | 4 |
+| IT education and coaching | 2 |
+
+### Most prices sat between ₹5 and ₹25 Cr
+
+Asking price for the 71 listings that disclosed one (median ₹10 Cr):
+
+| Asking price | Listings |
+| --- | --- |
+| ₹5–10 Cr | 25 |
+| ₹10–25 Cr | 30 |
+| ₹25–50 Cr | 8 |
+| ₹50 Cr+ | 8 |
+
+### Almost two in three wanted a full sale
+
+| What sellers said they were open to | Listings |
+| --- | --- |
+| Full sale | 67 |
+| Raising funds | 34 |
+| Investment | 4 |
+| Other | 2 |
+
+### Where the deals were, and what they looked like
+
+Mumbai, Bangalore, Hyderabad and Ahmedabad held half the listings.
+
+| City | Listings |
+| --- | --- |
+| Mumbai | 19 |
+| Bangalore | 13 |
+| Hyderabad | 11 |
+| Ahmedabad | 11 |
+| Delhi | 7 |
+| Pune | 7 |
+| Chennai | 5 |
+| Kolkata | 5 |
+
+A typical company in the run had a median of **48 staff** (from 100 listings that disclosed headcount) and was founded in **2014** (median; range 1980 to 2025, across 104 listings). **80** were private limited companies, with 13 sole proprietors, 8 partnerships and 4 public companies. **103** were still running; 3 were marked dormant, so they can be deprioritised.
+
+Figures are from the run's captured dataset. Listings that did not disclose a price are excluded from the price table only.
+
+### Other sources in the pipeline
+
+| Marketplace | Market | What the scraper captures |
+| --- | --- | --- |
+| IndiaBizForSale | India | Industry, location, asking price, entity type, year started, deal intent, sales, employees, EBITDA, operating status, description |
+| MergerDomo | India | Heading, description and the full proposal details for each deal |
+| DealStream | US | Title, description, header facts and 12 detail fields per listing (price, cash flow, sales and more) |
+
+## Personal outreach, and founders found before they list
+
+### Personalised outreach
+
+Once a company passes verification, n8n builds a founder profile from the listing, the website, the enrichment data and any public posts, then drafts a LinkedIn message and a follow-up email specific to that founder. Nothing goes out until a person has checked the match and approved the message.
+
+> Hi Priya,
+>
+> I came across your listing for a B2B logistics SaaS in Pune and your recent post about growing the team past 40. Building recurring revenue in that segment since 2016 is not easy.
+>
+> We work with investors who back exactly this kind of company. If you're open to it, I'd be glad to share how we'd position the business with them.
+>
+> Best regards
+
+<Caption>LinkedIn message to the founder, approved by the deal team. Illustrative; names and details invented for this example.</Caption>
+
+- Founder profile assembled automatically per company.
+- First touch is a LinkedIn message, sent only after human approval.
+- Personalised follow-up emails sent through the team's Gmail.
+- Every message logged against the deal record; DealStream Premium founder data used where available.
+
+### Founder signal monitoring
+
+Not every founder who wants to sell or raise has listed yet. This system scans public LinkedIn posts, news and articles, and X worldwide, and classifies each mention into one of three signal types. Strong signals are verified and enriched like any marketplace lead.
+
+| Signal | What it looks like | What happens next |
+| --- | --- | --- |
+| Open to selling | Founder posts about stepping back, succession, "next chapter", or exploring options | Company identified, verified, routed to M&A outreach |
+| Raising capital | Posts or articles about a new round, hiring ahead of a raise, or meeting investors | Routed to the fundraising agent's founder pipeline |
+| Company events | Leadership changes, expansions, new markets, or signs of distress | Logged on the company record to time outreach well |
+
+## A fundraising team that lives in WhatsApp
+
+Founders talk to the agent the way they'd talk to a banker: on WhatsApp, by voice call, or by sending a deck. The agent does the analysis, builds the materials, finds the investors and books the meetings, with people at the client behind every introduction.
+
+| Stage | For the founder | What we built behind it |
+| --- | --- | --- |
+| Learn | Say hi on WhatsApp, share a deck, or take a voice call | WhatsApp and voice intake that builds a structured company profile |
+| Analyse | Valuation read, pitch review, red-flag check, readiness score | Document analysis with comparables, strengths and fixes, and a diligence-readiness percentage |
+| Package | An anonymised investor brief and a data room ready for diligence | Files sent on WhatsApp sorted into a diligence index (corporate, financials, commercial, legal and IP, team), with gaps flagged |
+| Match | A shortlist of investors, with reasons | Matching on thesis, stage, sector, cheque size, geography and past deals, with a fit score per investor |
+| Introduce | Introductions only when both sides say yes | Double opt-in flow, identity revealed only after mutual interest, call booked automatically |
+| Close | Diligence questions answered, weekly updates | AI-drafted answers from the founder's own documents with citations, founder approval before sending, Monday progress updates |
+
+**Data room controls:** per-investor folder permissions, watermarked downloads, expiry and revocation, and view tracking, so founders always know who has seen what.
+
+On the client's platform today: **230** investors in the matching network, **100+** founders spoken to in two weeks, and a **two-way opt-in** on every introduction. Figures as published by the client on its own website.
+
+## What changed: from manual deal hunting to an AI-run pipeline
+
+| Step | Before | After |
+| --- | --- | --- |
+| Finding companies | Browsing marketplaces by hand | Repeatable scrapes of three marketplaces, plus DealStream Premium founder data |
+| Finding founders early | Stumbling on posts | Continuous monitoring of LinkedIn, news and X for selling, raising and company-event signals |
+| Identifying the company | An analyst's best guess | Two AI models research it independently and must agree |
+| Trusting the match | One person's judgement | Five checks: AI consensus, website, registry, firmographics, human review |
+| Reaching the founder | Templated emails, or none | LinkedIn messages and emails written from each founder's profile, sent only after a person approves them |
+| Getting investor-ready | Weeks of decks and document chasing | A WhatsApp agent that analyses, packages and builds the data room |
+| Introductions | Manual matching and email threads | Thesis-based matching, double opt-in, and calls booked by the agent |
+
+<CardGrid>
+<Card title="For the deal team">Verified companies and founder context arrive in one sheet. Time goes into conversations, not research.</Card>
+<Card title="For founders and investors">Founders get a banker on WhatsApp. Investors get pre-qualified, anonymous deals that match their thesis.</Card>
+</CardGrid>
+
+## Three lessons from this build
+
+<CardGrid>
+<Card title="Verify in layers">AI consensus, hard data checks and a human sign-off each catch a different kind of mistake. Together they make it safe to reach founders at scale.</Card>
+<Card title="Structure beats prose">Strict JSON from every model made results comparable, checkable by code, and ready for a sheet or a data room.</Card>
+<Card title="Meet people where they are">Founders already live in WhatsApp. Putting the whole fundraising process there removed the biggest barrier to starting.</Card>
+</CardGrid>
+
+## The same pattern fits any team that researches at scale
+
+Collect messy sources, extract structure, verify with independent checks, enrich, act, and deliver to where people already work. It applies wherever teams spend their days reading, classifying and checking information by hand.
+
+<CardGrid>
+<Card title="Research teams">Turn large volumes of text, responses or documents into structured, verified datasets.</Card>
+<Card title="Investment and M&A">Source, verify and screen companies against a thesis before an analyst opens a listing.</Card>
+<Card title="Market intelligence">Track signals across the web and turn them into verified, enriched records.</Card>
+</CardGrid>

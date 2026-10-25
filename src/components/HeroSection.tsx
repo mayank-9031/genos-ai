@@ -2,6 +2,7 @@
 
 import { useEffect, useMemo, useRef, useState } from "react";
 import gsap from "gsap";
+import Link from "next/link";
 import { motion } from "framer-motion";
 import { Card } from "@/components/ui/card";
 import { Spotlight } from "@/components/ui/spotlight";
@@ -181,13 +182,12 @@ export function HeroSection() {
               to eliminate manual operations and scale with your growth.
             </p>
             <div className="hero-cta flex flex-wrap gap-4 mt-10 justify-center">
-              <a
-                href="#contact"
-                onClick={smoothScrollTo}
+              <Link
+                href="/strategy-call"
                 className="inline-block px-8 py-4 text-[0.9rem] font-semibold tracking-[0.06em] uppercase bg-white text-[#0A0A0F] rounded-full transition-all hover:-translate-y-0.5 hover:shadow-[0_8px_40px_rgba(255,255,255,0.15)]"
               >
                 Book a Free Strategy Call
-              </a>
+              </Link>
               <a
                 href="#services"
                 onClick={smoothScrollTo}

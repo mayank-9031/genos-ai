@@ -73,7 +73,7 @@ export default function Image() {
           }}
         >
           {[
-            { value: '43', label: 'Projects Delivered' },
+            { value: '23', label: 'Projects Delivered' },
             { value: '2026', label: 'Founded' },
             { value: '5', label: 'Countries' },
           ].map((stat) => (

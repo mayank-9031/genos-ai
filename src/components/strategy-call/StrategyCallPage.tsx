@@ -4,7 +4,7 @@ import { useEffect, useRef, useState, type FormEvent, type ChangeEvent } from 'r
 import Link from 'next/link'
 import gsap from 'gsap'
 import { motion, AnimatePresence } from 'framer-motion'
-import { ArrowLeft, CheckCircle2, Mail, Shield, Zap, Users } from 'lucide-react'
+import { CheckCircle2, Mail, Shield, Zap, Users } from 'lucide-react'
 import { SmokeBackground } from '@/components/ui/spooky-smoke-animation'
 
 interface FormData {
@@ -26,7 +26,7 @@ const initialFormData: FormData = {
 }
 
 const TRUST_STATS = [
-  { value: '43', label: 'Projects Delivered', icon: Zap },
+  { value: '23', label: 'Projects Delivered', icon: Zap },
   { value: '5', label: 'Countries Served', icon: Users },
   { value: '2-6 wks', label: 'Typical Delivery', icon: Shield },
 ]
@@ -153,17 +153,6 @@ export default function StrategyCallPage() {
       <div className="fixed top-0 right-0 w-8 h-8 lg:w-10 lg:h-10 border-t border-r border-white/15 z-30 pointer-events-none" />
       <div className="fixed bottom-0 left-0 w-8 h-8 lg:w-10 lg:h-10 border-b border-l border-white/15 z-30 pointer-events-none" />
       <div className="fixed bottom-0 right-0 w-8 h-8 lg:w-10 lg:h-10 border-b border-r border-white/15 z-30 pointer-events-none" />
-
-      {/* Back navigation */}
-      <nav className="fixed top-5 left-5 z-30" aria-label="Back navigation">
-        <Link
-          href="/"
-          className="form-reveal inline-flex items-center gap-2 text-white/50 hover:text-white transition-colors duration-200 text-sm backdrop-blur-md bg-white/[0.04] px-4 py-2 rounded-full border border-white/[0.08] hover:border-white/[0.15] cursor-pointer min-h-[44px]"
-        >
-          <ArrowLeft size={16} />
-          <span>Back</span>
-        </Link>
-      </nav>
 
       {/* Content layer — vertically + horizontally centered on tunnel vanishing point */}
       <div className="relative z-10 flex flex-col items-center justify-center min-h-dvh px-4 sm:px-6 py-16">

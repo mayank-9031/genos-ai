@@ -125,7 +125,7 @@ export function About() {
                 Our core services include AI chatbot development, voice AI cold-calling agents, workflow automation, AI-powered marketing and outreach, lead qualification systems, and custom enterprise AI solutions. Every system we build integrates with existing tools like CRMs, ERPs, and communication platforms, and is designed to run independently in production from day one.
               </p>
               <p className="section-reveal text-[0.95rem] leading-[1.7] text-white/50">
-                Our founder has worked with 43 clients across 5 countries, shipping production AI systems end to end. GenosAI is where that work scales.
+                Our founder has worked with 23 clients across 5 countries, shipping production AI systems end to end. GenosAI is where that work scales.
               </p>
               <p className="section-reveal text-[1rem] leading-[1.7] text-text-on-dark font-display italic">
                 We don&apos;t chase hype. We ship systems that work.

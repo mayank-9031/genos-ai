@@ -87,7 +87,7 @@ export function CaseStudies() {
           The Work Speaks
         </span>
         <h2 className="section-reveal font-display text-[clamp(2rem,4vw,3.5rem)] font-normal leading-[1.05] tracking-[-0.02em] text-text-on-dark mb-4">
-          43 projects. Real systems.<br />Measurable results.
+          23 projects. Real systems.<br />Measurable results.
         </h2>
         <p className="section-reveal text-[1.05rem] leading-[1.65] text-white/50 max-w-[55ch] mb-10">
           We don&apos;t just build. We ship systems that change how businesses operate. Here&apos;s a look at what we&apos;ve delivered.

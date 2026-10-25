@@ -528,7 +528,7 @@ export function Navbar() {
         </a>
 
         {/* Desktop nav + CTA */}
-        <div className="flex items-center gap-10 text-[0.85rem] font-medium text-white tracking-[0.04em]">
+        <div className="flex items-center gap-6 xl:gap-10 text-[0.85rem] font-medium text-white tracking-[0.04em]">
           {navItems.map((item) => (
             <NavbarItem
               key={item.title}
@@ -542,6 +542,12 @@ export function Navbar() {
             className="hidden md:inline whitespace-nowrap hover:text-white/70 transition-colors"
           >
             ABOUT US
+          </Link>
+          <Link
+            href="/case-studies"
+            className="hidden md:inline whitespace-nowrap hover:text-white/70 transition-colors"
+          >
+            CASE STUDIES
           </Link>
           <Link
             href="/blog"
@@ -602,6 +608,9 @@ export function Navbar() {
               )}
               <Link href="/about" onClick={() => setMobileOpen(false)}>
                 ABOUT US
+              </Link>
+              <Link href="/case-studies" onClick={() => setMobileOpen(false)}>
+                CASE STUDIES
               </Link>
               <Link href="/blog" onClick={() => setMobileOpen(false)}>
                 BLOG

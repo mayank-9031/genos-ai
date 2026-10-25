@@ -1,0 +1,267 @@
+---
+title: "Uncertainty-aware visual inventory reconciliation for edge-deployed warehouse AI."
+seoTitle: "Edge AI Inventory Verification for a Warehouse Vision Platform"
+slug: "edge-ai-inventory-verification"
+description: "How GenosAI built a verification module that runs alongside a US warehouse-intelligence company's vision platform. It scores how far each camera observation can be trusted, reconciles conflicting frames over time, asks the robot for another look when the evidence is weak, and only raises an inventory exception when it can stand behind it."
+industry: "Warehouse inventory"
+category: "Edge AI and computer vision"
+year: "2026"
+readTime: "12 min"
+order: 5
+tags: ["computer vision", "edge AI", "calibration"]
+stats:
+  - value: "99.7%"
+    label: "fewer false alerts than trusting the best frame (301 to 0.8 per 1,000 events)"
+  - value: "100%"
+    label: "of planted discrepancies surfaced: 99% as alerts, the rest via review"
+  - value: "0.17→0.12"
+    label: "average calibration error on five unseen camera conditions, raw model vs trust score"
+  - value: "191 KB"
+    label: "INT8 model on ONNX Runtime, 4.8 ms per 12-crop frame on 2 CPU threads"
+note: "Client name withheld, United States. Results come from rendered warehouse scenes and a simulated event stream, not the client's production footage."
+---
+
+## The short version
+
+The client's platform turns warehouse camera footage into inventory records using vision-language models running on edge devices. A detection on its own doesn't say whether the record should be trusted. We built a module that sits beside the existing system and answers that question, without replacing any part of it.
+
+<CardGrid>
+<Card kicker="Layer 1" title="Trust scoring">Every observation gets a calibrated probability of being right, from model confidence, distance to known products and image quality.</Card>
+<Card kicker="Layer 2" title="Temporal reasoning">Detections are tracked across frames, pooled per camera pass, and combined across independent looks.</Card>
+<Card kicker="Layer 3" title="Exceptions and evidence">Records are checked against the expected item, location and event sequence. Weak evidence against a record triggers a re-scan before anyone is alerted.</Card>
+</CardGrid>
+
+| Detail | Engagement |
+| --- | --- |
+| Client | Warehouse inventory-visibility company, United States (name withheld) |
+| Users | The client's ML and product teams; their customers' inventory-control staff through the exception queue |
+| Inputs | Detections from the existing vision system (boxes, labels and scores, embeddings, timestamps, locations), inventory events, SKU metadata |
+| Outputs | Verified or flagged records, re-scan requests to the camera robot, a human review queue, calibration and alert metrics |
+| Stack | Python, PyTorch, OpenCV, Hungarian-assignment tracking, temporal evidence fusion, ONNX Runtime (FP32 and INT8), FastAPI, Docker |
+| Evaluation data | Rendered warehouse scenes (28 SKUs, 6 camera conditions) and a simulated 14-day inventory-event stream, with held-out conditions and product families |
+
+> A detection is a claim, not a fact. Decide what it's worth before anyone acts on it.
+
+## Cameras report what they see, not what is there
+
+Warehouse cameras work through stretch wrap, forklifts, dim aisles and steep angles, and many products look almost identical. A vision model will still return its best guess, often with confidence it hasn't earned. Turn that guess straight into an inventory record and errors spread; alert on every mismatch and staff stop reading the alerts.
+
+| Figure | What it means |
+| --- | --- |
+| 65% | of 370,000 inventory records at one US retailer were inaccurate (1) |
+| ≥99.5% | location-level inventory accuracy is the best-in-class bar for distribution centres (2) |
+| Confident ≠ right | modern neural networks are often poorly calibrated (3) |
+| 13% | of observations correct in low light, from our stand-in model (4) |
+
+### What had to be solved
+
+<CardGrid>
+<Card title="Occlusion">Forklifts, people and other pallets hide part of the label in some frames.</Card>
+<Card title="Lighting">Dim aisles and stretch-wrap glare produce frames the model was never trained on.</Card>
+<Card title="Look-alike products">Sibling SKUs share colour and print, and differ only in a logo or barcode.</Card>
+<Card title="Viewpoint">Top racks are seen at steep angles that distort what the model relies on.</Card>
+<Card title="New products">Items the model has never seen must not be forced into a known SKU.</Card>
+<Card title="Edge budget">Everything has to run on small devices next to the existing model.</Card>
+</CardGrid>
+
+Sources: (1) N. DeHoratius, A. Raman, "Inventory Record Inaccuracy: An Empirical Analysis", *Management Science*, 2008; one retailer, not an industry rate. (2) WERC DC Measures 2025, via a Yale infographic. (3) C. Guo et al., "On Calibration of Modern Neural Networks", ICML 2017. (4) Our benchmark, held-out low-light condition.
+
+## Alongside the vision platform, not instead of it
+
+The client's detector keeps doing what it does. The module reads its output stream, decides how far each observation can be trusted, and writes back a verdict, a request for another look, or a case for a person.
+
+The **existing client platform stays unchanged**: cameras and a scanning robot feed a vision-language model on the edge, which writes inventory records and events. The **GenosAI verification module** runs as an edge sidecar next to it, in three stages:
+
+1. **Trust scoring.** An operating-envelope check (exposure, sharpness, glare), nearest-neighbour distance to known products, and a calibrated trust model.
+2. **Temporal reasoning.** Hungarian assignment of detections to rack slots, frames pooled per camera pass, and independent looks combined. Conflicts are kept, not averaged away.
+3. **Reconciliation.** The expected item, slot and event sequence are compared with the evidence. For new SKUs the module checks occupancy only and never guesses identity. Thresholds were frozen before testing.
+
+Every slot ends in one of four outcomes: **confirm the record** when the evidence agrees, **raise an exception** on confident disagreement, **request evidence** so the robot returns, stops and lights the slot to re-capture it, or send it to **human review** when it's still unresolved.
+
+- **Packaging:** the trust model and fusion run as a FastAPI sidecar in Docker next to the detector; the image model is exported to ONNX Runtime.
+- **Deployment:** FP32 and INT8 builds measured for latency, throughput and memory under 1, 2 and 4 CPU threads.
+- **Quality:** unit tests for calibration, tracking, fusion, simulation and ONNX parity run on every change.
+
+| Direction | Per detection or slot |
+| --- | --- |
+| Reads | Camera and pass id, timestamp, rack position estimate, class scores, visual embedding, the image crop for quality checks; the expected item and recent events for that slot |
+| Writes | Verdict (confirm or exception) with fused confidence and the frames behind it; re-scan request with slot and reason; review case when evidence runs out |
+| Never | Changes the detector, its weights or its outputs. The module only judges and routes |
+
+## A benchmark the module had never seen
+
+Production footage stays with the client, so this evaluation uses rendered warehouse scenes and a simulated event stream, built so that the hard cases are real: look-alike products, unseen products and camera conditions outside anything used in training.
+
+The same nine rack slots were rendered under six conditions: **nominal** (the training range), and five held-out conditions, **low light, oblique angle, heavy occlusion, glare and motion blur**. Each set holds an empty slot, two pairs of look-alike siblings, two more SKUs, and two products from families never used in training.
+
+| Set | Size | What's in it |
+| --- | --- | --- |
+| Training | 9,660 images | Nominal conditions, 22 SKUs plus empty |
+| Calibration | 3,480 images | Moderate degradation, 6 calibration-only new products |
+| Test | 8,700 images | Fresh images, 6 conditions, 6 unseen SKUs |
+| Stand-in model | 173k parameters | A CNN trained in 4.3 minutes on CPU |
+
+The stand-in model plays the client's detector, so the module has realistic, imperfect observations to judge. Thresholds were tuned on one simulated fortnight, then frozen. The final results come from another fortnight and fresh image sets that played no part in development.
+
+## Layer 1: knowing which observations to believe
+
+Each observation gets a trust score: the probability it is correct, learned from model confidence, nearest-neighbour distance to known products and image-quality cues. Frames further outside the training conditions (exposure, sharpness, glare) than anything seen in calibration are capped at the accuracy measured at the calibration set's edge, whatever the model says.
+
+Trusted observations are right far more often, except in the darkest light:
+
+| Condition | Model alone: share correct | With trust gate: share of accepted correct | Accepted |
+| --- | --- | --- | --- |
+| Nominal | 79% | 99% | 80% |
+| Low light | 13% | 13% | 27% |
+| Oblique angle | 77% | 97% | 73% |
+| Heavy occlusion | 64% | 92% | 42% |
+| Glare | 70% | 90% | 63% |
+| Motion blur | 72% | 89% | 73% |
+
+**What didn't work:** temperature scaling, the standard fix, was fitted on in-domain data and made calibration worse on unseen conditions (average error 0.17 raw, 0.24 scaled). The trust score brings it to 0.12 and beats the raw model in each of the five. New products were taught with 6 calibration-only products; in clear conditions 97% of never-seen products are flagged as unknown (AUROC 0.99996, 0.85 across all conditions).
+
+Low light stays hard: the darkest frames still get more trust than they deserve (13% of accepted low-light frames are right). The module still raised no false alerts from low light on the test fortnight: a dark pass rarely carries enough trust to clear the alert bar, so it gets re-scanned instead. Pooled into a single number the raw model looks better calibrated (0.05 vs 0.07), because its over- and under-confidence in different conditions cancel out.
+
+## Layer 2: ten frames from one pass are one opinion
+
+Frames from the same camera pass share the same lighting, angle and occluders, so their mistakes are correlated. The module pools them into one view per pass. A pass of clear, trusted frames can confirm a record or raise an alert on its own; a pass of poor frames can't, however many frames it has, and needs an independent second look.
+
+| Measure | Result |
+| --- | --- |
+| Detections | 20,464 over 14 nightly passes of 384 rack slots |
+| Association | 99.7% of detections assigned to the right slot |
+| Re-scans | 57 a night across 384 slots (319 per 1,000 events) |
+| To a person | 16 of 1,572 uncertain slot-nights: 733 settled by re-scan, 823 waited for a clearer pass |
+
+**How we got here:** our first version treated frames as independent. A dark aisle produced several confident, identical mistakes for the same slot, and they compounded into 139 false alerts per 1,000 events. Pooling per pass removed that failure, but sent 936 re-scan requests per 1,000 events.
+
+The final version re-scans only where weak evidence disagrees with the record. Where weak evidence agrees, the slot can wait up to three nights for a clearer pass. Re-scans fell to 319 per 1,000 events. Without re-scans, 624 slot checks per 1,000 events would need a person; with them, 6.3.
+
+| What triggered re-scans | Share |
+| --- | --- |
+| Low light | 50% |
+| Motion blur | 35% |
+| Occlusion | 7% |
+| Oblique angle | 5% |
+| Glare | 2% |
+| Slot not detected | 1% |
+| Clear but conflicting | 1% |
+
+85% came from the dark aisle and fast passes: fix those and the load drops.
+
+## Layer 3: fewer false alarms, without missing the real ones
+
+Over a simulated fortnight of 2,520 inventory events with 71 planted errors (108 affected slot records), each approach compared camera evidence with the inventory record every night.
+
+| Approach | Caught as alert | Caught incl. review | Alert precision | False alerts per 1K | Reviews per 1K |
+| --- | --- | --- | --- | --- | --- |
+| Trust the best frame | 100% | 100% | 12% | 301.2 | 2.4 |
+| Majority vote across frames | 100% | 100% | 12% | 324.2 | 2.4 |
+| Module, no re-scans | 81% | 100% | 99% | 0.4 | 623.8 |
+| **Full module** | **99%** | **100%** | **98%** | **0.8** | **6.3** |
+
+| Planted error | Slot records | Best-frame alerts | Module alerts | Module incl. review |
+| --- | --- | --- | --- | --- |
+| Move recorded, never done | 49 | 49 | 49 | 49 |
+| Wrong SKU put away (look-alike) | 23 | 23 | 23 | 23 |
+| Item placed, no record | 11 | 11 | 11 | 11 |
+| Put away in the wrong slot | 7 | 7 | 6 | 7 |
+| Item removed, no record | 5 | 5 | 5 | 5 |
+
+Thresholds (confirm at 0.60, alert at 0.80) were chosen on a separate development fortnight: the cheapest setting, counting a human review as ten robot re-scans and a false alert as thirty, that still raised at least 95% of discrepancies as alerts with at most 2 false alerts per 1,000 events. The 2 remaining false alerts on the test fortnight were both on slots holding a newly introduced product the model doesn't know.
+
+## What the team sees, and why
+
+Every verdict carries its evidence: the frames used, how far each was trusted, and what the record expected. These are real frames and decisions from the test fortnight.
+
+### Look-alike SKU caught: exception
+
+Day 1, slot 140: the record says SKU 11; the slot actually holds SKU 12, its sibling. Three clear, trusted frames from the nightly pass agreed (trust 0.95, 0.95 and 0.92, each reading SKU 12), so the module raised an exception that night with 89% fused confidence.
+
+### Doubt settled by a re-scan: match
+
+Day 1, slot 96: the record (SKU 14) was right, but a forklift blocked part of the label and the best frame read it as its look-alike, SKU 13.
+
+| Frame | Condition | Trust | Read as |
+| --- | --- | --- | --- |
+| Nightly pass | Occlusion | 0.52 | SKU 14 |
+| Nightly pass | Occlusion | 0.89 | SKU 13 |
+| Nightly pass | Occlusion | 0.66 | SKU 13 |
+| Re-scan | Clear | 0.95 | SKU 14 |
+| Re-scan | Clear | 0.94 | SKU 14 |
+
+A best-frame system would have alerted. The module asked the robot for another look; two clear re-scan frames confirmed the record at 96%.
+
+### New product, not forced into a known SKU: match
+
+Day 1, slot 4: a newly introduced product the model has never seen (SKU 23). The best single frame called it SKU 20 (one clear frame at trust 0.85, three glare frames at 0.90, 0.90 and 0.71) and would have alerted; the module checks occupancy only for products outside its catalogue, and confirmed the slot.
+
+## Small enough to sit next to the detector
+
+The image model behind the trust score was exported to ONNX Runtime in FP32 and INT8, then measured in fresh processes under 1, 2 and 4 CPU threads. A frame holds about 12 detections, so the 12-crop batch is the number that matters.
+
+| Build | Threads | 1 crop, P50 / P95 (ms) | 12 crops (ms) | Crops per second |
+| --- | --- | --- | --- | --- |
+| FP32 | 1 | 0.71 / 0.89 | 8.2 | 1,464 |
+| FP32 | 2 | 0.37 / 0.53 | 4.1 | 2,952 |
+| FP32 | 4 | 0.24 / 0.37 | 2.2 | 5,561 |
+| INT8 | 1 | 0.78 / 0.86 | 9.0 | 1,327 |
+| INT8 | 2 | 0.46 / 0.52 | 4.8 | 2,491 |
+| INT8 | 4 | 0.29 / 0.38 | 2.7 | 4,376 |
+
+| Measure | Result |
+| --- | --- |
+| Model size | 191 KB INT8, down from 680 KB in FP32 |
+| Memory | ≤13 MB added by the INT8 session at a 12-crop batch |
+| INT8 agreement | 97.0% same top-1 as FP32; accuracy 78.4% vs 78.9% |
+| End to end | 3.9 ms per frame on the host: inference, quality checks, search, trust |
+
+**Two honest findings.** First, the INT8 build agreed with FP32 on only 78% of test crops until we enabled reduced-range quantisation, a known saturation issue on x86 CPUs without VNNI instructions; now 97%. Second, on this laptop CPU INT8 is 28% of the size but not faster; the speed gain depends on integer dot-product support on the target chip.
+
+Measured on an AMD Ryzen 5 4600H laptop CPU limited to 1, 2 and 4 threads, ONNX Runtime CPU provider, 12 configurations in separate processes, 400 timed runs each after warm-up. The client's target edge hardware was not available for this benchmark. FP32 export matches PyTorch to 5e-06. The end-to-end host figure was measured with PyTorch on all six laptop cores. Fusion and decision logic take 0.04 ms per slot in Python.
+
+## Measured, criterion by criterion
+
+| Criterion | How it is measured | Result on the test data |
+| --- | --- | --- |
+| Object identification precision and recall | Per observation on 8,700 test images, held-out conditions pooled; per slot in the simulation | Precision 59% raw vs 84% for trusted observations, at 59% recall; fused slot identity 99.9% correct where decided |
+| Discrepancy detection precision and recall | 108 discrepant slot records from planted errors over 14 days | 99% caught as alerts, 100% including review; alert precision 98% vs 12% for the best-frame baseline |
+| Confidence calibration error | Expected calibration error, 15 bins, mean over five held-out conditions | 0.17 raw, 0.24 temperature-scaled, 0.12 trust score |
+| False alerts per 1,000 inventory events | Alerts on slots whose record was correct | 0.8 vs 301.2 for the best-frame baseline |
+| Latency and memory | ONNX Runtime, thread-limited laptop CPU (target hardware not available) | 4.8 ms per 12-crop frame (INT8, 2 threads); ≤13 MB added; 191 KB model |
+| Automated tests | Calibration, tracking, fusion, simulation and ONNX parity suites | 31 of 31 passing |
+
+### How the design evolved
+
+| Version | Caught as alert | False alerts per 1K | Re-scans per 1K | Reviews per 1K |
+| --- | --- | --- | --- | --- |
+| 1 · Frames treated as independent, temperature scaling | 100% | 139 | 92 | 4 |
+| 2 · Pooled per pass, operating-envelope gate | 98% | 0 | 936 | 16 |
+| 3 · New-product calibration, targeted re-scans, cost-tuned thresholds | 99% | 0.8 | 319 | 6.3 |
+
+Each version measured on its own simulated fortnight; version 3 on one that played no part in development.
+
+### What this benchmark does not show
+
+- Performance on the client's own footage and vision-language model: the stand-in model and rendered scenes are simpler than real warehouses.
+- Latency on the target edge chip: figures are from a thread-limited laptop CPU.
+- Labour and robot time saved: review and re-scan counts are measured; the minutes behind them are not.
+- Verification delay: 823 slot-nights waited up to three nights for a clearer pass instead of a re-scan.
+
+## Three lessons from this build
+
+<CardGrid>
+<Card title="Calibrate for the conditions you'll meet">A fix tuned on clean data can make confidence worse in the dark. Image quality and distance to known products travel better.</Card>
+<Card title="Count independent looks, not frames">Ten frames from one dim pass are one opinion. Real evidence comes from a second, different look.</Card>
+<Card title="Ask before you alert">A cheap re-scan settles most doubts. People should only see what the system genuinely can't resolve.</Card>
+</CardGrid>
+
+## The same layer fits any vision system that feeds a record
+
+Score each observation, pool correlated evidence, ask for more when it's weak, and only then change a record or raise an alert. It works wherever cameras update a system of record.
+
+<CardGrid>
+<Card title="Retail">Shelf monitoring and planogram checks that don't flood stores with false gaps.</Card>
+<Card title="Manufacturing">Visual inspection that routes doubtful parts for a second look before rejecting.</Card>
+<Card title="Yards and ports">Trailer, container and asset tracking reconciled against the yard system.</Card>
+</CardGrid>

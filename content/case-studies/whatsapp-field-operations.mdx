@@ -1,0 +1,372 @@
+---
+title: "150+ field staff. 505 projects. One WhatsApp."
+seoTitle: "WhatsApp Field Operations Automation for a Pool Construction Company"
+slug: "whatsapp-field-operations"
+description: "How GenosAI turned a pool construction company's scattered WhatsApp chats into a structured operations system, without asking a single crew member to install a new app."
+industry: "Pool construction"
+category: "Field operations automation"
+year: "2026"
+readTime: "13 min"
+order: 1
+tags: ["WhatsApp", "field operations", "AI agents"]
+stats:
+  - value: "150+"
+    label: "employees across crews, supervisors and office"
+  - value: "505"
+    label: "completed projects before the system went live"
+  - value: "6"
+    label: "single-purpose agents running inside WhatsApp"
+  - value: "0"
+    label: "new apps the site crews had to install or learn"
+note: "Client name withheld. Chat examples are illustrative, with names and sites changed."
+---
+
+## The short version
+
+A pool construction company with 150+ people ran every site, crew and customer through personal WhatsApp chats. The owner was the switchboard. We built six WhatsApp agents and an owner dashboard on top of the chats the team already used. The crews kept replying the way they always had. The structure happened behind them.
+
+<CardGrid>
+<Card kicker="Challenge" title="Everything ran through one phone">Site updates, photos, attendance, tasks and customer questions were spread across dozens of chats. Nothing was searchable and nothing was tracked.</Card>
+<Card kicker="Solution" title="Six agents, one job each">Check-ins, site photos, tasks, reminders, customer updates and an owner view, all running on WhatsApp. No new app for anyone on site.</Card>
+<Card kicker="Outcome" title="The owner stopped routing">Updates arrive tagged to the right site and person. Late items are chased automatically. The owner deals with exceptions, not traffic.</Card>
+</CardGrid>
+
+| Detail | Engagement |
+| --- | --- |
+| Client | Pool construction and maintenance company (name withheld) |
+| Services | New pool builds, waterproofing, renovation, recurring maintenance contracts |
+| Team size | 150+ employees: site crews, supervisors, maintenance technicians, office and management |
+| Track record | 505 completed projects |
+| Channel | WhatsApp, the app every employee already used all day |
+| What we built | 6 WhatsApp agents, an operations database and an owner dashboard |
+| Rollout | Three phases: core site operations, then dashboard and reporting, then customer and maintenance automation |
+| Engagement model | Fixed-scope build, followed by an ongoing maintenance and support retainer |
+
+> Adoption beats features. Build where your team already lives.
+
+## A growing business, routed through one phone
+
+The company builds, waterproofs, renovates and maintains swimming pools. With 505 projects behind it and more than 150 people on the payroll, it runs several live sites at once while maintenance technicians work through recurring customer visits.
+
+All of that coordination ran on WhatsApp: personal chats, one group per site, forwarded photos and voice notes. That works for a team of ten. At 150 people it meant every question, update and approval passed through the owner. The owner had become the company's router.
+
+### A typical morning, before
+
+- Calls to find out who reached which site, and who didn't.
+- Progress photos arrive in five formats across five chats.
+- A customer asks for an update the owner has to go and chase.
+- A maintenance visit nobody wrote down gets missed.
+- A supervisor's end-of-day report lands after the problem has grown.
+
+### Where operations quietly broke
+
+<CardGrid>
+<Card title="Scattered threads">Photos and approvals across dozens of chats, unsearchable later.</Card>
+<Card title="Buried updates">Site news lost under forwards and personal messages.</Card>
+<Card title="Late reporting">Summaries hours late. Issues found after the damage.</Card>
+<Card title="No attendance record">No proof of who reached which site, or when.</Card>
+<Card title="No central view">No single screen showing every live site.</Card>
+<Card title="Manual chasing">Managers asking the same people for the same updates daily.</Card>
+<Card title="Inconsistent reports">Every supervisor used a different format.</Card>
+<Card title="Missed maintenance">Recurring visits lived in someone's head.</Card>
+</CardGrid>
+
+## What changed at the client
+
+| Before → after | What it means |
+| --- | --- |
+| 0 → 1 | Timestamped check-in per worker, per day. Sent at 6:30 AM, with location and a photo. |
+| 0 → 2 | Scheduled photo reports per site, per day. Filed by site, date and stage. |
+| Dozens → 1 | Places to look for a site photo. Every chat and group replaced by one archive. |
+| 0 → 2 | Automatic reminders before a person steps in. Then flagged to the supervisor. |
+| 0 → 1 | Screen that shows every live site. Who is where, what is late, which site needs a call. |
+| All → 0 | Customer updates the owner writes by hand. Stage photos and visit reminders send themselves. |
+
+### Why it matters across the industry
+
+Construction professionals lose 14.1 of 40.5 weekly hours (35%) to non-productive work. Here is how the average week breaks down, in hours:
+
+| Activity | Hours per week |
+| --- | --- |
+| Project execution | 11.2 |
+| Stakeholder communication | 8.2 |
+| Organizing the jobsite | 7.0 |
+| Hunting for data | 5.5 |
+| Conflict resolution | 4.7 |
+| Mistakes and rework | 3.9 |
+
+| Industry figure | What the client's system does |
+| --- | --- |
+| 5.5 hours per week hunting for project data | Every photo and report filed by site, date and stage in one archive |
+| 23% of overruns blamed on poor communication | Updates are requested on a schedule and chased automatically |
+| 52% of rework caused by poor data and miscommunication | Every task has an owner, a deadline, a status and a proof photo |
+
+Client figures come from the system's design and the client's scale. Industry figures: PlanGrid and FMI, *Construction Disconnected*, 2018 Industry Report, 599 respondents.
+
+## Our approach: build where the team already lives
+
+The obvious fix was a field-service app. We didn't build one. Site crews already had WhatsApp open all day. Any new app would need a download, a login and training, and adoption on site is where those tools usually fail.
+
+So the brief became: keep every conversation on WhatsApp, and put an operations layer behind it that captures, sorts, chases and reports.
+
+<CardGrid>
+<Card kicker="Principle" title="Don't move the crew">Workers check in, send photos and close tasks by replying to messages. One tap, a photo, or the word "done". No app, no password, no training session.</Card>
+<Card kicker="Principle" title="One agent, one job">Each agent owns a single workflow: attendance, site photos, tasks, reminders or customer updates. Small agents are easier to test, explain and fix than one agent that does everything.</Card>
+<Card kicker="Principle" title="The owner handles exceptions, not traffic">Routine messages are logged and filed without anyone reading them. Only what's late, missing or off-site reaches a manager's screen.</Card>
+<Card kicker="Principle" title="Prove it on a few sites first">Core check-ins and tasks went live with a pilot group before the dashboard and customer-facing automation were added. Each phase had to work before the next one started.</Card>
+</CardGrid>
+
+### What we mapped before writing any code
+
+| Question | What we looked at |
+| --- | --- |
+| Who talks to whom? | Every chat and group: crews to supervisors, supervisors to the owner, the owner to customers, office to maintenance technicians. |
+| Which messages matter? | Five recurring types: arrival on site, progress photos, task status, customer updates and maintenance scheduling. Everything else is conversation. |
+| Where does information die? | Photos never filed by site, reports with no fixed format, visit dates held in memory, and updates that depended on someone remembering to ask. |
+| What does the owner need to see? | Three things, every morning: who is where, what is late, and which site needs a call. |
+
+## How it's put together
+
+Five layers. People stay on WhatsApp at the top. Everything below them is invisible to the crews.
+
+| Layer | What's in it |
+| --- | --- |
+| People | Site crews, supervisors, maintenance techs, customers |
+| Channel | WhatsApp Business Platform: utility templates, interactive reply buttons, location messages, photos, video and voice notes |
+| Agents | Check-in, site-update, task, nudge and client agents, sharing sender lookup, message routing, a scheduler and escalation rules |
+| Data | Operations database (employees, sites, tasks, check-ins, reports, customers, contracts) and a media archive of photos and video by site and date |
+| View | Manager view (owner dashboard): who is where, what is late, which site needs a call, maintenance this week |
+
+### The life of one message
+
+1. **Receive.** A crew member replies, taps a button or sends a photo.
+2. **Identify.** The phone number is matched to an employee, their role and today's site.
+3. **Classify.** Check-in, site photo, task update or free text, so it goes to the right agent.
+4. **Store.** Saved with site, person, date, time and stage. Photos go to the archive.
+5. **Act.** The dashboard updates, follow-ups are scheduled and overdue items get flagged.
+
+## The six agents
+
+### Agent 01: Check-in agent
+
+Starts every working day. At 6:30 AM each worker gets a message with today's site and a one-tap check-in. The reply is timestamped when it arrives. A shared location and a site photo confirm the worker is physically there, which stops friends checking in for each other.
+
+- **Trigger:** scheduled, 6:30 AM, every worker on today's roster
+- **Crew effort:** one tap, then share location and a photo
+- **Captures:** arrival time, location, photo, assigned site
+- **Escalates:** missed check-ins go to the nudge agent, then to the manager view
+
+<Chat name="Ops Desk" initials="OP">
+<Msg time="6:30 AM">Good morning, Sam. Today's site: **Lakeview villa pool (Site 4)**. Tap when you arrive.</Msg>
+<Choice>I've arrived</Choice>
+<Choice>Running late</Choice>
+<Choice>Not working today</Choice>
+<Msg side="out" time="7:02 AM">I've arrived</Msg>
+<Photo>Location and site photo</Photo>
+<Msg time="7:03 AM">Checked in at Site 4, 7:02 AM. Have a good day.</Msg>
+</Chat>
+
+<Caption>Illustrative messages. Names and sites changed.</Caption>
+
+### Agent 02: Site-update agent
+
+Asks supervisors for progress photos twice a day and files every image by site, date and project stage. Supervisors still just send photos in the chat, but every report now comes in the same format and nothing gets lost in a group.
+
+- **Trigger:** two scheduled requests per day, per active site
+- **Crew effort:** send photos, pick the stage, add a note or voice note
+- **Captures:** photos, video, notes, stage, timestamp
+- **Feeds:** media archive, manager view, client agent stage updates
+
+<Chat name="Ops Desk" initials="OP">
+<Msg time="12:00 PM">Hi Luis, mid-shift update for **Hillside renovation (Site 2)**. Send 2 to 3 photos of today's work.</Msg>
+<Photo>coat 2 · corner</Photo>
+<Msg time="12:14 PM">Got 2 photos. Which stage is this?</Msg>
+<Choice>Waterproofing</Choice>
+<Choice>Tiling</Choice>
+<Choice>Plaster</Choice>
+<Msg side="out" time="12:15 PM">Waterproofing</Msg>
+<Msg time="12:15 PM">Filed under Site 2 · Waterproofing · today.</Msg>
+</Chat>
+
+<Caption>Illustrative messages. Names and sites changed.</Caption>
+
+### Agent 03: Task agent
+
+A manager creates a task with a site, an owner and a deadline. The worker gets it as a clear WhatsApp message and replies as the work moves. Every task carries a status, so "did anyone order the pump?" has an answer without a phone call.
+
+- **Statuses:** pending, in progress, delayed, done
+- **Crew effort:** tap a status, or reply "done" with a photo
+- **Captures:** owner, site, deadline, status history, proof photo
+- **Escalates:** past-deadline tasks go to the nudge agent and the manager view
+
+<Chat name="Ops Desk" initials="OP">
+<Msg time="8:10 AM">**New task**<br />Fit skimmer and return lines<br />Site 6 · Clubhouse pool<br />Due: Thursday, 5:00 PM</Msg>
+<Choice>Start now</Choice>
+<Choice>Need materials</Choice>
+<Choice>Can't do it</Choice>
+<Msg side="out" time="8:22 AM">Start now</Msg>
+<SystemNote>Thursday</SystemNote>
+<Photo>skimmer fitted</Photo>
+<Msg side="out" time="3:41 PM">done</Msg>
+<Msg time="3:41 PM">Marked done with photo. Thanks.</Msg>
+</Chat>
+
+<Caption>Illustrative messages. Names and sites changed.</Caption>
+
+### Agent 04: Nudge agent
+
+Chases anyone who is late on a check-in, a photo report or a task. Politely first, then less politely. If the reminders don't work, the item goes to a manager. Managers stop making chasing calls and only see what is still outstanding after the agent has tried.
+
+1. Friendly reminder to the person.
+2. Firmer reminder, naming the overdue item.
+3. Flagged to the supervisor and shown on the manager view.
+
+The sequence stops as soon as the missing item arrives.
+
+<Chat name="Ops Desk" initials="OP">
+<Msg time="5:30 PM">Hi Dev, today's end-of-shift photos for Site 3 haven't come in yet. Could you send them?</Msg>
+<Msg time="6:15 PM">Dev, the Site 3 photos are now overdue. Please send them before you leave.</Msg>
+<SystemNote>Flagged to supervisor · Site 3 report missing</SystemNote>
+<Photo>site 3 end of day</Photo>
+<Msg side="out" time="6:24 PM">Sorry, sending now</Msg>
+<Msg time="6:24 PM">Received. Report closed.</Msg>
+</Chat>
+
+<Caption>Illustrative messages. Names and sites changed.</Caption>
+
+### Agent 05: Client agent
+
+Keeps customers informed without the owner writing a single message. When a build stage closes, the customer gets a short update with photos. Maintenance customers get a reminder before each visit, a recap after it, and notice before their contract renews.
+
+- **Stage updates:** sent when a project stage is marked complete
+- **Visits:** reminder before, recap after, with a confirm button
+- **Renewals:** reminders ahead of contract expiry
+- **Sender:** always the company's own business name
+
+<Chat name="Pool Co. (customer view)" initials="PC">
+<Msg time="4:05 PM">Hello Mr. Carter. Stage 2 (waterproofing) at your home is complete. Photos attached. Tiling starts tomorrow.</Msg>
+<Photo side="in">stage 2 complete</Photo>
+<Msg time="Wed 10:00 AM">Reminder: your monthly pool service is booked for Friday at 9:00 AM.</Msg>
+<Choice>Confirm</Choice>
+<Choice>Reschedule</Choice>
+<Msg side="out" time="Wed 10:12 AM">Confirm</Msg>
+</Chat>
+
+<Caption>Illustrative messages. Names changed.</Caption>
+
+### Agent 06: Manager view
+
+One screen for the owner and managers. It combines every check-in, report, task and maintenance visit into the three answers the owner used to collect by phone: who is where, what is late, and which site needs a call.
+
+| Site | Stage | Crew on site | Last update | Status |
+| --- | --- | --- | --- | --- |
+| Site 4 · Lakeview villa pool | Tiling | 5 | 12 min ago | On track |
+| Site 2 · Hillside renovation | Waterproofing | 3 | 1 hr ago | On track |
+| Site 6 · Clubhouse pool | Skimmer fit | 5 | No update | Needs a call |
+| Site 3 · Garden pool build | Excavation | 4 | 32 min ago | Task overdue |
+
+<Caption>Illustrative dashboard with sample data, not client figures. Above the table, the view counts active sites, workers checked in, reports pending, delayed tasks and maintenance visits this week.</Caption>
+
+## How a working day runs now
+
+The schedule runs itself. People only step in when something is late or missing.
+
+1. **6:30 AM, check-in.** Every worker gets today's site and a one-tap check-in.
+2. **Morning, tasks out.** Managers assign jobs. Workers get them on WhatsApp.
+3. **Mid-shift, photos #1.** Supervisors get the first photo request for each site.
+4. **Ongoing, nudges.** Anything late is chased automatically, then flagged.
+5. **End of shift, photos #2.** Second photo request. Tasks closed with proof.
+6. **Any time, owner view.** Exceptions only: who is missing, what is late.
+
+## Rules and safeguards
+
+The agents follow a small set of rules. Each one turns an event into an action, so nobody has to remember to ask.
+
+| Event | Rule |
+| --- | --- |
+| Start of day | Check-in message at 6:30 AM to every worker rostered that day |
+| Missed check-in window | Nudge step 1, then step 2, then shown as missing on the manager view |
+| Each active site | Two photo requests per day to the site supervisor |
+| Task passes its deadline | Status set to Delayed, nudge sequence starts, shown on the manager view |
+| Project stage marked complete | Client agent sends a stage update with the latest photos |
+| Maintenance contract nearing expiry | Renewal reminders to the customer, renewal flagged to the owner |
+
+<CardGrid>
+<Card title="Integrity">Check-in times come from when the message arrives, not from what the worker types. Records can't be edited from the chat.</Card>
+<Card title="Access">Crews and customers only see WhatsApp. The dashboard is for the owner and managers only.</Card>
+<Card title="Location">Captured at check-in to confirm arrival on site. Not tracked through the day.</Card>
+<Card title="Unknown numbers">Messages from numbers not on the employee or customer list are ignored and never stored as records.</Card>
+</CardGrid>
+
+## Message types and data model
+
+Every interaction uses a native WhatsApp Business Platform message type, so it looks like a normal chat on the worker's phone.
+
+| Job | WhatsApp feature | Why it's used |
+| --- | --- | --- |
+| Morning check-in | Approved utility template | Business-started messages outside the 24-hour customer service window must use a pre-approved template. |
+| One-tap replies | Interactive reply buttons | Up to three fixed choices per message: structured answers, no typing. |
+| Proof of presence | Location message and photo | Location is compared with the assigned site. The photo stops proxy check-ins. |
+| Site reports | Image, video and voice | Supervisors report as they always did. The system tags and files each item. |
+| Customer updates | Utility templates with media | Stage updates and visit reminders sent under the company's business name. |
+
+Platform rules as documented by Meta for the WhatsApp Business Platform (Cloud API).
+
+| Record | Key fields | Written by |
+| --- | --- | --- |
+| Employee | Name, phone number, role, crew, active flag | Admin setup. Phone number is the identity key |
+| Site | Name, location, customer, current stage, assigned crew | Managers |
+| Check-in | Employee, site, timestamp, location, photo, on-time flag | Check-in agent |
+| Site report | Site, supervisor, stage, media links, note, timestamp | Site-update agent |
+| Task | Title, site, owner, deadline, status history, proof photo | Managers and task agent |
+| Customer | Name, phone number, site or contract, update preferences | Office |
+| Maintenance contract | Visit frequency, visits done and remaining, technician, expiry | Office. Client agent reads it |
+
+## Rollout: three phases, each proven before the next
+
+No big-bang launch. Each phase had to deliver something the owner could see before the next phase began.
+
+| Phase | Weeks | Scope |
+| --- | --- | --- |
+| 1 · Core operations | 1 to 3 | Check-ins, tasks, report intake, pilot sites |
+| 2 · Dashboard and reporting | 4 to 7 | Manager view, alerts, archive, all sites |
+| 3 · Customers and maintenance | 8 to 10 | Client updates, visits, renewals, handover |
+
+## What changed: the owner stopped being the router
+
+Every update now has a home. The owner's day moved from passing messages along to dealing with the few things that actually need a decision.
+
+| Area | Before | After |
+| --- | --- | --- |
+| Attendance | Phone calls and trust | Every check-in timestamped, with location and a photo |
+| Site photos | Lost in group chats | Filed by site, date and stage, searchable later |
+| Follow-ups | Managers chasing by phone | The nudge agent chases. Managers see only what's still overdue |
+| Tasks | Held in people's heads | Every task has an owner, a deadline and a status |
+| Maintenance | Remembered, or missed | Visits and renewals scheduled, with reminders to both sides |
+| Customers | Calling to ask for updates | Stage photos and visit reminders arrive without asking |
+| Overview | None | One screen: who is where, what is late, which site needs a call |
+
+## Three lessons from this build
+
+<CardGrid>
+<Card title="Adoption beats features">The best system is the one people already open. A small feature set inside WhatsApp beat a full app nobody would use.</Card>
+<Card title="Automate the chasing first">Most of a manager's day was spent asking for things that should arrive on their own. Removing that gave the owner time back.</Card>
+<Card title="Start small, then widen">Check-ins and tasks were proven on a few sites first. Once the crews trusted it, everything else was easy to add.</Card>
+</CardGrid>
+
+## The same pattern fits any team that runs on chat
+
+The industry doesn't matter much. What matters is where your people and customers already reply. Wherever that is, we build agents that capture, sort, chase and report behind it.
+
+<CardGrid>
+<Card title="Operations teams">Check-ins, status updates and reports that file themselves. Tasks with an owner and a deadline, chased automatically.</Card>
+<Card title="Customer-facing teams">Follow-ups, reminders and progress updates sent on time, in your name, without anyone writing them by hand.</Card>
+<Card title="Owners and managers">One screen that shows what's late, who's waiting and what needs a decision, instead of a dozen chats.</Card>
+</CardGrid>
+
+It's probably a fit if two of these sound familiar:
+
+- Your team coordinates work through WhatsApp groups, Slack threads or personal chats.
+- You're the person everyone messages to find out what's happening.
+- You learn that something is behind only when someone calls about it.
+- You tried a new tool before and the team stopped using it.

@@ -8,7 +8,7 @@ last_updated: ${new Date().toISOString().split('T')[0]}
 
 # AI Automation Services — GenosAI
 
-GenosAI builds production-grade AI systems that eliminate manual work and drive measurable results. 43 client projects delivered by our founder. Projects ship in 2–6 weeks.
+GenosAI builds production-grade AI systems that eliminate manual work and drive measurable results. 23 client projects delivered by our founder. Projects ship in 2–6 weeks.
 
 ## Services
 

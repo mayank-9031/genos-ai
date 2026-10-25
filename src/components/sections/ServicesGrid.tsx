@@ -4,6 +4,12 @@ import { useEffect, useRef } from 'react'
 import Link from 'next/link'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import { ChatbotVisual } from './visuals/services/ChatbotVisual'
+import { VoiceVisual } from './visuals/services/VoiceVisual'
+import { WorkflowVisual } from './visuals/services/WorkflowVisual'
+import { MarketingVisual } from './visuals/services/MarketingVisual'
+import { LeadVisual } from './visuals/services/LeadVisual'
+import { CustomAIVisual } from './visuals/services/CustomAIVisual'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -15,42 +21,48 @@ const AI_SERVICES = [
     title: 'AI Chatbot Development: Intelligent Virtual Assistants',
     description:
       'GenosAI builds advanced conversational AI chatbots that answer user questions using internal data and carefully selected external sources to deliver comprehensive, accurate results. Each chatbot is customisable in tone, style, and response behaviour to align with your brand identity, improving decision-making and operational efficiency across your organisation.',
-    imageSrc: '/images/services/ai-chatbot.avif',
+    Visual: ChatbotVisual,
+    visualLabel: 'A support chatbot answering a customer question and citing the company documents it used',
   },
   {
     slug: 'voice-ai-agents',
     title: 'Voice AI Agents: Smart Calling & Communication',
     description:
       'GenosAI develops voice-powered AI systems that automate outbound calls, qualify leads, and book meetings at scale. Every voice agent integrates directly with your CRM, ensuring conversations are logged, tracked, and actionable, freeing your team to focus on closing deals instead of dialling numbers.',
-    imageSrc: '/images/services/voice-ai.avif',
+    Visual: VoiceVisual,
+    visualLabel: 'A voice agent on a live call booking a meeting, then logging the result to the CRM',
   },
   {
     slug: 'workflow-automation',
     title: 'Workflow Automation: End-to-End Business Ops',
     description:
       'GenosAI builds end-to-end workflow automation platforms that connect CRMs, ERPs, spreadsheets, and internal tools to eliminate manual data entry. Custom dashboards provide real-time visibility into operations, reducing overhead, streamlining approvals, and improving team efficiency across the board.',
-    videoSrc: '/videos/services/business-ops.mp4',
+    Visual: WorkflowVisual,
+    visualLabel: 'An automated workflow updating the CRM, ERP, a spreadsheet and email after a new order',
   },
   {
     slug: 'ai-marketing-automation',
     title: 'AI Marketing Automation: Outreach & Campaign Engine',
     description:
       'GenosAI creates AI-powered marketing automation systems that run automated email sequences, handle intelligent lead scoring, and trigger campaigns based on user behaviour. Smart analytics track and optimise every customer touchpoint automatically, ensuring your marketing budget delivers maximum ROI consistently.',
-    imageSrc: '/images/services/ai-image-gen.avif',
+    Visual: MarketingVisual,
+    visualLabel: 'An email sequence where a pricing page visit triggers a demo invite as the lead score rises',
   },
   {
     slug: 'ai-lead-qualification',
     title: 'AI Lead Qualification: Automated Scoring & Routing',
     description:
       'GenosAI develops automated lead processing systems where inbound prospects are scored, qualified, and routed in real-time. The engine follows a structured scoring framework for consistency and reliability, cutting response times from hours to seconds and dramatically boosting conversion rates.',
-    imageSrc: '/images/services/ai-decision.avif',
+    Visual: LeadVisual,
+    visualLabel: 'Inbound leads scored on budget, authority, need and timing, then routed to sales, nurture or newsletter',
   },
   {
     slug: 'custom-ai-solutions',
     title: 'Custom AI Development: Bespoke Enterprise Solutions',
     description:
       'GenosAI provides bespoke AI development services, building production-grade systems from the ground up to meet your unique requirements. Each solution is designed to scale with your growth, covering everything from computer vision and NLP pipelines to recommendation engines and automated decision systems.',
-    imageSrc: '/images/services/ai-search.avif',
+    Visual: CustomAIVisual,
+    visualLabel: 'A build log for a custom AI system connecting data, vision and language models, passing tests and going live',
   },
 ]
 
@@ -189,23 +201,8 @@ export function ServicesGrid() {
               <div className="flex flex-col lg:flex-row">
                 {/* Visual — left side */}
                 <div className="lg:w-[45%] p-5 lg:p-8">
-                  <div className="rounded-xl overflow-hidden">
-                    {'videoSrc' in service && service.videoSrc ? (
-                      <video
-                        autoPlay
-                        muted
-                        loop
-                        playsInline
-                        className="w-full aspect-[4/3] object-cover rounded-xl bg-black"
-                        src={service.videoSrc}
-                      />
-                    ) : (
-                      <img
-                        src={'imageSrc' in service ? service.imageSrc : ''}
-                        alt={service.title}
-                        className="w-full aspect-[4/3] object-cover rounded-xl bg-black"
-                      />
-                    )}
+                  <div role="img" aria-label={service.visualLabel} className="w-full aspect-square sm:aspect-[4/3] rounded-xl overflow-hidden">
+                    <service.Visual />
                   </div>
                 </div>
 

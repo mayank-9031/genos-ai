@@ -3,36 +3,43 @@
 import { useEffect, useRef } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import {
+  DataVisual,
+  InsightVisual,
+  IntegrationsVisual,
+  ProductionVisual,
+  TeamVisual,
+} from './WhyGenosAIVisuals'
 
 gsap.registerPlugin(ScrollTrigger)
 
 const CONTENT_BLOCKS = [
   {
-    image: '/images/why-genosai/ai-abstract-purple.jpg',
-    alt: 'GenosAI AI automation systems and intelligent workflow technology',
+    Visual: IntegrationsVisual,
+    label: 'Diagram of AI capabilities such as chat assistants, voice agents and decision engines connected to existing systems like a CRM, helpdesk, ERP and email',
     text: 'GenosAI\'s expertise spans multiple domains, including conversational AI, voice and image processing, recommendation systems, and automated decision engines. Every solution we build integrates seamlessly into existing operations, helping organisations work smarter, reduce inefficiencies, and make faster, more informed decisions.',
   },
   {
-    image: '/images/why-genosai/ai-blue-orb.jpg',
-    alt: 'GenosAI AI-powered data processing and intelligence platform',
+    Visual: TeamVisual,
+    label: 'A data scientist, an AI engineer and a designer working through one problem together until the fix ships',
     text: 'At GenosAI, our team goes beyond development. We are problem-solvers, thinkers, and innovators. Engineers, data scientists, designers, and AI specialists bring years of hands-on experience creating high-performing digital systems. We welcome challenges that require creative thinking and technical rigor.',
   },
   {
-    image: '/images/why-genosai/ai-brain-neural.jpg',
-    alt: 'GenosAI neural networks and deep learning technology',
+    Visual: DataVisual,
+    label: 'A messy forwarded email turned into a structured invoice record, with an unclear field flagged for review',
     text: 'GenosAI focuses on AI that understands real-world complexity. Our systems adapt to changing environments, handle imperfect data, and scale as your organisation grows. We value transparency, accountability, and collaboration, ensuring every project meets client needs while maintaining long-term reliability.',
   },
 ]
 
 const CONTENT_BLOCKS_ROW2 = [
   {
-    image: '/images/why-genosai/ai-chatbot.jpg',
-    alt: 'GenosAI chatbot and conversational AI systems',
+    Visual: ProductionVisual,
+    label: 'A live production monitor showing a day of workload and recent automated runs completing',
     text: 'Choosing GenosAI means partnering with a team that understands modern business realities. We create AI solutions that are dependable, practical, and built for everyday use, not just for demos. Our systems are engineered to handle production workloads from day one.',
   },
   {
-    image: '/images/why-genosai/ai-applications.jpg',
-    alt: 'GenosAI enterprise AI applications and solutions',
+    Visual: InsightVisual,
+    label: 'A chart of refund requests with a spike explained and suggested next actions',
     text: 'GenosAI\'s solutions handle complex data, high usage, and changing requirements, providing businesses with intelligence that is actionable and reliable. We combine deep technical expertise with a clear understanding of operational needs to deliver systems that truly perform.',
   },
 ]
@@ -189,13 +196,8 @@ export function WhyGenosAI() {
           {CONTENT_BLOCKS.map((block, i) => (
             <div key={i} className="reveal-item">
               <div className="relative group">
-                <div className="relative overflow-hidden rounded-2xl mb-5">
-                  <img
-                    src={block.image}
-                    alt={block.alt}
-                    className="w-full h-[320px] md:h-[400px] lg:h-[480px] object-cover transition-all duration-700 group-hover:scale-[1.04] group-hover:brightness-110"
-                    loading="lazy"
-                  />
+                <div role="img" aria-label={block.label} className="relative h-[400px] md:h-[420px] lg:h-[480px] rounded-2xl mb-5">
+                  <block.Visual />
                   <div className="absolute inset-0 rounded-2xl ring-1 ring-white/0 transition-all duration-500 group-hover:ring-violet-400/20 pointer-events-none" />
                 </div>
               </div>
@@ -211,13 +213,8 @@ export function WhyGenosAI() {
           {CONTENT_BLOCKS_ROW2.map((block, i) => (
             <div key={i} className="reveal-item">
               <div className="relative group">
-                <div className="relative overflow-hidden rounded-2xl mb-5">
-                  <img
-                    src={block.image}
-                    alt={block.alt}
-                    className="w-full h-[320px] md:h-[400px] object-cover transition-all duration-700 group-hover:scale-[1.04] group-hover:brightness-110"
-                    loading="lazy"
-                  />
+                <div role="img" aria-label={block.label} className="relative h-[400px] rounded-2xl mb-5">
+                  <block.Visual />
                   <div className="absolute inset-0 rounded-2xl ring-1 ring-white/0 transition-all duration-500 group-hover:ring-violet-400/20 pointer-events-none" />
                 </div>
               </div>
@@ -231,7 +228,7 @@ export function WhyGenosAI() {
         {/* Standalone text block */}
         <div ref={row3Ref} className="mb-20">
           <p className="text-[1rem] leading-[1.8] text-white/40 max-w-3xl">
-            GenosAI helps organisations reduce manual work, improve decision-making, and increase overall efficiency. With 43 client projects delivered by our founder and operations spanning 5 countries, GenosAI has established itself as one of the most reliable AI automation partners for growth-focused businesses worldwide.
+            GenosAI helps organisations reduce manual work, improve decision-making, and increase overall efficiency. With 23 client projects delivered by our founder and operations spanning 5 countries, GenosAI has established itself as one of the most reliable AI automation partners for growth-focused businesses worldwide.
           </p>
         </div>
 

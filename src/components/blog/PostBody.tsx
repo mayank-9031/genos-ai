@@ -7,7 +7,7 @@ type C = { children?: React.ReactNode }
 type A = { href?: string; children?: React.ReactNode }
 type Code = { children?: React.ReactNode; className?: string }
 
-const components = {
+export const postComponents = {
   h2: ({ children }: C) => (
     <h2 className="font-display text-3xl md:text-4xl mt-12 mb-4 text-white">
       {children}
@@ -76,7 +76,7 @@ export function PostBody({ content }: Props) {
             ],
           },
         }}
-        components={components as never}
+        components={postComponents as never}
       />
     </div>
   )

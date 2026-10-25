@@ -13,6 +13,7 @@ import {
   getWebPageSchema,
 } from "@/lib/structured-data";
 import { WhatsAppWidget } from "@/components/WhatsAppWidget";
+import { BackButton } from "@/components/BackButton";
 import "./globals.css";
 
 const instrumentSerif = Instrument_Serif({
@@ -30,7 +31,7 @@ export const metadata: Metadata = {
     template: "%s | GenosAI",
   },
   description:
-    "GenosAI is a global AI automation agency that builds custom AI chatbots, voice AI agents, workflow automation, and intelligent business systems. Founder-led delivery of 43 client projects across 5 countries: USA, UK, UAE, India, and Australia.",
+    "GenosAI is a global AI automation agency that builds custom AI chatbots, voice AI agents, workflow automation, and intelligent business systems. Founder-led delivery of 23 client projects across 5 countries: USA, UK, UAE, India, and Australia.",
   keywords: [
     "AI automation agency",
     "custom AI solutions",
@@ -72,7 +73,7 @@ export const metadata: Metadata = {
     title:
       "GenosAI | #1 AI Automation Agency | Custom AI Systems for Business",
     description:
-      "We build custom AI chatbots, voice AI agents, workflow automation, and intelligent business systems. 43 client projects delivered by our founder across 5 countries.",
+      "We build custom AI chatbots, voice AI agents, workflow automation, and intelligent business systems. 23 client projects delivered by our founder across 5 countries.",
   },
   twitter: {
     card: "summary_large_image",
@@ -137,6 +138,7 @@ export default function RootLayout({
           }}
         />
         <SmoothScrollProvider>{children}</SmoothScrollProvider>
+        <BackButton />
         <WhatsAppWidget />
       </body>
     </html>

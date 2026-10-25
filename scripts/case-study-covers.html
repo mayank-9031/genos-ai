@@ -1,0 +1,292 @@
+<!doctype html>
+<!--
+  Source for the case study cover images in public/case-studies/.
+  To re-render: copy this file to public/__covers.html, open
+  http://localhost:3000/__covers.html?cover=<slug> at a viewport of at least 1600x900,
+  screenshot #cover (1600x900), then delete the public copy.
+  The -og.png versions are the same image resized to 1200 wide and centre-cropped to 630 tall.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Case study covers</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=block" rel="stylesheet" />
+<link href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700&display=block" rel="stylesheet" />
+<style>
+  :root {
+    --bg: #09090b;
+    --panel: #131318;
+    --panel-2: #17141f;
+    --line: rgba(255, 255, 255, 0.09);
+    --text: rgba(255, 255, 255, 0.88);
+    --muted: rgba(255, 255, 255, 0.45);
+    --violet: #a78bfa;
+    --violet-soft: rgba(167, 139, 250, 0.16);
+    --green: #6ee7b7;
+    --red: #fca5a5;
+    --amber: #fcd34d;
+    --wa-header: #0f3d34;
+    --wa-bg: #0d1412;
+    --wa-out: #1d4a3a;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: #000; font-family: 'Satoshi', system-ui, sans-serif; color: var(--text); }
+  #cover {
+    position: relative; width: 1600px; height: 900px; overflow: hidden; background: var(--bg);
+  }
+  .glow-a { position: absolute; inset: 0; background: radial-gradient(55% 65% at 80% 12%, rgba(109, 40, 217, 0.38), transparent 70%); }
+  .glow-b { position: absolute; inset: 0; background: radial-gradient(40% 55% at 6% 100%, rgba(76, 29, 149, 0.30), transparent 70%); }
+  .dots {
+    position: absolute; inset: 0;
+    background-image: radial-gradient(rgba(255, 255, 255, 0.07) 1.2px, transparent 1.2px);
+    background-size: 28px 28px;
+    mask-image: radial-gradient(ellipse at 50% 40%, black 25%, transparent 75%);
+  }
+  .wordmark { position: absolute; left: 64px; top: 52px; font-family: 'Instrument Serif', serif; font-size: 40px; color: rgba(255, 255, 255, 0.82); letter-spacing: -0.01em; }
+  .stage { position: absolute; inset: 0; perspective: 2400px; }
+  .abs { position: absolute; }
+  .panel { background: var(--panel); border: 1px solid var(--line); border-radius: 22px; box-shadow: 0 40px 90px -30px rgba(0, 0, 0, 0.95); }
+  .tilt-l { transform: rotateY(14deg) rotateX(7deg) rotateZ(-1.5deg); }
+  .tilt-r { transform: rotateY(-14deg) rotateX(7deg) rotateZ(1.5deg); }
+  .tilt-flat { transform: rotateX(8deg); }
+  .caption { font-size: 19px; color: var(--muted); }
+  .title { font-size: 24px; font-weight: 500; color: var(--text); }
+  .pill { display: inline-flex; align-items: center; gap: 10px; border-radius: 999px; padding: 8px 16px; font-size: 19px; }
+  .pill.green { background: rgba(110, 231, 183, 0.12); color: var(--green); }
+  .pill.red { background: rgba(252, 165, 165, 0.12); color: var(--red); }
+  .pill.amber { background: rgba(252, 211, 77, 0.12); color: var(--amber); }
+  .pill.violet { background: var(--violet-soft); color: #ddd6fe; }
+  .dot { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
+  .row { display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+  .divide > * + * { border-top: 1px solid var(--line); }
+
+  /* WhatsApp-style chat */
+  .wa { overflow: hidden; border-radius: 26px; background: var(--wa-bg); border: 1px solid var(--line); box-shadow: 0 40px 90px -30px rgba(0, 0, 0, 0.95); }
+  .wa-head { display: flex; align-items: center; gap: 16px; background: var(--wa-header); padding: 22px 26px; }
+  .wa-avatar { width: 50px; height: 50px; border-radius: 50%; background: rgba(255, 255, 255, 0.16); display: grid; place-items: center; font-size: 18px; font-weight: 700; color: #fff; }
+  .wa-name { font-size: 24px; font-weight: 500; color: #fff; line-height: 1.2; }
+  .wa-sub { font-size: 17px; color: rgba(255, 255, 255, 0.55); }
+  .wa-body { display: flex; flex-direction: column; gap: 12px; padding: 22px; }
+  .msg { max-width: 86%; border-radius: 18px; padding: 14px 18px; font-size: 21px; line-height: 1.38; color: rgba(255, 255, 255, 0.88); background: rgba(255, 255, 255, 0.075); border-bottom-left-radius: 6px; }
+  .msg.out { margin-left: auto; background: var(--wa-out); border-bottom-left-radius: 18px; border-bottom-right-radius: 6px; }
+  .msg time { display: block; text-align: right; font-size: 15px; color: rgba(255, 255, 255, 0.42); margin-top: 6px; }
+  .choice { max-width: 86%; border-radius: 14px; background: rgba(255, 255, 255, 0.045); text-align: center; padding: 11px; font-size: 20px; color: #7dd3fc; }
+  .sys { margin: 0 auto; border-radius: 10px; background: rgba(56, 189, 248, 0.1); color: rgba(186, 230, 253, 0.85); padding: 7px 14px; font-size: 16px; }
+  .photo { height: 110px; width: 260px; margin-left: auto; border-radius: 14px; background: linear-gradient(135deg, rgba(3, 105, 161, 0.7), rgba(6, 95, 70, 0.7)); display: flex; align-items: flex-end; padding: 12px; font-size: 16px; color: rgba(255, 255, 255, 0.85); }
+
+  /* Device frame */
+  .phone { border-radius: 64px; border: 12px solid #1d1d24; background: #1d1d24; box-shadow: 0 60px 120px -30px rgba(0, 0, 0, 1), inset 0 0 0 1px rgba(255, 255, 255, 0.06); overflow: hidden; }
+  .phone .wa { border-radius: 52px; border: 0; box-shadow: none; height: 100%; }
+
+  /* Light document page */
+  .paper { background: #f4f1ea; border-radius: 14px; box-shadow: 0 50px 100px -30px rgba(0, 0, 0, 1); color: #1c1917; }
+  .paper .ln { height: 12px; border-radius: 6px; background: rgba(28, 25, 23, 0.13); }
+
+  /* Camera frames */
+  .frame { position: relative; overflow: hidden; border-radius: 16px; background: #2a2a30; border: 1px solid var(--line); }
+  .pallet { position: absolute; left: 12%; right: 12%; top: 14%; bottom: 22%; border-radius: 6px; }
+  .pallet-base { position: absolute; left: 6%; right: 6%; bottom: 8%; height: 14%; background: #ea7a1f; border-radius: 4px; }
+  .barcode { position: absolute; right: 18%; bottom: 30%; width: 26%; height: 16%; background: repeating-linear-gradient(90deg, #111 0 3px, #fff 3px 6px); border: 5px solid #fff; border-radius: 3px; }
+  .bbox { position: absolute; inset: 9% 8% 6% 8%; border: 3px solid var(--violet); border-radius: 8px; }
+  .flabel { position: absolute; left: 0; right: 0; bottom: -64px; font-size: 18px; line-height: 1.35; }
+</style>
+</head>
+<body>
+<div id="cover">
+  <div class="glow-a"></div>
+  <div class="glow-b"></div>
+  <div class="dots"></div>
+  <div class="stage" id="stage"></div>
+  <div class="wordmark">GenosAI</div>
+</div>
+
+<script>
+const COVERS = {
+  /* ─── WhatsApp field operations ─────────────────────────────── */
+  'whatsapp-field-operations': `
+    <div class="abs" style="left:190px; top:120px;">
+      <div class="panel tilt-l" style="padding:22px 26px; width:400px;">
+        <div class="row"><span class="caption">Check-in</span><span class="pill green"><span class="dot" style="background:var(--green)"></span>On site</span></div>
+        <div class="title" style="margin-top:12px;">Site 4 · Lakeview villa pool</div>
+        <div class="caption" style="margin-top:6px;">7:02 AM · location and photo</div>
+      </div>
+    </div>
+    <div class="abs phone tilt-r" style="left:610px; top:110px; width:440px; height:900px;">
+      <div class="wa">
+        <div class="wa-head"><div class="wa-avatar">OP</div><div><div class="wa-name">Ops Desk</div><div class="wa-sub">business account</div></div></div>
+        <div class="wa-body">
+          <div class="msg">Good morning, Sam. Today's site: <b>Lakeview villa pool (Site 4)</b>. Tap when you arrive.<time>6:30 AM</time></div>
+          <div class="choice">I've arrived</div>
+          <div class="choice">Running late</div>
+          <div class="choice">Not working today</div>
+          <div class="msg out">I've arrived<time>7:02 AM</time></div>
+          <div class="photo">Location and site photo</div>
+          <div class="msg">Checked in at Site 4, 7:02 AM. Have a good day.<time>7:03 AM</time></div>
+        </div>
+      </div>
+    </div>
+    <div class="abs" style="left:1090px; top:150px;">
+      <div class="panel tilt-r divide" style="width:420px; overflow:hidden;">
+        <div style="padding:20px 24px;" class="row"><span class="title">Manager view</span><span class="caption">Today</span></div>
+        <div style="padding:16px 24px;" class="row"><span style="font-size:20px;">Site 4 · Tiling</span><span class="pill green">On track</span></div>
+        <div style="padding:16px 24px;" class="row"><span style="font-size:20px;">Site 2 · Waterproofing</span><span class="pill green">On track</span></div>
+        <div style="padding:16px 24px;" class="row"><span style="font-size:20px;">Site 6 · Skimmer fit</span><span class="pill red">Needs a call</span></div>
+        <div style="padding:16px 24px;" class="row"><span style="font-size:20px;">Site 3 · Excavation</span><span class="pill amber">Task overdue</span></div>
+      </div>
+    </div>`,
+
+  /* ─── AI sales engine, real estate ──────────────────────────── */
+  'ai-sales-engine-real-estate': `
+    <div class="abs wa tilt-l" style="left:330px; top:110px; width:600px;">
+      <div class="wa-head"><div class="wa-avatar">AI</div><div><div class="wa-name">Agency sales assistant</div><div class="wa-sub">online</div></div></div>
+      <div class="wa-body">
+        <div class="sys">Lead from Instagram ad · 6:42 pm</div>
+        <div class="msg">Hi Sarah, thanks for your enquiry about the three-bedroom townhouse. Are you looking to move soon?<time>6:42 pm</time></div>
+        <div class="msg out">We'd like to move before March<time>6:44 pm</time></div>
+        <div class="msg">Would you like to see it? I can give you a quick call to find a time.<time>6:47 pm</time></div>
+        <div class="msg out">Sure, call me after 5 tomorrow<time>6:48 pm</time></div>
+        <div class="sys">Lead score 78 · call scheduled for tomorrow, 5:15 pm</div>
+      </div>
+    </div>
+    <div class="abs" style="left:1010px; top:130px;">
+      <div class="panel tilt-r" style="width:440px; padding:28px; display:flex; align-items:center; gap:24px;">
+        <svg width="120" height="120" viewBox="0 0 120 120">
+          <circle cx="60" cy="60" r="50" fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="12"/>
+          <circle cx="60" cy="60" r="50" fill="none" stroke="#a78bfa" stroke-width="12" stroke-linecap="round"
+            stroke-dasharray="314" stroke-dashoffset="69" transform="rotate(-90 60 60)"/>
+          <text x="60" y="70" text-anchor="middle" font-size="34" font-weight="700" fill="#fff" font-family="Satoshi">78</text>
+        </svg>
+        <div><div class="caption">Lead score</div><div class="title" style="margin-top:6px;">Qualified</div><div class="caption" style="margin-top:6px;">From budget, urgency,<br/>engagement and intent</div></div>
+      </div>
+    </div>
+    <div class="abs" style="left:1060px; top:390px;">
+      <div class="panel tilt-r" style="width:380px; padding:24px 28px;">
+        <div class="row"><span class="caption">Site visit</span><span class="pill green">Booked</span></div>
+        <div class="title" style="margin-top:12px;">Thursday, 2:00 pm</div>
+        <div class="caption" style="margin-top:6px;">Booked on the AI call · reminders set</div>
+      </div>
+    </div>
+    <div class="abs" style="left:140px; top:430px;">
+      <div class="panel tilt-l" style="padding:18px 24px; display:flex; align-items:center; gap:16px;">
+        <span class="dot" style="width:14px;height:14px;background:var(--green)"></span>
+        <span style="font-size:21px;">AI voice agent calling · 00:42</span>
+      </div>
+    </div>`,
+
+  /* ─── AI deal sourcing ──────────────────────────────────────── */
+  'ai-deal-sourcing-pipeline': `
+    <div class="abs" style="left:120px; top:230px;">
+      <div class="panel tilt-l" style="width:420px; padding:32px;">
+        <div class="caption">Marketplace listing</div>
+        <div style="margin-top:14px; height:26px; width:230px; border-radius:8px; background:rgba(255,255,255,0.14); filter:blur(2px);"></div>
+        <div style="margin-top:22px; display:grid; gap:12px; font-size:20px; color:rgba(255,255,255,0.75);">
+          <div class="row"><span class="caption">Sector</span><span>IT services</span></div>
+          <div class="row"><span class="caption">City</span><span>Pune</span></div>
+          <div class="row"><span class="caption">Asking</span><span>₹10 Cr</span></div>
+          <div class="row"><span class="caption">Open to</span><span>Full sale</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="abs" style="left:590px; top:170px; width:500px;">
+      <div class="tilt-flat" style="display:grid; gap:14px;">
+        ${['Two-model AI consensus', 'Website and domain', 'Company registry', 'Apollo and LinkedIn', 'Human review'].map((check, i) => `
+          <div class="panel" style="margin:0 ${i * 24}px; padding:22px 24px; display:flex; align-items:center; gap:14px; ${i === 4 ? 'background:#1d1830; border-color:rgba(167,139,250,0.35);' : ''}">
+            <span style="width:30px;height:30px;border-radius:50%;background:rgba(110,231,183,0.15);color:var(--green);display:grid;place-items:center;font-size:18px;font-weight:700;">✓</span>
+            <span style="font-size:21px;">${check}</span>
+          </div>`).join('')}
+      </div>
+    </div>
+    <div class="abs" style="left:1150px; top:250px;">
+      <div class="panel tilt-r" style="width:360px; padding:32px;">
+        <div class="caption">Investor introduction</div>
+        <div style="display:flex; margin-top:18px;">
+          <span class="wa-avatar" style="background:#4c1d95;">F</span>
+          <span class="wa-avatar" style="background:#0f3d34; margin-left:-12px;">I</span>
+        </div>
+        <div class="title" style="margin-top:16px;">Both sides opted in</div>
+        <div style="margin-top:14px;"><span class="pill green">Call booked</span></div>
+      </div>
+    </div>
+    <svg class="abs" style="left:0; top:0;" width="1600" height="900">
+      <path d="M548 400 C 575 400, 570 340, 596 340" stroke="rgba(167,139,250,0.6)" stroke-width="3" stroke-dasharray="8 8" fill="none"/>
+      <path d="M1092 350 C 1118 350, 1122 400, 1148 400" stroke="rgba(167,139,250,0.6)" stroke-width="3" stroke-dasharray="8 8" fill="none"/>
+    </svg>`,
+
+  /* ─── AI acquisition due diligence ──────────────────────────── */
+  'ai-acquisition-due-diligence': `
+    <div class="abs paper tilt-l" style="left:220px; top:100px; width:520px; height:640px; padding:44px 46px;">
+      <div style="font-size:17px; color:rgba(28,25,23,0.5);">Lease_B-12_Amendment-2.pdf · page 1</div>
+      <div style="font-family:'Instrument Serif',serif; font-size:40px; margin-top:16px;">Second Amendment to Lease</div>
+      <div style="display:grid; gap:14px; margin-top:28px;">
+        <div class="ln" style="width:100%"></div><div class="ln" style="width:92%"></div><div class="ln" style="width:97%"></div><div class="ln" style="width:60%"></div>
+      </div>
+      <div style="margin-top:26px; font-size:23px; line-height:1.5; background:rgba(167,139,250,0.35); border-radius:6px; padding:8px 12px; box-shadow:0 0 0 2px rgba(124,58,237,0.6);">
+        “the Expiration Date is amended to 30 June 2029”
+      </div>
+      <div style="display:grid; gap:14px; margin-top:26px;">
+        <div class="ln" style="width:95%"></div><div class="ln" style="width:100%"></div><div class="ln" style="width:88%"></div><div class="ln" style="width:72%"></div><div class="ln" style="width:94%"></div>
+      </div>
+    </div>
+    <div class="abs" style="left:860px; top:150px;">
+      <div class="panel tilt-r divide" style="width:560px; overflow:hidden;">
+        <div style="padding:20px 26px;" class="row"><span class="title">Rent roll · 31 Dec 2026</span><span class="caption">Asset B</span></div>
+        <div style="padding:16px 26px; font-size:20px;" class="row"><span class="caption">Unit</span><span class="caption">Expiry</span></div>
+        <div style="padding:16px 26px; font-size:20px;" class="row"><span>B-11</span><span>31 Mar 2030</span></div>
+        <div style="padding:16px 26px; font-size:20px; background:rgba(252,165,165,0.08);" class="row"><span>B-12</span><span style="color:var(--red); font-weight:500;">30 Jun 2031</span></div>
+        <div style="padding:16px 26px; font-size:20px;" class="row"><span>B-13</span><span>30 Sep 2028</span></div>
+      </div>
+      <div class="tilt-r" style="margin-top:22px; display:flex; gap:12px;">
+        <span class="pill red">Expiry mismatch · $0.27m</span>
+        <span class="pill violet">16/16 errors caught</span>
+      </div>
+    </div>
+    <svg class="abs" style="left:0; top:0;" width="1600" height="900">
+      <path d="M735 345 C 800 345, 800 420, 870 420" stroke="rgba(252,165,165,0.7)" stroke-width="3" stroke-dasharray="8 8" fill="none"/>
+      <circle cx="735" cy="345" r="7" fill="#fca5a5"/>
+    </svg>`,
+
+  /* ─── Edge AI inventory verification ────────────────────────── */
+  'edge-ai-inventory-verification': `
+    <div class="abs tilt-flat" style="left:150px; top:230px; width:1300px; display:grid; grid-template-columns:repeat(4, 1fr); gap:28px;">
+      ${[
+        { label: 'OCCLUSION', trust: '0.52', sku: 'SKU 14', box: 'rgba(252,211,77,0.9)', veil: '<div style="position:absolute;left:22%;top:0;bottom:0;width:20%;background:#0b0b0e;"></div>' },
+        { label: 'OCCLUSION', trust: '0.89', sku: 'SKU 13', box: 'rgba(252,211,77,0.9)', veil: '<div style="position:absolute;left:46%;top:38%;width:44%;height:52%;border-radius:50%;background:#8b8fb8;"></div>' },
+        { label: 'OCCLUSION', trust: '0.66', sku: 'SKU 13', box: 'rgba(252,211,77,0.9)', veil: '<div style="position:absolute;left:58%;top:0;bottom:0;width:20%;background:#0b0b0e;"></div>' },
+        { label: 'RE-SCAN · CLEAR', trust: '0.95', sku: 'SKU 14', box: 'var(--green)', veil: '' },
+      ].map((f) => `
+        <div>
+          <div class="frame" style="height:300px;">
+            <div class="pallet" style="background:repeating-linear-gradient(135deg, #a3e635 0 18px, #3f6212 18px 30px);"></div>
+            <div style="position:absolute; left:26%; top:26%; width:56px; height:56px; border-radius:50%; background:#3b82f6;"></div>
+            <div class="barcode"></div>
+            <div class="pallet-base"></div>
+            ${f.veil}
+            <div class="bbox" style="border-color:${f.box};"></div>
+          </div>
+          <div style="margin-top:14px; font-size:18px; line-height:1.4;">
+            <span style="color:#c4b5fd; font-weight:700; letter-spacing:0.04em;">${f.label}</span><br/>
+            <span class="caption">trust ${f.trust} · ${f.sku}</span>
+          </div>
+        </div>`).join('')}
+    </div>
+    <div class="abs" style="left:1060px; top:150px;">
+      <div class="panel" style="padding:16px 22px; display:flex; align-items:center; gap:14px; background:#13201b; border-color:rgba(110,231,183,0.35);">
+        <span class="dot" style="width:14px;height:14px;background:var(--green)"></span>
+        <span style="font-size:21px;">Record confirmed at 96%</span>
+      </div>
+    </div>
+    <div class="abs" style="left:150px; top:150px;">
+      <div class="panel" style="padding:16px 22px; display:flex; align-items:center; gap:14px;">
+        <span class="caption" style="color:rgba(255,255,255,0.7);">Slot 96 · expected SKU 14</span>
+      </div>
+    </div>`,
+}
+
+const params = new URLSearchParams(location.search)
+const slug = params.get('cover') || Object.keys(COVERS)[0]
+document.getElementById('stage').innerHTML = COVERS[slug] || `<p style="padding:200px;font-size:32px">Unknown cover: ${slug}</p>`
+document.fonts.ready.then(() => { document.body.dataset.ready = '1' })
+</script>
+</body>
+</html>

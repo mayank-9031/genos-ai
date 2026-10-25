@@ -1,7 +1,6 @@
 import { Navbar } from '@/components/ui/3d-interactive-navbar'
 import { HeroSection } from '@/components/HeroSection'
 import { ServicesGrid } from '@/components/sections/ServicesGrid'
-import { WebShowcase } from '@/components/sections/WebShowcase'
 import { ProcessSteps } from '@/components/sections/ProcessSteps'
 import { WhyGenosAI } from '@/components/sections/WhyGenosAI'
 import { TechStack } from '@/components/sections/TechStack'
@@ -17,7 +16,6 @@ export default function Home() {
       <HeroSection />
       <main className="relative z-10 bg-bg-dark/90">
         <ServicesGrid />
-        <WebShowcase />
         <ProcessSteps />
         <WhyGenosAI />
         <TechStack />

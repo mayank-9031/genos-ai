@@ -1,0 +1,304 @@
+---
+title: "From data room to a model you can defend, line by line."
+seoTitle: "AI Acquisition Due Diligence Engine for Logistics Real Estate"
+slug: "ai-acquisition-due-diligence"
+description: "How GenosAI built an AI-assisted acquisition due-diligence engine for a global logistics real estate owner: it reads a property data room, reconciles leases against the rent roll and operating statements, and produces a traceable investment model, risk register and underwriting report."
+industry: "Logistics real estate"
+category: "AI due diligence"
+year: "2026"
+readTime: "12 min"
+order: 4
+tags: ["document AI", "reconciliation", "financial modelling"]
+stats:
+  - value: "16/16"
+    label: "planted data-room errors caught, with 0 false flags"
+  - value: "119,064"
+    label: "cash-flow lines matched to an independent reference model, 0 off by more than $1"
+  - value: "0.2s"
+    label: "to reconcile, model and stress-test 11 scenarios"
+  - value: "16"
+    label: "items sent to an analyst, out of 411 field checks"
+note: "Client name withheld. Figures come from the evaluation run on a synthetic, internally consistent data room, not from a live deal. All market data is synthetic."
+---
+
+## The short version
+
+Underwriting a warehouse acquisition means reconciling leases, tenant concentration, rent assumptions, operating costs and market comparables, usually by hand and in spreadsheets. We built an engine that does the reading with AI, does every calculation in deterministic code, and links every number back to the page it came from.
+
+<CardGrid>
+<Card kicker="Layer 1" title="Document AI">Extracts lease dates, base rent, escalations, renewal and break options and recoverable expenses, each with a verbatim snippet and page reference.</Card>
+<Card kicker="Layer 2" title="Reconciliation">Matches every lease against the rent roll and the T-12, then flags missing or contradictory evidence with the documents side by side.</Card>
+<Card kicker="Layer 3" title="Model and scenarios">NOI, occupancy, WALE, DSCR, cap rate and a 10-year DCF, then stress tests on vacancy, rents, exit cap and refinancing.</Card>
+</CardGrid>
+
+| Detail | Engagement |
+| --- | --- |
+| Client | Global logistics real estate owner-operator (name withheld) |
+| Users | Acquisitions, asset management and investment teams |
+| Inputs | Rent rolls, leases and amendments, operating statements, property details, market rents, comparable sales |
+| Outputs | Investment dashboard, source-linked risk register, downloadable underwriting report, editable model |
+| Stack | Python, FastAPI, PostgreSQL with PostGIS, layout-aware PDF parsing with OCR, LLM structured extraction, deterministic financial engine, React dashboard |
+| Evaluation data | Public company disclosures for context, public market data where licensing permits, and a synthetic but internally consistent data room for build and testing |
+
+> The model reads. The engine calculates. Every figure has an address.
+
+## Every acquisition is a reconciliation problem
+
+A data room tells the same story several times: in the leases and their amendments, in the seller's rent roll, in the operating statement and in the offering memo. The versions rarely agree, and the bid depends on finding where they don't.
+
+| Figure | What it means |
+| --- | --- |
+| 4–8 hours | to abstract one commercial lease by hand (1) |
+| 86%+ | of spreadsheets in recent field audits contained errors (2) |
+| 1%+ | of formula cells wrong, even after careful development (2) |
+| 6.9% | US industrial vacancy at mid-2026, with leasing at a four-year high (3) |
+
+For a portfolio of 39 leases, the published range of 4 to 8 hours per lease implies 156 to 312 analyst hours of abstraction before reconciliation or modelling starts. Industrial and logistics also made up 55% of US net-lease investment in Q4 2025 (4), so these teams see a steady flow of deals that all need the same checks.
+
+### What had to be solved
+
+<CardGrid>
+<Card title="Amendments win">A term or rent changed in Amendment 2 overrides the lease, and rent rolls often miss it.</Card>
+<Card title="Three sources, one truth">Leases, rent roll and T-12 must agree, or the gap must be explained.</Card>
+<Card title="No black-box maths">Investment committees need numbers they can trace and re-run, not model output.</Card>
+<Card title="Hidden structure">Free rent, CPI collars, base-year recoveries and break options change value quietly.</Card>
+<Card title="Market context">Comparables must be near, recent and similar, or the cap rate means nothing.</Card>
+<Card title="Downside first">The bid has to survive vacancy, rent, exit-cap and refinancing shocks.</Card>
+</CardGrid>
+
+Sources: (1) vendor-published estimates (e.g. GrowthFactor), not an independent benchmark. (2) R. Panko, "Spreadsheet Errors: What We Know", arXiv:0802.3457. (3) Cushman & Wakefield, US Industrial MarketBeat Q2 2026. (4) CBRE, US net-lease investment, Q4 2025.
+
+## Architecture
+
+Language models do what they're good at: reading messy documents into a strict schema. Everything after that is ordinary, testable code.
+
+**The data room** holds leases, amendments, the rent roll (XLSX), T-12 statements, property details, and market rents and sales. It goes through three steps:
+
+1. **Ingest and classify.** Document typing, de-duplication, layout-aware parsing, OCR for scans, and a page and bounding-box index.
+2. **LLM structured extraction.** Schema-constrained JSON per clause: value, verbatim snippet and page, with amendments applied in date order.
+3. **Validate.** Type, date and arithmetic rules; the rent schedule must reproduce the lease; low confidence goes to a review queue.
+
+Then the **deterministic core** takes over. It's Python, with no language model in the maths:
+
+| Module | What it does |
+| --- | --- |
+| Reconciliation | Lease vs rent roll vs T-12, tolerances per field, overlaps, holdovers, missing documents |
+| Financial engine | Lease-by-lease monthly cash flow; NOI, WALE, occupancy, DSCR; cap rate, DCF, IRR, NPV; rollover, TI and commissions |
+| Scenario engine | Vacancy and downtime, market rent shocks, exit-cap expansion, refinancing, break options |
+| Geospatial comps | PostGIS distance filter, recency and size weights, implied cap rate and $/sf, feeding valuation and exit |
+
+The outputs are an **investment dashboard** (React, with deal comparison), a **risk register** where every item cites its page, an **underwriting report** generated as a PDF per deal, and an **editable model** with assumptions that exports to Excel.
+
+- **API and jobs:** FastAPI, background workers for parsing and extraction, PostgreSQL with a JSONB evidence store and full audit log.
+- **Security:** per-deal access control, encryption at rest, model providers configured not to retain or train on client documents.
+- **Quality:** data-quality, reconciliation and reference-model tests run on every change.
+
+## Layer 1: every field comes with its evidence
+
+The extractor returns a value only if it can quote where the value came from. A number with no snippet and page reference is treated as missing, not guessed.
+
+| Field | What is captured | Validation before it's used |
+| --- | --- | --- |
+| Term | Commencement, expiry, amendments in date order | Start before expiry; latest amendment wins |
+| Base rent | Rent per sf or annual amount, rent table | Schedule must reproduce the lease's own rent table |
+| Escalations | Fixed bumps, CPI reviews with floor and cap | Collar applied; review dates fall on anniversaries |
+| Free rent | Abated months and what stays payable | Abatement inside the term |
+| Renewal options | Number, length, rent basis | Option notice dates inside the term |
+| Break clauses | Effective date, notice, penalty | Flagged to the risk register if inside the hold |
+| Recoveries | NNN, modified gross with base year, gross | Structure checked against T-12 recoveries |
+| Deposit, area | Security deposit, rentable square feet | Compared with rent roll within tolerance |
+
+One extracted field, as stored:
+
+```json
+{
+  "field": "expiry_date",
+  "value": "2029-06-30",
+  "source": { "doc": "Lease_B-12_Amendment-2.pdf", "page": 1 },
+  "snippet": "the Expiration Date is amended to 30 June 2029"
+}
+```
+
+From the evaluation data room. The amendment shortened the term by two years; the seller's rent roll still showed the original date (rent roll expiry 30 Jun 2031 vs lease 30 Jun 2029).
+
+### How extraction quality is measured
+
+- Hand-abstracted gold leases, scored field by field for precision and recall.
+- Exact match for dates and amounts; normalised match for clause text.
+- Low-confidence or conflicting fields go to an analyst queue, never straight into the model.
+- The benchmark on this page starts from lease abstracts with page references (330 in total), so it tests everything after extraction.
+
+## Layer 2: three sources, checked against each other
+
+Each rent-roll row is matched to its lease and compared field by field. Each asset's T-12 is compared with the rent and recoveries the leases actually support. Anything outside tolerance becomes a flag with both documents attached.
+
+| Check | Tolerance |
+| --- | --- |
+| Monthly rent | 0.5% or $50, whichever is larger |
+| Rentable area | 0.5% |
+| Start, expiry, next step | Exact date |
+| Recovery structure, deposit | Exact |
+| Free rent, holdover | Status vs lease term |
+| Overlaps, missing leases | Any occurrence |
+| T-12 base rent | 2.5% of lease-supported rent |
+| T-12 recoveries | 5% of lease-supported recoveries |
+
+### The benchmark
+
+We planted 16 realistic errors of 13 kinds into the evaluation data room, plus rounding and remeasurement noise that should *not* be flagged, and kept the answer key separate from the engine. The engine caught **16 of 16** errors with **0** false flags from the noise, across **411** field and statement checks, of which **96.1%** agreed automatically.
+
+| Error found, by kind | Caught |
+| --- | --- |
+| Expiry mismatch | 2 of 2 |
+| Recovery structure mismatch | 2 of 2 |
+| Rent mismatch | 2 of 2 |
+| Area mismatch | 1 of 1 |
+| Deposit mismatch | 1 of 1 |
+| Expired lease shown as occupied | 1 of 1 |
+| Free rent not shown | 1 of 1 |
+| Next rent step mismatch | 1 of 1 |
+| No lease in data room | 1 of 1 |
+| Overlapping leases | 1 of 1 |
+| Signed lease missing from rent roll | 1 of 1 |
+| T-12 recovery variance | 1 of 1 |
+| T-12 rent variance | 1 of 1 |
+
+The errors were planted by us, so this tests the rules and tolerances, not how messy a real seller's data room can get. That is what the analyst review queue is for.
+
+## What the analyst actually reviews
+
+Instead of tying out 411 figures by hand, the analyst works through a ranked list. Each item states the issue, the dollars at stake as the engine estimates them, and the exact document and page to open.
+
+| Where | Issue and evidence | At stake |
+| --- | --- | --- |
+| C-11 | **Signed lease missing from rent roll.** Signed lease with Parcel carrier (C-11) from 01 Feb 2027; rent roll shows vacant. Lease_C-11.pdf p.2: "Commencement Date: 01 February 2027" | $0.84m |
+| C-09 | **Expiry mismatch.** Rent roll expiry 31 May 2032 vs lease 31 May 2030. Lease_C-09.pdf p.2: "the Term shall expire on 31 May 2030" | $0.59m |
+| A-02 | **Tenant break option.** Tenant break option effective 31 Mar 2028 (380,000 sf). Lease_A-02.pdf p.15: "Tenant may terminate effective 31 March 2028 on 12 months' notice…" | $0.52m NPV |
+| Asset C | **T-12 rent variance.** 2026 base rent $6,296,260 vs $6,674,285 supported by leases (-5.7%). T-12 operating statement 2026, asset C | $0.38m |
+| Asset A | **T-12 recovery variance.** 2026 recoveries $2,206,422 vs $2,499,000 supported by leases (-11.7%). T-12 operating statement 2026, asset A | $0.29m |
+| B-12 | **Expiry mismatch.** Rent roll expiry 30 Jun 2031 vs lease 30 Jun 2029. Lease_B-12_Amendment-2.pdf p.1: "the Expiration Date is amended to 30 June 2029" | $0.27m |
+| C-02 | **Overlapping leases.** Beverage distributor (C-02 incoming) starts 01 Mar 2027, before Apparel wholesaler (C-02) ends 30 Jun 2027 (4 months). Lease_C-02.pdf p.2: "the Term shall expire on 30 June 2027" | $0.25m |
+| B-10 | **Expired lease shown as occupied.** Lease expired 31 Oct 2026; rent roll shows the unit occupied. Lease_B-10.pdf p.2: "the Term shall expire on 31 October 2026" | $0.06m |
+| B-19 | **No lease in data room.** Parcel carrier (B-19) is on the rent roll but no lease is in the data room. Rent roll 31 Dec 2026, unit B-19: $4,424.65/mo | $0.05m |
+| Portfolio | **Rollover concentration.** 42% of in-place rent expires in 2031. Lease abstracts, expiry dates | n/a |
+
+Top 10 of 25 register items from the evaluation run, all rated high severity, ranked by severity then dollars at stake (annual, except the break option, which is the change in NPV). The rest of the register covers further break options, tenant concentration and mark-to-market by asset.
+
+## Layer 3: the portfolio, as the engine sees it
+
+Monthly cash flows are built lease by lease from the reconciled terms: contract rent, escalations, free rent, recoveries by structure, then rollover at market with renewal probability, downtime, tenant improvements and leasing commissions.
+
+| Metric | Value |
+| --- | --- |
+| Leased | 94.6% of 2.35m sf on 1 Jan 2027 |
+| WALE | 3.8 years weighted by income (3.8 by area) |
+| In-place rent | $12.71 per sf vs $13.68 market (+8% on rollover) |
+| Year-1 NOI | $27.7m, going-in cap 5.04% at the ask |
+
+### Year-1 NOI bridge, all three assets (2027)
+
+| Line | Amount |
+| --- | --- |
+| Base rent | $29.7m |
+| Recoveries | +$6.6m |
+| Credit loss | −$0.4m |
+| Opex | −$8.2m |
+| **NOI** | **$27.7m** |
+
+### 42% of rent rolls in 2031
+
+Share of in-place rent by expiry year: 2027 3%, 2028 6%, 2029 14%, 2030 25%, **2031 42%**, 2032 6%, 2033 2%, 2034 5%.
+
+### NOI by year, base case ($m)
+
+| 2027 | 2028 | 2029 | 2030 | 2031 | 2032 | 2033 | 2034 | 2035 | 2036 |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| 27.7 | 29.6 | 30.3 | 29.6 | 28.3 | 33.3 | 34.3 | 34.5 | 33.8 | 36.0 |
+
+## Where the asking price holds, and where it doesn't
+
+At the asking price of $549.5m, the portfolio returns 6.3% unlevered against a 7% target. The engine solves the price that clears the target: $522.6m, or $26.9m below the ask, and shows which asset carries the gap.
+
+| Asset | Ask | Comps value | Going-in cap | Comps cap | 10-yr IRR | Price at 7% |
+| --- | --- | --- | --- | --- | --- | --- |
+| Asset A, bulk distribution centre | $276.5m | $272.1m | 5.02% | 5.10% | 4.8% | $234.1m |
+| Asset B, multi-tenant business park | $124.5m | $110.1m | 5.38% | 6.09% | 6.8% | $122.5m |
+| Asset C, last-mile infill portfolio | $148.5m | $153.0m | 4.79% | 4.65% | 8.4% | $166.0m |
+| Portfolio | $549.5m | $535.2m | 5.04% | | 6.3% | $522.6m |
+
+**Reading it:** Asset C clears the target with room to spare, because in-place rents sit 14% below market. Asset B is priced 13% above what its comparables support. Asset A sits $42.4m above its price at target, more than the whole portfolio gap, which Asset C's $17.5m of headroom partly offsets. Its largest tenant pays 61% of the rent, the lease rolls in 2031, and the ask implies a cap rate below the comparables.
+
+Comparable sales are weighted by distance, recency and size: comps more than 25 miles from the subject, or older than 24 months, are excluded. The weighted comps cap is 5.10% for Asset A, 6.09% for Asset B and 4.65% for Asset C. Exit cap = weighted comps cap + 25 bps. Comps value = year-1 NOI ÷ weighted comps cap.
+
+## Stress-testing the bid
+
+Each scenario re-runs the full lease-by-lease model, not a shortcut on the totals. All 11 ran in 0.2 seconds on a laptop. Rent and exit cap move returns most.
+
+| Scenario | Change in unlevered IRR vs base (6.34%) |
+| --- | --- |
+| Exit cap +100 bps | −134 bps |
+| Market rent −10% | −117 bps |
+| Downtime +6 months | −112 bps |
+| Renewal probability 70% to 50% | −109 bps |
+| Market rent +10% | +107 bps |
+| Exit cap +50 bps | −71 bps |
+| Operating costs +10% | −3 bps |
+| Largest tenant break exercised | −1 bps |
+
+Refinancing affects levered returns only.
+
+| Scenario | Unlevered IRR | Levered IRR | Min DSCR | Refi paydown | Price at 7% |
+| --- | --- | --- | --- | --- | --- |
+| Base case | 6.34% | 6.95% | 1.56x | None | $522.6m |
+| Renewal probability 70% to 50% | 5.25% | 4.69% | 1.47x | None | $480.9m |
+| Downtime +6 months | 5.22% | 4.63% | 1.46x | None | $480.0m |
+| Market rent −10% | 5.18% | 4.53% | 1.41x | None | $478.1m |
+| Market rent +10% | 7.41% | 9.00% | 1.60x | None | $567.1m |
+| Exit cap +50 bps | 5.64% | 5.51% | 1.56x | None | $495.4m |
+| Exit cap +100 bps | 5.00% | 4.12% | 1.56x | None | $472.5m |
+| Refinance rate +150 bps | 6.34% | 6.31% | 1.35x | $4.0m | $522.6m |
+| Operating costs +10% | 6.31% | 6.89% | 1.55x | None | $521.2m |
+| Largest tenant break exercised | 6.33% | 6.93% | 1.42x | None | $522.1m |
+| Combined downside | 2.72% | −1.86% | 1.35x | $46.7m | $398.5m |
+
+**What it tells the committee:** a 150 bps higher refinancing rate in year 5 would need $4.0m of fresh equity to hold a 1.35x DSCR. In the combined downside, levered returns turn negative (−1.9%) and the paydown rises to $46.7m.
+
+Debt: 55% LTV at 5.75% interest-only for 5 years, then refinanced on a 30-year amortisation with a 1.35x DSCR covenant. Combined downside: renewal 50%, market rent −10%, exit cap +100 bps, refi +150 bps, operating costs +10%.
+
+## One screen per deal, and the proof behind it
+
+The deal dashboard shows the ask ($549.5m), the price at 7% ($522.6m), the going-in cap (5.04%), the unlevered IRR (6.34%) and the minimum DSCR (1.56x), with a per-asset breakdown and the top exposures from the risk register. It was rendered from the evaluation run on the synthetic data room.
+
+| Asset | Area | Leased | WALE | Mark-to-market | IRR | Price at 7% |
+| --- | --- | --- | --- | --- | --- | --- |
+| A | 1.02m sf | 100% | 4.1 | 3% | 4.8% | $234.1m |
+| B | 0.90m sf | 92% | 3.7 | 8% | 6.8% | $122.5m |
+| C | 0.43m sf | 86% | 3.2 | 14% | 8.4% | $166.0m |
+
+### Measured against the brief's success criteria
+
+| Criterion | How it is measured | Result in this evaluation |
+| --- | --- | --- |
+| Lease-field extraction precision and recall | Field by field against hand-abstracted gold leases | Not scored here: this evaluation starts from abstracts |
+| Figures reconciled to source | Field and statement checks within tolerance | 395 of 411 agreed (96.1%); the other 16 were all real, planted errors |
+| NOI and cash-flow error vs a verified reference | Line by line against an independently built model, all 11 scenarios | 0 of 119,064 lines off by more than $1; IRR matches a polynomial-root solver to 1e-16 |
+| Analyst review time vs manual baseline | Timed review against manual abstraction and tie-out | Not timed here. The engine runs in 0.2s and cuts the review list from 411 checks to 16 flagged items |
+| Automated tests | Data-quality, reconciliation, finance and comps suites | 22 of 22 passing |
+
+## Three lessons from this build
+
+<CardGrid>
+<Card title="Let AI read, never calculate">Language models turn leases into structure well. Arithmetic belongs in code that gives the same answer every time and can be audited.</Card>
+<Card title="Every number needs an address">A page reference on each figure turns a two-hour hunt through the data room into a ten-second check.</Card>
+<Card title="Prove it with an answer key">Planted errors and an independent reference model showed the engine was right before it touched a live deal.</Card>
+</CardGrid>
+
+## The same engine fits any document-heavy investment decision
+
+Read messy documents into a strict schema, cite every value, reconcile sources against each other, and run deterministic models on top. It works wherever teams make decisions from data rooms.
+
+<CardGrid>
+<Card title="Real estate">Office, retail, multifamily and data-centre acquisitions, plus lease administration after closing.</Card>
+<Card title="Lending">Credit memos that tie borrower financials, rent rolls and appraisals together.</Card>
+<Card title="Private markets">Diligence on contracts, financial statements and KPIs before an investment committee.</Card>
+</CardGrid>
